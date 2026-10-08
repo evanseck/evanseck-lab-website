@@ -1,0 +1,204 @@
+{
+  "source": "seed",
+  "updated": "2026-10-07",
+  "author_ids": [],
+  "highlight": [
+    "Evanseck"
+  ],
+  "publications": [
+    {
+      "title": "Structural prediction of coronavirus s2m kissing complexes and extended duplexes",
+      "year": 2025,
+      "date": "2025-01-01",
+      "authors": [
+        "Kensinger, A. H",
+        "Makowski, J. A",
+        "Mihailescu, M.-R",
+        "Evanseck, J. D"
+      ],
+      "venue": "ACS Phys. Chem. Au",
+      "volume": "",
+      "pages": "",
+      "doi": "https://doi.org/10.1021/acsphyschemau.5c00031"
+    },
+    {
+      "title": "Explicit solvation in quantum mechanical treatment of highly polarized intermediates: N-oxide insertion into LDA dimeric aggregates for azomethine ylide formation",
+      "year": 2025,
+      "date": "2025-01-01",
+      "authors": [
+        "Neal, M. J",
+        "Rohde, J. J",
+        "Lummis, P",
+        "Fox, D. J",
+        "Evanseck, J. D",
+        "Montgomery, T. D"
+      ],
+      "venue": "J. Org. Chem.",
+      "volume": "90",
+      "pages": "3673–3683",
+      "doi": "https://doi.org/10.1021/acs.joc.4c03090"
+    },
+    {
+      "title": "Diastereoselective [3+2] cycloaddition between tertiary amine N-oxides and substituted alkenes to access novel 7-azanorbornanes",
+      "year": 2024,
+      "date": "2024-01-01",
+      "authors": [
+        "Cocolas, A. H",
+        "Lane, A",
+        "Musiak, B. S",
+        "Chartier, E",
+        "Bedillion, D. A",
+        "Hejnosz, S. L",
+        "Lummis, P. A",
+        "Evanseck, J. D",
+        "Montgomery, T. D"
+      ],
+      "venue": "Org. Lett.",
+      "volume": "26",
+      "pages": "6546–6550",
+      "doi": "https://doi.org/10.1021/acs.orglett.4c02013"
+    },
+    {
+      "title": "Single mutation dynamics and entropy in Delta SARS-CoV-2 s2m",
+      "year": 2023,
+      "date": "2023-01-01",
+      "authors": [
+        "Makowski, J. A",
+        "Kensinger, A. H",
+        "Cunningham, C. L",
+        "Frye, C. J",
+        "Shine, M",
+        "Lackey, P. E",
+        "Mihailescu, M.-R",
+        "Evanseck, J. D"
+      ],
+      "venue": "ACS Phys. Chem. Au",
+      "volume": "3",
+      "pages": "434–443",
+      "doi": "https://doi.org/10.1021/acsphyschemau.3c00008"
+    },
+    {
+      "title": "Parameterization of the miniPEG-modified γPNA backbone: induced γPNA duplex dissociation",
+      "year": 2023,
+      "date": "2023-01-01",
+      "authors": [
+        "Tamez, A",
+        "Nilsson, L",
+        "Mihailescu, M. R",
+        "Evanseck, J. D"
+      ],
+      "venue": "J. Chem. Theory Comput.",
+      "volume": "19",
+      "pages": "3346–3358",
+      "doi": "https://doi.org/10.1021/acs.jctc.2c01163"
+    },
+    {
+      "title": "Structural, dynamical, and entropic differences between SARS-CoV and SARS-CoV-2 s2m elements using molecular dynamics simulations",
+      "year": 2023,
+      "date": "2023-01-01",
+      "authors": [
+        "Kensinger, A. H",
+        "Makowski, J. A",
+        "Pellegrene, K. A",
+        "Imperatore, J. A",
+        "Cunningham, C. L",
+        "Frye, C. J",
+        "Lackey, P. E",
+        "Mihailescu, M.-R",
+        "Evanseck, J. D"
+      ],
+      "venue": "ACS Phys. Chem. Au",
+      "volume": "3",
+      "pages": "30–43",
+      "doi": "https://doi.org/10.1021/acsphyschemau.2c00032"
+    },
+    {
+      "title": "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization and its interactions with miR-1307-3p",
+      "year": 2023,
+      "date": "2023-01-01",
+      "authors": [
+        "Cunningham, C. L",
+        "Frye, C. J",
+        "Makowski, J. A",
+        "Kensinger, A. H",
+        "Shine, M",
+        "Milback, E. J",
+        "Lackey, P. E",
+        "Evanseck, J. D",
+        "Mihailescu, M.-R"
+      ],
+      "venue": "RNA",
+      "volume": "29",
+      "pages": "1754–1771",
+      "doi": "https://doi.org/10.1261/rna.079627.123"
+    },
+    {
+      "title": "Uridylation of the histone mRNA stem-loop weakens binding interactions with SLBP while maintaining interactions with 3′hExo",
+      "year": 2023,
+      "date": "2023-01-01",
+      "authors": [
+        "Shine, M",
+        "Harris, S. E",
+        "Pellegrene, K. A",
+        "Kensinger, A. H",
+        "Mihailescu, M. R",
+        "Evanseck, J. D",
+        "Lackey, P. E"
+      ],
+      "venue": "RNA Biol.",
+      "volume": "20",
+      "pages": "469–481",
+      "doi": "https://doi.org/10.1080/15476286.2023.2171760"
+    },
+    {
+      "title": "Highly conserved s2m element of SARS-CoV-2 dimerizes via a kissing complex and interacts with host miRNA-1307-3p",
+      "year": 2022,
+      "date": "2022-01-01",
+      "authors": [
+        "Imperatore, J. A",
+        "Cunningham, C. L",
+        "Pellegrene, K. A",
+        "Brinson, R. G",
+        "Marino, J. P",
+        "Evanseck, J. D",
+        "Mihailescu, M. R"
+      ],
+      "venue": "Nucleic Acids Res.",
+      "volume": "50",
+      "pages": "1017–1032",
+      "doi": "https://doi.org/10.1093/nar/gkab1226"
+    },
+    {
+      "title": "The scientific method as a scaffold to enhance communication skills in chemistry",
+      "year": 2022,
+      "date": "2022-01-01",
+      "authors": [
+        "Montgomery, T. D",
+        "Buchbinder, J. R",
+        "Gawalt, E. S",
+        "et al",
+        "Evanseck, J. D"
+      ],
+      "venue": "J. Chem. Educ.",
+      "volume": "99",
+      "pages": "2338–2350",
+      "doi": "https://doi.org/10.1021/acs.jchemed.2c00113"
+    },
+    {
+      "title": "Multi-ion bridged pathway of N-oxides to 1,3-dipole dilithium oxide complexes",
+      "year": 2021,
+      "date": "2021-01-01",
+      "authors": [
+        "Neal, M. J",
+        "Hejnosz, S. L",
+        "Rohde, J. J",
+        "Evanseck, J. D",
+        "Montgomery, T. D"
+      ],
+      "venue": "J. Org. Chem.",
+      "volume": "86",
+      "pages": "11502–11518",
+      "doi": "https://doi.org/10.1021/acs.joc.1c01047"
+    }
+  ]
+}

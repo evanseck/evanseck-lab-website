@@ -1,0 +1,12 @@
+<svg viewBox="0 0 360 200" role="img" aria-label="Reaction energy diagram showing reactants rising over a transition state to lower-energy products">
+      <line x1="20" y1="180" x2="345" y2="180" stroke="#6f84ab" stroke-width="1.2"/>
+      <line x1="20" y1="180" x2="20" y2="15" stroke="#6f84ab" stroke-width="1.2"/>
+      <text x="12" y="100" fill="#b9c6de" font-family="Public Sans, sans-serif" font-size="11" text-anchor="middle" transform="rotate(-90 12 100)">Energy</text>
+      <text x="182" y="196" fill="#b9c6de" font-family="Public Sans, sans-serif" font-size="11" text-anchor="middle">Reaction coordinate</text>
+      <path class="curve" d="M30 120 C 75 120, 95 120, 125 90 C 155 45, 180 40, 205 70 C 235 115, 255 150, 340 150" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+      <g class="ts">
+        <line x1="168" y1="46" x2="168" y2="120" stroke="#ef6b7f" stroke-width="1.4" stroke-dasharray="3 4"/>
+        <text x="168" y="34" fill="#ffffff" font-family="Newsreader, Georgia, serif" font-size="20" text-anchor="middle">‡</text>
+        <text x="176" y="92" fill="#ef6b7f" font-family="Newsreader, Georgia, serif" font-size="14" font-style="italic">ΔG‡</text>
+      </g>
+    </svg>

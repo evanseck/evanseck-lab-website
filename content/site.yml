@@ -1,0 +1,18 @@
+# Site-wide settings. Indentation matters in this file: use spaces, not tabs.
+
+name: Evanseck Research Group
+tagline: Theoretical and computational chemistry
+department: Department of Chemistry and Biochemistry, Duquesne University
+
+# Put the logo file in the images folder and write its name here, e.g. images/logo.png
+logo: ""
+
+contact:
+  name: Jeffrey D. Evanseck
+  address:
+    - 320 Mellon Hall
+    - Department of Chemistry and Biochemistry
+    - Duquesne University, 600 Forbes Avenue
+    - Pittsburgh, PA 15282
+  email: evanseck@duq.edu
+  phone: (412) 396-6337
