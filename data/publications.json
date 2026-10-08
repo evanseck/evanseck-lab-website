@@ -1,131 +1,178 @@
 {
-  "source": "seed",
-  "updated": "2026-10-07",
-  "author_ids": [],
+  "source": "OpenAlex",
+  "updated": "2026-10-08",
+  "author_ids": [
+    "A5056080018"
+  ],
   "highlight": [
     "Evanseck"
   ],
   "publications": [
     {
-      "title": "Structural prediction of coronavirus s2m kissing complexes and extended duplexes",
-      "year": 2025,
-      "date": "2025-01-01",
+      "title": "The scientific legacy of Martin Karplus from the perspective of his collaborators",
+      "year": 2026,
+      "date": "2026-04-01",
       "authors": [
-        "Kensinger, A. H",
-        "Makowski, J. A",
-        "Mihailescu, M.-R",
-        "Evanseck, J. D"
+        "Ioan Andricioaei",
+        "Robert B. Best",
+        "Robert R. Birge",
+        "Stefan Boresch",
+        "Axel T. Brünger",
+        "Bernard R. Brooks",
+        "Matthias Buck",
+        "Rafael Brüschweiler",
+        "Amedeo Caflisch",
+        "David Andrew Case",
+        "Qiang Cui",
+        "Annick P. Dejaegere",
+        "Aaron R. Dinner",
+        "Ron Elber",
+        "Jeffrey D. Evanseck",
+        "Jiali Gao",
+        "Hong Xu Guo",
+        "Roderick E. Hubbard",
+        "John Kuriyan",
+        "Diane Joseph‐McCarthy",
+        "Ronald M. Levy",
+        "Lennart Nilsson",
+        "Carla Mattos",
+        "Alexander D. MacKerell",
+        "James Andrew McCammon",
+        "Stephen W. Michnick",
+        "Adrian John Mulholland",
+        "Markus Meuwly",
+        "Richard W. Pastor",
+        "Nathalie Reuter",
+        "Benoı̂t Roux",
+        "Andrej Šali",
+        "Tamar Schlick",
+        "Jeremy C. Smith",
+        "Roland H. Stote",
+        "John E. Straub",
+        "Antoine Taly",
+        "Arjan van der Vaart",
+        "Shunzhou Wan",
+        "Michael Aaron Weiss",
+        "Wei Yang",
+        "Darrin M. York",
+        "Yaoqi Zhou"
       ],
-      "venue": "ACS Phys. Chem. Au",
-      "volume": "",
+      "venue": "Biophysical Journal",
+      "volume": "125",
+      "pages": "4065–4096",
+      "doi": "https://doi.org/10.1016/j.bpj.2026.03.050"
+    },
+    {
+      "title": "Integrated NMR and MD structure and dynamics of the stem–loop-II motif (s2m) from the Omicron variant of SARS-CoV-2",
+      "year": 2025,
+      "date": "2025-09-19",
+      "authors": [
+        "Tobias Matzel",
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Andreas Oxenfarth",
+        "Maria A. Wirtz Martin",
+        "Jeffrey D. Evanseck",
+        "Harald Schwalbe"
+      ],
+      "venue": "RNA",
+      "volume": "31",
+      "pages": "1766–1787",
+      "doi": "https://doi.org/10.1261/rna.080576.125"
+    },
+    {
+      "title": "Structural heterogeneity and dynamics in the apical stem loop of s2m from SARS-CoV-2 Delta by an integrative NMR spectroscopy and MD simulation approach",
+      "year": 2025,
+      "date": "2025-06-20",
+      "authors": [
+        "Maria A. Wirtz Martin",
+        "Joseph A. Makowski",
+        "Tobias Matzel",
+        "Adam H. Kensinger",
+        "Alexander Herr",
+        "Christian Paolo Richter",
+        "Hendrik R. A. Jonker",
+        "Anna Wacker",
+        "Jeffrey D. Evanseck",
+        "Harald Schwalbe"
+      ],
+      "venue": "Nucleic Acids Research",
+      "volume": "53",
       "pages": "",
+      "doi": "https://doi.org/10.1093/nar/gkaf552"
+    },
+    {
+      "title": "Structural Prediction of Coronavirus s2m Kissing Complexes and Extended Duplexes",
+      "year": 2025,
+      "date": "2025-06-05",
+      "authors": [
+        "Adam H. Kensinger",
+        "Joseph A. Makowski",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "ACS Physical Chemistry Au",
+      "volume": "5",
+      "pages": "410–424",
       "doi": "https://doi.org/10.1021/acsphyschemau.5c00031"
     },
     {
-      "title": "Explicit solvation in quantum mechanical treatment of highly polarized intermediates: N-oxide insertion into LDA dimeric aggregates for azomethine ylide formation",
+      "title": "N-Oxide Insertion into LDA Dimeric Aggregates for Azomethine Ylide Formation: Explicit Solvation in Quantum Mechanical Treatment of Polarized Intermediates",
       "year": 2025,
-      "date": "2025-01-01",
+      "date": "2025-03-01",
       "authors": [
-        "Neal, M. J",
-        "Rohde, J. J",
-        "Lummis, P",
-        "Fox, D. J",
-        "Evanseck, J. D",
-        "Montgomery, T. D"
+        "Martin J. Neal",
+        "Eric J. Chartier",
+        "Aiden M. Lane",
+        "Sarah L. Hejnosz",
+        "Luke T. Jesikiewicz",
+        "Peng Liu",
+        "Jeffrey J. Rohde",
+        "Paul A. Lummis",
+        "Douglas J. Fox",
+        "Jeffrey D. Evanseck",
+        "Thomas D. Montgomery"
       ],
-      "venue": "J. Org. Chem.",
+      "venue": "The Journal of Organic Chemistry",
       "volume": "90",
       "pages": "3673–3683",
       "doi": "https://doi.org/10.1021/acs.joc.4c03090"
     },
     {
-      "title": "Diastereoselective [3+2] cycloaddition between tertiary amine N-oxides and substituted alkenes to access novel 7-azanorbornanes",
+      "title": "Diastereoselective [3 + 2] Cycloaddition between Tertiary Amine N-Oxides and Substituted Alkenes to Access 7-Azanorbornanes",
       "year": 2024,
-      "date": "2024-01-01",
+      "date": "2024-07-22",
       "authors": [
-        "Cocolas, A. H",
-        "Lane, A",
-        "Musiak, B. S",
-        "Chartier, E",
-        "Bedillion, D. A",
-        "Hejnosz, S. L",
-        "Lummis, P. A",
-        "Evanseck, J. D",
-        "Montgomery, T. D"
+        "Alexander H. Cocolas",
+        "Aiden M. Lane",
+        "Benjamin S. Musiak",
+        "Eric J. Chartier",
+        "Derek A. Bedillion",
+        "Sarah L. Hejnosz",
+        "Jeffrey J. Rohde",
+        "Paul A. Lummis",
+        "Jeffrey D. Evanseck",
+        "Thomas D. Montgomery"
       ],
-      "venue": "Org. Lett.",
+      "venue": "Organic Letters",
       "volume": "26",
       "pages": "6546–6550",
       "doi": "https://doi.org/10.1021/acs.orglett.4c02013"
     },
     {
-      "title": "Single mutation dynamics and entropy in Delta SARS-CoV-2 s2m",
-      "year": 2023,
-      "date": "2023-01-01",
-      "authors": [
-        "Makowski, J. A",
-        "Kensinger, A. H",
-        "Cunningham, C. L",
-        "Frye, C. J",
-        "Shine, M",
-        "Lackey, P. E",
-        "Mihailescu, M.-R",
-        "Evanseck, J. D"
-      ],
-      "venue": "ACS Phys. Chem. Au",
-      "volume": "3",
-      "pages": "434–443",
-      "doi": "https://doi.org/10.1021/acsphyschemau.3c00008"
-    },
-    {
-      "title": "Parameterization of the miniPEG-modified γPNA backbone: induced γPNA duplex dissociation",
-      "year": 2023,
-      "date": "2023-01-01",
-      "authors": [
-        "Tamez, A",
-        "Nilsson, L",
-        "Mihailescu, M. R",
-        "Evanseck, J. D"
-      ],
-      "venue": "J. Chem. Theory Comput.",
-      "volume": "19",
-      "pages": "3346–3358",
-      "doi": "https://doi.org/10.1021/acs.jctc.2c01163"
-    },
-    {
-      "title": "Structural, dynamical, and entropic differences between SARS-CoV and SARS-CoV-2 s2m elements using molecular dynamics simulations",
-      "year": 2023,
-      "date": "2023-01-01",
-      "authors": [
-        "Kensinger, A. H",
-        "Makowski, J. A",
-        "Pellegrene, K. A",
-        "Imperatore, J. A",
-        "Cunningham, C. L",
-        "Frye, C. J",
-        "Lackey, P. E",
-        "Mihailescu, M.-R",
-        "Evanseck, J. D"
-      ],
-      "venue": "ACS Phys. Chem. Au",
-      "volume": "3",
-      "pages": "30–43",
-      "doi": "https://doi.org/10.1021/acsphyschemau.2c00032"
-    },
-    {
       "title": "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization and its interactions with miR-1307-3p",
       "year": 2023,
-      "date": "2023-01-01",
+      "date": "2023-08-21",
       "authors": [
-        "Cunningham, C. L",
-        "Frye, C. J",
-        "Makowski, J. A",
-        "Kensinger, A. H",
-        "Shine, M",
-        "Milback, E. J",
-        "Lackey, P. E",
-        "Evanseck, J. D",
-        "Mihailescu, M.-R"
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Morgan Shine",
+        "Ella J. Milback",
+        "Patrick E. Lackey",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
       ],
       "venue": "RNA",
       "volume": "29",
@@ -133,72 +180,1384 @@
       "doi": "https://doi.org/10.1261/rna.079627.123"
     },
     {
-      "title": "Uridylation of the histone mRNA stem-loop weakens binding interactions with SLBP while maintaining interactions with 3′hExo",
+      "title": "Uridylation of the histone mRNA stem-loop weakens binding interactions with SLBP while maintaining interactions with 3’hExo",
       "year": 2023,
-      "date": "2023-01-01",
+      "date": "2023-07-30",
       "authors": [
-        "Shine, M",
-        "Harris, S. E",
-        "Pellegrene, K. A",
-        "Kensinger, A. H",
-        "Mihailescu, M. R",
-        "Evanseck, J. D",
-        "Lackey, P. E"
+        "Morgan Shine",
+        "Sarah Elizabeth Harris",
+        "Kendy A. Pellegrene",
+        "Adam H. Kensinger",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck",
+        "Patrick E. Lackey"
       ],
-      "venue": "RNA Biol.",
+      "venue": "RNA Biology",
       "volume": "20",
       "pages": "469–481",
       "doi": "https://doi.org/10.1080/15476286.2023.2171760"
     },
     {
-      "title": "Highly conserved s2m element of SARS-CoV-2 dimerizes via a kissing complex and interacts with host miRNA-1307-3p",
-      "year": 2022,
-      "date": "2022-01-01",
+      "title": "Parameterization of the miniPEG-Modified γPNA Backbone: Toward Induced γPNA Duplex Dissociation",
+      "year": 2023,
+      "date": "2023-05-17",
       "authors": [
-        "Imperatore, J. A",
-        "Cunningham, C. L",
-        "Pellegrene, K. A",
-        "Brinson, R. G",
-        "Marino, J. P",
-        "Evanseck, J. D",
-        "Mihailescu, M. R"
+        "Angel Tamez",
+        "Lennart Nilsson",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
       ],
-      "venue": "Nucleic Acids Res.",
-      "volume": "50",
-      "pages": "1017–1032",
-      "doi": "https://doi.org/10.1093/nar/gkab1226"
+      "venue": "Journal of Chemical Theory and Computation",
+      "volume": "19",
+      "pages": "3346–3358",
+      "doi": "https://doi.org/10.1021/acs.jctc.2c01163"
     },
     {
-      "title": "The scientific method as a scaffold to enhance communication skills in chemistry",
-      "year": 2022,
-      "date": "2022-01-01",
+      "title": "Delta SARS-CoV-2 s2m Structure, Dynamics, and Entropy: Consequences of the G15U Mutation",
+      "year": 2023,
+      "date": "2023-05-17",
       "authors": [
-        "Montgomery, T. D",
-        "Buchbinder, J. R",
-        "Gawalt, E. S",
-        "et al",
-        "Evanseck, J. D"
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Morgan Shine",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
       ],
-      "venue": "J. Chem. Educ.",
+      "venue": "ACS Physical Chemistry Au",
+      "volume": "3",
+      "pages": "434–443",
+      "doi": "https://doi.org/10.1021/acsphyschemau.3c00008"
+    },
+    {
+      "title": "Viral-host RNA-RNA interactions in SARS-CoV-2: Study of miR-34a-5p binding interactions within the genome 3'-untranslated region",
+      "year": 2023,
+      "date": "2023-02-01",
+      "authors": [
+        "Caleb James Frye",
+        "Caylee L. Cunningham",
+        "Adam H. Kensinger",
+        "Joseph A. Makowski",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "122",
+      "pages": "359a",
+      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1984"
+    },
+    {
+      "title": "Structural and thermodynamic consequences of the G31U and U5C mutations in the SARS-CoV-2 s2m",
+      "year": 2023,
+      "date": "2023-02-01",
+      "authors": [
+        "Adam H. Kensinger",
+        "Joseph A. Makowski",
+        "Kendy A. Pellegrene",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "122",
+      "pages": "359a–360a",
+      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1987"
+    },
+    {
+      "title": "Delta variant versus ancestral SARS-CoV-2 s2m dynamics and relative entropy",
+      "year": 2023,
+      "date": "2023-02-01",
+      "authors": [
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Kendy A. Pellegrene",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "122",
+      "pages": "358a",
+      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1980"
+    },
+    {
+      "title": "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elements Using Molecular Dynamics Simulations",
+      "year": 2022,
+      "date": "2022-10-04",
+      "authors": [
+        "Adam H. Kensinger",
+        "Joseph A. Makowski",
+        "Kendy A. Pellegrene",
+        "Joshua A. Imperatore",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "ACS Physical Chemistry Au",
+      "volume": "3",
+      "pages": "30–43",
+      "doi": "https://doi.org/10.1021/acsphyschemau.2c00032"
+    },
+    {
+      "title": "Bioinformatics analysis of the s2m mutations within the SARS‐CoV‐2 Omicron lineages",
+      "year": 2022,
+      "date": "2022-09-13",
+      "authors": [
+        "Caleb James Frye",
+        "Morgan Shine",
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Caylee L. Cunningham",
+        "Ella J. Milback",
+        "Jeffrey D. Evanseck",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Journal of Medical Virology",
+      "volume": "95",
+      "pages": "e28141",
+      "doi": "https://doi.org/10.1002/jmv.28141"
+    },
+    {
+      "title": "The Scientific Method as a Scaffold to Enhance Communication Skills in Chemistry",
+      "year": 2022,
+      "date": "2022-05-09",
+      "authors": [
+        "Thomas D. Montgomery",
+        "Joanne Rae Buchbinder",
+        "Ellen S. Gawalt",
+        "Robbie J. Iuliucci",
+        "Andrew S. Koch",
+        "Evangelia Kotsikorou",
+        "Patrick E. Lackey",
+        "Min Soo Lim",
+        "Jeffrey J. Rohde",
+        "Alexander J. Rupprecht",
+        "Matthew N. Srnec",
+        "Brandon Vernier",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of Chemical Education",
       "volume": "99",
       "pages": "2338–2350",
       "doi": "https://doi.org/10.1021/acs.jchemed.2c00113"
     },
     {
-      "title": "Multi-ion bridged pathway of N-oxides to 1,3-dipole dilithium oxide complexes",
-      "year": 2021,
-      "date": "2021-01-01",
+      "title": "Computational and Biophysical Analysis of RNA/Protein Complexes in Histone mRNA Degradation",
+      "year": 2022,
+      "date": "2022-05-01",
       "authors": [
-        "Neal, M. J",
-        "Hejnosz, S. L",
-        "Rohde, J. J",
-        "Evanseck, J. D",
-        "Montgomery, T. D"
+        "Patrick E. Lackey",
+        "Morgan Shine",
+        "Nicole Mackenstein",
+        "Kendy A. Pellegrene",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
       ],
-      "venue": "J. Org. Chem.",
+      "venue": "The FASEB Journal",
+      "volume": "36",
+      "pages": "",
+      "doi": "https://doi.org/10.1096/fasebj.2022.36.s1.r4351"
+    },
+    {
+      "title": "Viral-host RNA-RNA interactions in SARS-CoV-2: study of MIR-760-3p interactions with the genome 3'-untranslated region",
+      "year": 2022,
+      "date": "2022-02-01",
+      "authors": [
+        "Caleb James Frye",
+        "Caylee L. Cunningham",
+        "Kendy A. Pellegrene",
+        "Adam H. Kensinger",
+        "Joseph A. Makowski",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "121",
+      "pages": "207a",
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1708"
+    },
+    {
+      "title": "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS-CoV and SARS-CoV-2 s2m using molecular dynamics",
+      "year": 2022,
+      "date": "2022-02-01",
+      "authors": [
+        "Adam H. Kensinger",
+        "Kendy A. Pellegrene",
+        "Joseph A. Makowski",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "121",
+      "pages": "207a",
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1710"
+    },
+    {
+      "title": "Stem-loop II motif (s2m) structural and dynamical differences between SARS-CoV-2 and b.1.617.2 (Delta) variant",
+      "year": 2022,
+      "date": "2022-02-01",
+      "authors": [
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Kendy A. Pellegrene",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Morgan Shine",
+        "Izayah Bojanac",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "121",
+      "pages": "207a",
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1711"
+    },
+    {
+      "title": "Characterization of the S2M G15U mutation associated with the SARS-CoV-2 delta variant",
+      "year": 2022,
+      "date": "2022-02-01",
+      "authors": [
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Joshua A. Imperatore",
+        "Kendy A. Pellegrene",
+        "Adam H. Kensinger",
+        "Joseph A. Makowski",
+        "Morgan Shine",
+        "Patrick E. Lackey",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "121",
+      "pages": "207a",
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1709"
+    },
+    {
+      "title": "Highly conserved s2m element of SARS-CoV-2 dimerizes via a kissing complex and interacts with host miRNA-1307-3p",
+      "year": 2021,
+      "date": "2021-12-01",
+      "authors": [
+        "Joshua A. Imperatore",
+        "Caylee L. Cunningham",
+        "Kendy A. Pellegrene",
+        "Robert G. Brinson",
+        "John P. Marino",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Nucleic Acids Research",
+      "volume": "50",
+      "pages": "1017–1032",
+      "doi": "https://doi.org/10.1093/nar/gkab1226"
+    },
+    {
+      "title": "Multi-Ion Bridged Pathway of N-Oxides to 1,3-Dipole Dilithium Oxide Complexes",
+      "year": 2021,
+      "date": "2021-08-11",
+      "authors": [
+        "Martin J. Neal",
+        "Sarah L. Hejnosz",
+        "Jeffrey J. Rohde",
+        "Jeffrey D. Evanseck",
+        "Thomas D. Montgomery"
+      ],
+      "venue": "The Journal of Organic Chemistry",
       "volume": "86",
       "pages": "11502–11518",
       "doi": "https://doi.org/10.1021/acs.joc.1c01047"
+    },
+    {
+      "title": "Biophysical Characterization and Computational Modeling of Histone mRNA Degradation Intermediates",
+      "year": 2021,
+      "date": "2021-05-01",
+      "authors": [
+        "Morgan Shine",
+        "Kendy A. Pellegrene",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck",
+        "Patrick E. Lackey"
+      ],
+      "venue": "The FASEB Journal",
+      "volume": "35",
+      "pages": "",
+      "doi": "https://doi.org/10.1096/fasebj.2021.35.s1.00264"
+    },
+    {
+      "title": "Enhanced Sampling of the SARS-CoV-2 s2m Element",
+      "year": 2021,
+      "date": "2021-02-01",
+      "authors": [
+        "Adam H. Kensinger",
+        "Kendy A. Pellegrene",
+        "Joshua A. Imperatore",
+        "Matthew N. Srnec",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "120",
+      "pages": "313a",
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1985"
+    },
+    {
+      "title": "Conserved Elements in the 3'-UTR of SARS-CoV-2: Involvement in Genomic Dimerization and Interactions with Cellular Micrornas",
+      "year": 2021,
+      "date": "2021-02-01",
+      "authors": [
+        "Joshua A. Imperatore",
+        "Caylee L. Cunningham",
+        "Caleb James Frye",
+        "Kendy A. Pellegrene",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "120",
+      "pages": "313a",
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1982"
+    },
+    {
+      "title": "Condensed Liquid Phase 3D Structure of SARS-CoV-2 s2m Guided by NMR Spectroscopy",
+      "year": 2021,
+      "date": "2021-02-01",
+      "authors": [
+        "Kendy A. Pellegrene",
+        "Joshua A. Imperatore",
+        "Caylee L. Cunningham",
+        "Adam H. Kensinger",
+        "Petru Mihailescu",
+        "Matthew N. Srnec",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "120",
+      "pages": "313a",
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1984"
+    },
+    {
+      "title": "Characterization of SARS-CoV-2 Conserved Elements’ Structures and their RNA-RNA Interactions",
+      "year": 2021,
+      "date": "2021-02-01",
+      "authors": [
+        "Caylee L. Cunningham",
+        "Joshua A. Imperatore",
+        "Ella J. Milback",
+        "Morgan Shine",
+        "Kendy A. Pellegrene",
+        "Patrick E. Lackey",
+        "Jeffrey D. Evanseck",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "120",
+      "pages": "313a",
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1983"
+    },
+    {
+      "title": "Energy Landscape of the Complex Between the RGG Box Domain of Fragile-X Mental Retardation Protein and an RNA G-quadruplex",
+      "year": 2020,
+      "date": "2020-02-01",
+      "authors": [
+        "Kendy A. Pellegrene",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "118",
+      "pages": "224a–225a",
+      "doi": "https://doi.org/10.1016/j.bpj.2019.11.1330"
+    },
+    {
+      "title": "Characterization of the Interactions of Fragile-X Mental Retardation Protein with C9orf72 Repeat Expanded RNA",
+      "year": 2019,
+      "date": "2019-02-01",
+      "authors": [
+        "Kendy A. Pellegrene",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "116",
+      "pages": "505a",
+      "doi": "https://doi.org/10.1016/j.bpj.2018.11.2724"
+    },
+    {
+      "title": "Translocation of Potassium in Initiating Reset of Monoamine Transporter Proteins from Microsecond Molecular Dynamics Simulations",
+      "year": 2018,
+      "date": "2018-02-01",
+      "authors": [
+        "Emily M. Benner",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "114",
+      "pages": "332a",
+      "doi": "https://doi.org/10.1016/j.bpj.2017.11.1861"
+    },
+    {
+      "title": "G Quadruplex and Stem Interactions in RGG Box Domain Recognition",
+      "year": 2018,
+      "date": "2018-02-01",
+      "authors": [
+        "Kendy A. Pellegrene",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "114",
+      "pages": "439a",
+      "doi": "https://doi.org/10.1016/j.bpj.2017.11.2431"
+    },
+    {
+      "title": "Determining the Interaction Enthalpy of Side Chain and Backbone Amides in Polyglutamine Monomers and Fibrils",
+      "year": 2018,
+      "date": "2018-02-01",
+      "authors": [
+        "Riley J. Workman",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "114",
+      "pages": "528a",
+      "doi": "https://doi.org/10.1016/j.bpj.2017.11.2891"
+    },
+    {
+      "title": "Non-traditional hydrogen bond explanation of asymmetric catalysis of Mukaiyama aldol reactions by dinuclear zinc semi-crown ligands",
+      "year": 2016,
+      "date": "2016-01-01",
+      "authors": [
+        "Ayan N. Ahmed",
+        "Brandon Vernier",
+        "Jeffrey J. Rohde",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "",
+      "volume": "",
+      "pages": "",
+      "doi": ""
+    },
+    {
+      "title": "Metalated nitriles: SNi′ cyclizations with a propargylic electrophile",
+      "year": 2015,
+      "date": "2015-01-12",
+      "authors": [
+        "Ping Lu",
+        "Venkata S. Pakkala",
+        "Jeffrey D. Evanseck",
+        "Fraser F. Fleming"
+      ],
+      "venue": "Tetrahedron Letters",
+      "volume": "56",
+      "pages": "3216–3219",
+      "doi": "https://doi.org/10.1016/j.tetlet.2015.01.013"
+    },
+    {
+      "title": "Intramolecular Charge-Assisted Hydrogen Bond Strength in Pseudochair Carboxyphosphate",
+      "year": 2014,
+      "date": "2014-11-18",
+      "authors": [
+        "Sarah E. Kochanek",
+        "Traci Clymer",
+        "Venkata S. Pakkala",
+        "Sebastien P. Hebert",
+        "Kyle W. Reeping",
+        "Steven M. Firestine",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "The Journal of Physical Chemistry B",
+      "volume": "119",
+      "pages": "1184–1191",
+      "doi": "https://doi.org/10.1021/jp506796r"
+    },
+    {
+      "title": "Common Hydrogen Bond Interactions in Diverse Phosphoryl Transfer Active Sites",
+      "year": 2014,
+      "date": "2014-09-19",
+      "authors": [
+        "Jean C. Summerton",
+        "Gregory M. Martin",
+        "Jeffrey D. Evanseck",
+        "Michael Stewart Chapman"
+      ],
+      "venue": "PLoS ONE",
+      "volume": "9",
+      "pages": "e108310",
+      "doi": "https://doi.org/10.1371/journal.pone.0108310"
+    },
+    {
+      "title": "Hyperconjugation-Mediated Solvent Effects in Phosphoanhydride Bonds",
+      "year": 2012,
+      "date": "2012-09-25",
+      "authors": [
+        "Jean C. Summerton",
+        "Jeffrey D. Evanseck",
+        "Michael Stewart Chapman"
+      ],
+      "venue": "The Journal of Physical Chemistry A",
+      "volume": "116",
+      "pages": "10209–10217",
+      "doi": "https://doi.org/10.1021/jp306607k"
+    },
+    {
+      "title": "Computational investigation of the mechanism of n5-carboxyaminoimidazole ribonculeotide synthetase",
+      "year": 2012,
+      "date": "2012-01-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Venkata S. Pakkala"
+      ],
+      "venue": "",
+      "volume": "",
+      "pages": "",
+      "doi": ""
+    },
+    {
+      "title": "Periodic Trends and Index of Boron Lewis Acidity",
+      "year": 2009,
+      "date": "2009-04-23",
+      "authors": [
+        "Joshua A. Plumley",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "The Journal of Physical Chemistry A",
+      "volume": "113",
+      "pages": "5985–5992",
+      "doi": "https://doi.org/10.1021/jp811202c"
+    },
+    {
+      "title": "Strong Coordination of Tetraphenylborate Anion to Copper(I) Bipyridine and Phenanthroline-Based Complexes and Its Effect on Catalytic Activity in the Cyclopropanation of Styrene",
+      "year": 2008,
+      "date": "2008-12-09",
+      "authors": [
+        "Carolynne Ricardo",
+        "Lauren M. Matosziuk",
+        "Jeffrey D. Evanseck",
+        "Tomislav Pintauer"
+      ],
+      "venue": "Inorganic Chemistry",
+      "volume": "48",
+      "pages": "16–18",
+      "doi": "https://doi.org/10.1021/ic801783r"
+    },
+    {
+      "title": "Hybrid Meta-Generalized Gradient Functional Modeling of Boron−Nitrogen Coordinate Covalent Bonds",
+      "year": 2008,
+      "date": "2008-07-19",
+      "authors": [
+        "Joshua A. Plumley",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of Chemical Theory and Computation",
+      "volume": "4",
+      "pages": "1249–1253",
+      "doi": "https://doi.org/10.1021/ct800210e"
+    },
+    {
+      "title": "Anomeric Effect in “High Energy” Phosphate Bonds. Selective Destabilization of the Scissile Bond and Modulation of the Exothermicity of Hydrolysis",
+      "year": 2008,
+      "date": "2008-02-27",
+      "authors": [
+        "Eliza A. Ruben",
+        "Joshua A. Plumley",
+        "Michael Stewart Chapman",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "130",
+      "pages": "3349–3358",
+      "doi": "https://doi.org/10.1021/ja073652x"
+    },
+    {
+      "title": "Covalent and Ionic Nature of the Dative Bond and Account of Accurate Ammonia Borane Binding Enthalpies",
+      "year": 2007,
+      "date": "2007-12-01",
+      "authors": [
+        "Joshua A. Plumley",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "The Journal of Physical Chemistry A",
+      "volume": "111",
+      "pages": "13472–13483",
+      "doi": "https://doi.org/10.1021/jp074937z"
+    },
+    {
+      "title": "Hydrogen Bonding Mediated by Key Orbital Interactions Determines Hydration Enthalpy Differences of Phosphate Water Clusters",
+      "year": 2007,
+      "date": "2007-10-01",
+      "authors": [
+        "Eliza A. Ruben",
+        "Michael Stewart Chapman",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "The Journal of Physical Chemistry A",
+      "volume": "111",
+      "pages": "10804–10814",
+      "doi": "https://doi.org/10.1021/jp0748112"
+    },
+    {
+      "title": "Elucidation of Rate Variations for a Diels−Alder Reaction in Ionic Liquids from QM/MM Simulations",
+      "year": 2006,
+      "date": "2006-11-15",
+      "authors": [
+        "Orlando Acevedo",
+        "William L. Jorgensen",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of Chemical Theory and Computation",
+      "volume": "3",
+      "pages": "132–138",
+      "doi": "https://doi.org/10.1021/ct6002753"
+    },
+    {
+      "title": "Secondary anchor substitutions in an HLA-A*0201-restricted T-cell epitope derived from Her-2/neu",
+      "year": 2006,
+      "date": "2006-04-05",
+      "authors": [
+        "Matthew Joseph",
+        "Megan L. Mitchell",
+        "Jeffrey D. Evanseck",
+        "Jeffrey R. Kovacs",
+        "Liang Jia",
+        "Hongmei Shen",
+        "Wilson S. Meng"
+      ],
+      "venue": "Molecular Immunology",
+      "volume": "44",
+      "pages": "322–331",
+      "doi": "https://doi.org/10.1016/j.molimm.2006.02.027"
+    },
+    {
+      "title": "Chapter 13 Principal Components Analysis: A Review of its Application on Molecular Dynamics Data",
+      "year": 2006,
+      "date": "2006-01-01",
+      "authors": [
+        "Sarah A. Mueller Stein",
+        "Anne E. Loccisano",
+        "Steven M. Firestine",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Annual reports in computational chemistry",
+      "volume": "",
+      "pages": "233–261",
+      "doi": "https://doi.org/10.1016/s1574-1400(06)02013-5"
+    },
+    {
+      "title": "Generalized Anomeric Interpretation of the “High-Energy” N−P Bond inN-Methyl-N‘-phosphorylguanidine: Importance of Reinforcing Stereoelectronic Effects in “High-Energy” Phosphoester Bonds",
+      "year": 2005,
+      "date": "2005-11-22",
+      "authors": [
+        "Eliza A. Ruben",
+        "Michael Stewart Chapman",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "127",
+      "pages": "17789–17798",
+      "doi": "https://doi.org/10.1021/ja054708v"
+    },
+    {
+      "title": "Effect of a Bound Non-Nucleoside RT Inhibitor on the Dynamics of Wild-Type and Mutant HIV-1 Reverse Transcriptase",
+      "year": 2005,
+      "date": "2005-11-17",
+      "authors": [
+        "Zhigang Zhou",
+        "Marcela Madrid",
+        "Jeffrey D. Evanseck",
+        "Jeffry D. Madura"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "127",
+      "pages": "17253–17260",
+      "doi": "https://doi.org/10.1021/ja053973d"
+    },
+    {
+      "title": "Computational and Conformational Evaluation of FTase Alternative Substrates: Insight into a Novel Enzyme Binding Pocket",
+      "year": 2005,
+      "date": "2005-06-17",
+      "authors": [
+        "Brian S. Henriksen",
+        "Todd J. Zahn",
+        "Jeffrey D. Evanseck",
+        "Steven M. Firestine",
+        "Richard A. Gibbs"
+      ],
+      "venue": "Journal of Chemical Information and Modeling",
+      "volume": "45",
+      "pages": "1047–1052",
+      "doi": "https://doi.org/10.1021/ci0496550"
+    },
+    {
+      "title": "Chapter 14 Status of Research-Based Experiences for First- and Second-Year Undergraduate Students",
+      "year": 2005,
+      "date": "2005-01-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Steven M. Firestine"
+      ],
+      "venue": "Annual reports in computational chemistry",
+      "volume": "",
+      "pages": "205–214",
+      "doi": "https://doi.org/10.1016/s1574-1400(05)01014-5"
+    },
+    {
+      "title": "Transition States and Transition Structures",
+      "year": 2004,
+      "date": "2004-06-15",
+      "authors": [
+        "Orlando Acevedo",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "ChemInform",
+      "volume": "35",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.200427286"
+    },
+    {
+      "title": "Density Functional Theory Determination of an Axial Gateway To Explain the Rate and Endo Selectivity Enhancement of Diels−Alder Reactions by Bis(oxazoline)-Cu(II)",
+      "year": 2004,
+      "date": "2004-04-23",
+      "authors": [
+        "Jason DeChancie",
+        "Orlando Acevedo",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "126",
+      "pages": "6043–6047",
+      "doi": "https://doi.org/10.1021/ja037702j"
+    },
+    {
+      "title": "Enhanced sampling by multiple molecular dynamics trajectories: carbonmonoxy myoglobin 10 μs A0 → A1–3 transition from ten 400 picosecond simulations",
+      "year": 2004,
+      "date": "2004-02-28",
+      "authors": [
+        "Anne E. Loccisano",
+        "Orlando Acevedo",
+        "Jason DeChancie",
+        "Brita G. Schulze",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of Molecular Graphics and Modelling",
+      "volume": "22",
+      "pages": "369–376",
+      "doi": "https://doi.org/10.1016/j.jmgm.2003.12.004"
+    },
+    {
+      "title": "Understanding how ionic liquids impact the Diels-Alder reaction: An AB initio, semiempirical and QM/MM approach",
+      "year": 2004,
+      "date": "2004-01-01",
+      "authors": [
+        "Orlando Acevedo",
+        "Joshua A. Plumley",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "",
+      "volume": "227",
+      "pages": "",
+      "doi": ""
+    },
+    {
+      "title": "Transition structure models of organic reactions in chloroaluminate ionic liquids cyclopentadiene and methyl acrylate diels-alder reaction in acidic and basic melts of 1-ethyl-3-methylimidazolium chloride with aluminum(III) chloride",
+      "year": 2003,
+      "date": "2003-12-01",
+      "authors": [
+        "Orlando Acevedo",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "",
+      "volume": "",
+      "pages": "174–190",
+      "doi": ""
+    },
+    {
+      "title": "Development and testing of new sequence-specific DNA bending agents",
+      "year": 2003,
+      "date": "2003-08-16",
+      "authors": [
+        "Anne E. Loccisano",
+        "Steven M. Firestine",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Abstracts of papers - American Chemical Society",
+      "volume": "226",
+      "pages": "274",
+      "doi": ""
+    },
+    {
+      "title": "The Effect of Solvent on a Lewis Acid Catalyzed Diels−Alder Reaction, Using Computed and Experimental Kinetic Isotope Effects",
+      "year": 2003,
+      "date": "2003-01-31",
+      "authors": [
+        "Orlando Acevedo",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Organic Letters",
+      "volume": "5",
+      "pages": "649–652",
+      "doi": "https://doi.org/10.1021/ol027408g"
+    },
+    {
+      "title": "Impact of Multiple Cation−π Interactions upon Calix[4]arene Substrate Binding and Specificity",
+      "year": 2003,
+      "date": "2003-01-31",
+      "authors": [
+        "Alba T. Macias",
+        "Joseph E. Norton",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "125",
+      "pages": "2351–2360",
+      "doi": "https://doi.org/10.1021/ja0285971"
+    },
+    {
+      "title": "Influence of the Heme Pocket Conformation on the Structure and Vibrations of the Fe-CO Bond in Myoglobin: A QM/MM Density Functional Study",
+      "year": 2001,
+      "date": "2001-07-01",
+      "authors": [
+        "Carme Rovira",
+        "Brita G. Schulze",
+        "Markus Eichinger",
+        "Jeffrey D. Evanseck",
+        "Michele Parrinello"
+      ],
+      "venue": "Biophysical Journal",
+      "volume": "81",
+      "pages": "435–445",
+      "doi": "https://doi.org/10.1016/s0006-3495(01)75711-6"
+    },
+    {
+      "title": "Density Functional Theory Study of Aqueous-Phase Rate Acceleration and Endo/Exo Selectivity of the Butadiene and Acrolein Diels−Alder Reaction",
+      "year": 2000,
+      "date": "2000-10-01",
+      "authors": [
+        "Sue Kong",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "122",
+      "pages": "10418–10427",
+      "doi": "https://doi.org/10.1021/ja0010249"
+    },
+    {
+      "title": "Functional Significance of Hierarchical Tiers in Carbonmonoxy Myoglobin: Conformational Substates and Transitions Studied by Conformational Flooding Simulations",
+      "year": 2000,
+      "date": "2000-08-24",
+      "authors": [
+        "Brita G. Schulze",
+        "Helmut Grubmüller",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "122",
+      "pages": "8700–8711",
+      "doi": "https://doi.org/10.1021/ja993788y"
+    },
+    {
+      "title": "Synthesis and Inclusion Complexation Studies of a Novel Molecular Receptor for 1,4-disubstituted Benzenes and 4,4'-disubstituted Biphenyls",
+      "year": 2000,
+      "date": "2000-03-28",
+      "authors": [
+        "Alba T. Macias",
+        "Keshav Kumar",
+        "Arnaud Marchand",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
+      "volume": "",
+      "pages": "",
+      "doi": ""
+    },
+    {
+      "title": "Computational Studies of Inclusion Phenomena and Synthesis of a Novel and Selective Molecular Receptor for 1,4-Disubstituted Benzenes and 4,4‘-Disubstituted Biphenyls",
+      "year": 2000,
+      "date": "2000-03-16",
+      "authors": [
+        "Alba T. Macias",
+        "Kaipenchery A. Kumar",
+        "Alan P. Marchand",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "The Journal of Organic Chemistry",
+      "volume": "65",
+      "pages": "2083–2089",
+      "doi": "https://doi.org/10.1021/jo991669v"
+    },
+    {
+      "title": "Cooperative Role of Arg45 and His64 in the Spectroscopic A3 State of Carbonmonoxy Myoglobin: Molecular Dynamics Simulations, Multivariate Analysis, and Quantum Mechanical Computations",
+      "year": 1999,
+      "date": "1999-07-01",
+      "authors": [
+        "Brita G. Schulze",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "121",
+      "pages": "6444–6454",
+      "doi": "https://doi.org/10.1021/ja982115x"
+    },
+    {
+      "title": "All-Atom Empirical Potential for Molecular Modeling and Dynamics Studies of Proteins",
+      "year": 1998,
+      "date": "1998-04-01",
+      "authors": [
+        "Alexander D. MacKerell",
+        "Donald Bashford",
+        "M. Bellott",
+        "Roland L. Dunbrack",
+        "Jeffrey D. Evanseck",
+        "Martin J. Field",
+        "Stefan Fischer",
+        "Jun Gao",
+        "Hong Xu Guo",
+        "Sookhee Ha",
+        "Diane Joseph‐McCarthy",
+        "L. Kuchnir",
+        "Krzysztof Kuczera",
+        "Frankie Tat Kwong Lau",
+        "Carla Mattos",
+        "Stephen W. Michnick",
+        "T. Ngo",
+        "Dzung T. Nguyen",
+        "Blaise Prod'hom",
+        "W. E. Reiher",
+        "Benoı̂t Roux",
+        "Michael Schlenkrich",
+        "Jeremy C. Smith",
+        "Roland H. Stote",
+        "John E. Straub",
+        "Masakatsu Watanabe",
+        "Joanna Wiórkiewicz-Kuczera",
+        "D. Yin",
+        "Martin Karplus"
+      ],
+      "venue": "The Journal of Physical Chemistry B",
+      "volume": "102",
+      "pages": "3586–3616",
+      "doi": "https://doi.org/10.1021/jp973084f"
+    },
+    {
+      "title": "Locally accessible conformations of proteins: Multiple molecular dynamics simulations of crambin",
+      "year": 1998,
+      "date": "1998-03-01",
+      "authors": [
+        "Leo S. D. Caves",
+        "Jeffrey D. Evanseck",
+        "Martin Karplus"
+      ],
+      "venue": "Protein Science",
+      "volume": "7",
+      "pages": "649–666",
+      "doi": "https://doi.org/10.1002/pro.5560070314"
+    },
+    {
+      "title": "INCLUSION COMPLEXATION OF CYCLOBIS(PARAQUAT-p-PHENYLENE) AND RELATED CYCLOPHANE DERIVATIVES WITH SUBSTITUTED AROMATICS: COOPERATIVE NON-COVALENT CAVITY AND EXTERNAL INTERACTIONS",
+      "year": 1997,
+      "date": "1997-05-01",
+      "authors": [
+        "Ren� Castro",
+        "Pablo D. Davidov",
+        "Kaipeuchery A. Kumar",
+        "Alan P. Marchand",
+        "Jeffrey D. Evanseck",
+        "Angel E. Kaifer"
+      ],
+      "venue": "Journal of Physical Organic Chemistry",
+      "volume": "10",
+      "pages": "369–382",
+      "doi": "https://doi.org/10.1002/(sici)1099-1395(199705)10:5<369::aid-poc917>3.0.co;2-i"
+    },
+    {
+      "title": "Quantum mechanical study of atmospheric nitrogen oxides and nitric acid: Implications on acid rain",
+      "year": 1996,
+      "date": "1996-12-31",
+      "authors": [
+        "Richardson",
+        "Cara-Lee Davey",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
+      "volume": "",
+      "pages": "",
+      "doi": ""
+    },
+    {
+      "title": "Observation and Interpretation of Anomalous Inorganic Anion Binding with α- and β-Cyclodextrins in Aqueous Media",
+      "year": 1996,
+      "date": "1996-12-01",
+      "authors": [
+        "Luis A. Godı́nez",
+        "Brita G. Schulze-fiehn",
+        "Sonal M. Patel",
+        "Cecil M. Criss",
+        "Jeffrey D. Evanseck",
+        "Angel E. Kaifer"
+      ],
+      "venue": "Supramolecular chemistry",
+      "volume": "8",
+      "pages": "17–22",
+      "doi": "https://doi.org/10.1080/10610279608233964"
+    },
+    {
+      "title": "Unexpected Roles of Guest Polarizability and Maximum Hardness, and of Host Solvation in Supramolecular Inclusion Complexes: A Dual Theoretical and Experimental Study",
+      "year": 1996,
+      "date": "1996-01-01",
+      "authors": [
+        "René Castro",
+        "Marcelo J. Berardi",
+        "Emilio Córdova",
+        "Mariluz Ochoa de Olza",
+        "Angel E. Kaifer",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "118",
+      "pages": "10257–10268",
+      "doi": "https://doi.org/10.1021/ja960700x"
+    },
+    {
+      "title": "Molecular Dynamics Simulation and Preliminary Analysis of a Lipid Bilayer near the Liquid-Crystalline Phase",
+      "year": 1996,
+      "date": "1996-01-01",
+      "authors": [
+        "Matthew P. Repasky",
+        "Ramkumar Rajamani",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Springer eBooks",
+      "volume": "",
+      "pages": "103–113",
+      "doi": "https://doi.org/10.1007/978-94-009-0317-3_7"
+    },
+    {
+      "title": "Effects of Side Arm Length and Structure of Para-Substituted Phenyl Derivatives on Their Binding to the Host Cyclobis(paraquat-p-phenylene)",
+      "year": 1996,
+      "date": "1996-01-01",
+      "authors": [
+        "René Castro",
+        "Kendric R. Nixon",
+        "Jeffrey D. Evanseck",
+        "Angel E. Kaifer"
+      ],
+      "venue": "The Journal of Organic Chemistry",
+      "volume": "61",
+      "pages": "7298–7303",
+      "doi": "https://doi.org/10.1021/jo9610321"
+    },
+    {
+      "title": "Transition Structures of Thermally Allowed Disrotatory Electrocyclizations. The Prediction of Stereoselective Substituent Effects in Six-Electron Pericyclic Reactions",
+      "year": 1995,
+      "date": "1995-11-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Bert E. Thomas",
+        "David C. Spellmeyer",
+        "Kendall N. Houk"
+      ],
+      "venue": "The Journal of Organic Chemistry",
+      "volume": "60",
+      "pages": "7134–7141",
+      "doi": "https://doi.org/10.1021/jo00127a016"
+    },
+    {
+      "title": "Quantification of Solvent Effects on the Acidities of Z and E Esters from Fluid Simulations",
+      "year": 1994,
+      "date": "1994-11-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk",
+        "James M. Briggs",
+        "William L. Jorgensen"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "116",
+      "pages": "10630–10638",
+      "doi": "https://doi.org/10.1021/ja00102a032"
+    },
+    {
+      "title": "ChemInform Abstract: Transition Structures of the Electrocyclic Reactions of cis,cis,cis‐1, 3,5‐Cyclooctatriene",
+      "year": 1994,
+      "date": "1994-04-05",
+      "authors": [
+        "Bert E. IV Thomas",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "ChemInform",
+      "volume": "25",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.199414041"
+    },
+    {
+      "title": "ChemInform Abstract: Structures and Energies of Intermediates in the Reactions of Singlet Oxygen with Organic Phosphines and Sulfides.",
+      "year": 1993,
+      "date": "1993-10-12",
+      "authors": [
+        "Keepyung Nahm",
+        "Y. LI",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk",
+        "C. S. Foote"
+      ],
+      "venue": "ChemInform",
+      "volume": "24",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.199341121"
+    },
+    {
+      "title": "ChemInform Abstract: Electrocyclic Reactions of 1‐Substituted 1,3,5,7‐Octatetraenes (I) and (II). An ab initio Molecular Orbital Study of Torquoselectivity in Eight‐Electron Electrocyclizations.",
+      "year": 1993,
+      "date": "1993-10-12",
+      "authors": [
+        "Bert E. IV Thomas",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "ChemInform",
+      "volume": "24",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.199341035"
+    },
+    {
+      "title": "Structures and energies of intermediates in the reactions of singlet oxygen with organic phosphines and sulfides",
+      "year": 1993,
+      "date": "1993-06-01",
+      "authors": [
+        "Keepyung Nahm",
+        "Yi Li",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk",
+        "Christopher S. Foote"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "115",
+      "pages": "4879–4884",
+      "doi": "https://doi.org/10.1021/ja00064a057"
+    },
+    {
+      "title": "Electrocyclic reactions of 1-substituted 1,3,5,7-octatetraenes. An ab initio molecular orbital study of torquoselectivity in eight-electron electrocyclizations",
+      "year": 1993,
+      "date": "1993-05-01",
+      "authors": [
+        "Bert E. Thomas",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "115",
+      "pages": "4165–4169",
+      "doi": "https://doi.org/10.1021/ja00063a039"
+    },
+    {
+      "title": "Transition Structures of the Electrocyclic Reactions of cis,cis,cis‐1,3,5‐Cyclooctatriene",
+      "year": 1993,
+      "date": "1993-01-01",
+      "authors": [
+        "Bert E. Thomas",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "Israel Journal of Chemistry",
+      "volume": "33",
+      "pages": "287–293",
+      "doi": "https://doi.org/10.1002/ijch.199300035"
+    },
+    {
+      "title": "ChemInform Abstract: Transition Structures of Hydrocarbon Pericyclic Reactions",
+      "year": 1992,
+      "date": "1992-09-22",
+      "authors": [
+        "Kendall N. Houk",
+        "Y. LI",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "ChemInform",
+      "volume": "23",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.199238322"
+    },
+    {
+      "title": "Übergangsstrukturen in pericyclischen Reaktionen von Kohlenwasserstoffen",
+      "year": 1992,
+      "date": "1992-06-01",
+      "authors": [
+        "Kendall N. Houk",
+        "Yi Li",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Angewandte Chemie",
+      "volume": "104",
+      "pages": "711–739",
+      "doi": "https://doi.org/10.1002/ange.19921040606"
+    },
+    {
+      "title": "Transition Structures of Hydrocarbon Pericyclic Reactions",
+      "year": 1992,
+      "date": "1992-06-01",
+      "authors": [
+        "Kendall N. Houk",
+        "Yi Li",
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "Angewandte Chemie International Edition in English",
+      "volume": "31",
+      "pages": "682–708",
+      "doi": "https://doi.org/10.1002/anie.199206821"
+    },
+    {
+      "title": "Simulation analysis of triose phosphate isomerase: conformational transition and catalysis",
+      "year": 1992,
+      "date": "1992-01-01",
+      "authors": [
+        "Martin Karplus",
+        "Jeffrey D. Evanseck",
+        "Diane Joseph‐McCarthy",
+        "Paul A. Bash",
+        "Martin J. Field"
+      ],
+      "venue": "Faraday Discussions",
+      "volume": "93",
+      "pages": "239",
+      "doi": "https://doi.org/10.1039/fd9929300239"
+    },
+    {
+      "title": "ChemInform Abstract: Stereoselectivity of Hydrogen 1,2‐Shifts in Singlet Alkylcarbenes: A Quantitative Theoretical Assessment of Ground‐State Orbital Alignment and Torsional and Steric Effects",
+      "year": 1991,
+      "date": "1991-03-26",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "ChemInform",
+      "volume": "22",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.199112101"
+    },
+    {
+      "title": "Stereoselectivity of hydrogen 1,2-shifts in singlet alkylcarbenes: a quantitative theoretical assessment of ground-state orbital alignment, and torsional, and steric effects",
+      "year": 1990,
+      "date": "1990-12-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "112",
+      "pages": "9148–9156",
+      "doi": "https://doi.org/10.1021/ja00181a018"
+    },
+    {
+      "title": "ChemInform Abstract: Theoretical Predictions of Activation Energies for 1,2‐Hydrogen Shifts in Singlet Carbenes",
+      "year": 1990,
+      "date": "1990-10-23",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "ChemInform",
+      "volume": "21",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.199043087"
+    },
+    {
+      "title": "Theoretical predictions of activation energies for 1,2-hydrogen shifts in singlet carbenes",
+      "year": 1990,
+      "date": "1990-07-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk"
+      ],
+      "venue": "The Journal of Physical Chemistry",
+      "volume": "94",
+      "pages": "5518–5523",
+      "doi": "https://doi.org/10.1021/j100377a020"
+    },
+    {
+      "title": "Theoretical investigation of intramolecular singlet carbene 1,4- and 1,2-cycloadditions",
+      "year": 1990,
+      "date": "1990-01-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Jiri Mareda",
+        "Kendall N. Houk"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "112",
+      "pages": "73–80",
+      "doi": "https://doi.org/10.1021/ja00157a012"
+    },
+    {
+      "title": "Solvent effects in molecular recognition",
+      "year": 1990,
+      "date": "1990-01-01",
+      "authors": [
+        "David B. Smithrud",
+        "Elizabeth M. Sanford",
+        "Ito Chao",
+        "Stephen B. Ferguson",
+        "Daniel R. Carcanague",
+        "Jeffrey D. Evanseck",
+        "Kendall N. Houk",
+        "F. Diederich"
+      ],
+      "venue": "Pure and Applied Chemistry",
+      "volume": "62",
+      "pages": "2227–2236",
+      "doi": "https://doi.org/10.1351/pac199062122227"
+    },
+    {
+      "title": "Quantum and Statistical Mechanics Applied to Singlet Carbenes, Pericyclic Reactions, and Condensed Phase Phenomena",
+      "year": 1990,
+      "date": "1990-01-01",
+      "authors": [
+        "Jeffrey D. Evanseck"
+      ],
+      "venue": "",
+      "volume": "",
+      "pages": "",
+      "doi": ""
+    },
+    {
+      "title": "ChemInform Abstract: Ab initio Study of the SN2 Reactions of OH‐ and OOH‐ with CH3Cl",
+      "year": 1987,
+      "date": "1987-08-25",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "James F. Blake",
+        "William L. Jorgensen"
+      ],
+      "venue": "ChemInform",
+      "volume": "18",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/chin.198734106"
+    },
+    {
+      "title": "Ab initio study of the SN2 reactions of hydroxide and hydroperoxide with chloromethane",
+      "year": 1987,
+      "date": "1987-04-01",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "James F. Blake",
+        "William L. Jorgensen"
+      ],
+      "venue": "Journal of the American Chemical Society",
+      "volume": "109",
+      "pages": "2349–2353",
+      "doi": "https://doi.org/10.1021/ja00242a018"
     }
   ]
 }
