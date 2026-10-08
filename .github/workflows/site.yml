@@ -1,0 +1,60 @@
+name: Build and publish site
+
+on:
+  push:
+    branches: [main]        # rebuild whenever anyone changes a file
+  schedule:
+    - cron: "0 10 * * 1"    # every Monday: fetch new publications, then rebuild
+  workflow_dispatch:         # "Run workflow" button on the Actions tab
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install markdown pyyaml
+
+      - name: Fetch publications from OpenAlex (weekly and manual runs)
+        if: github.event_name != 'push'
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+        run: |
+          python scripts/update_publications.py || echo "::warning::Publication update skipped; the site uses the existing list."
+          if ! git diff --quiet -- data/publications.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
+            git add data/publications.json
+            git commit -m "Update publications from OpenAlex"
+            git push
+          fi
+
+      - name: Build site from content files
+        run: python scripts/build.py
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
