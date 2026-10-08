@@ -30,7 +30,15 @@ PEOPLE_GROUPS = [
     ("postdoc", "Postdocs"),
     ("staff", "Staff"),
     ("grad", "Graduate students"),
-    ("undergrad", "Undergraduate researchers"),
+    ("undergrad", "Honors undergraduates"),
+]
+ALUMNI_CATEGORIES = [  # (key, heading); order on the page
+    ("postdoc", "Postdoctoral researchers"),
+    ("phd", "Ph.D. graduates"),
+    ("ms", "MS"),
+    ("grad", "Graduate students"),
+    ("undergrad", "Honors undergraduates"),
+    ("staff", "Staff and visiting scholars"),
 ]
 RECENT_YEARS = 5  # publication years shown before the "Show earlier" button
 
@@ -283,22 +291,172 @@ def build_research(areas, pubs_by_doi):
   </section>'''
 
 
-def person_links(m):
+PROFILE_FIELDS = [  # (field in the person's file, link label, how to turn the value into a web address)
+    ("orcid", "ORCID", lambda v: v if v.startswith("http") else "https://orcid.org/" + v),
+    ("scholar", "Google Scholar", lambda v: v),
+    ("researchgate", "ResearchGate", lambda v: v),
+    ("linkedin", "LinkedIn", lambda v: v),
+    ("website", "Website", lambda v: v),
+]
+
+
+def person_links(m, auto_orcid=""):
     links = []
     if m.get("email"):
         links.append(f'<a href="mailto:{esc(m["email"])}">{esc(m["email"])}</a>')
+    seen = set()
+    for field, label, to_url in PROFILE_FIELDS:
+        value = str(m.get(field) or (auto_orcid if field == "orcid" else "") or "").strip()
+        if value:
+            url = to_url(value)
+            seen.add(url)
+            links.append(f'<a href="{esc(url)}" aria-label="{esc(label)} profile of {esc(m.get("name", ""))}">{esc(label)}</a>')
     for l in m.get("links") or []:
-        if isinstance(l, dict) and l.get("url"):
+        if isinstance(l, dict) and l.get("url") and l["url"] not in seen:
             links.append(f'<a href="{esc(l["url"])}">{esc(l.get("label", l["url"]))}</a>')
     return " · ".join(links)
 
 
-def build_people(people):
-    pi_html, groups, alumni = "", {g: [] for g, _ in PEOPLE_GROUPS}, []
+def orcid_from_papers(m, papers):
+    """The ORCID recorded for this person on their papers, if every match agrees."""
+    keys = {name_keys(m["name"])} | {name_keys(a) for a in (m.get("published_as") or [])}
+    found = set()
+    for p in papers:
+        for a, o in zip(p.get("authors", []), p.get("orcids", []) or []):
+            k = name_keys(a)
+            if o and k and any(k[0] == s and k[1] == f for s, f in keys if s):
+                found.add(o)
+    return found.pop() if len(found) == 1 else ""
+
+
+def alumni_category(m):
+    deg = re.sub(r"[^a-z]", "", str(m.get("degree", "")).lower())
+    if deg in ("phd", "doctorate"):
+        return "phd"
+    if deg in ("ms", "ma", "msc", "masters", "master"):
+        return "ms"
+    if deg in ("bs", "ba", "bsc", "undergrad", "undergraduate"):
+        return "undergrad"
+    if deg in ("postdoc", "postdoctoral"):
+        return "postdoc"
+    g = str(m.get("group", "")).strip().lower()
+    return {"postdoc": "postdoc", "grad": "grad", "undergrad": "undergrad", "staff": "staff"}.get(g, "staff")
+
+
+def plain(text):
+    """Lowercase, no accents, normal hyphens: 'Córdova' -> 'cordova', 'Schulze–Fiehn' -> 'schulze-fiehn'."""
+    import unicodedata
+    text = unicodedata.normalize("NFKD", str(text)).encode("ascii", "ignore").decode()
+    return re.sub(r"[\u2010-\u2015]", "-", text).lower()
+
+
+def name_keys(name):
+    """(surname, first initial) for matching an author name like 'Adam H. Kensinger'."""
+    name = re.sub(r"\(.*?\)", " ", re.sub(r"[\u2010-\u2015]", "-", str(name)))   # drop '(Clifford)'
+    name = re.sub(r"^(dr|prof)\.?\s+", "", plain(name).strip())
+    words = [w.strip(".,") for w in re.sub(r",.*$", "", name).split() if w.strip(".,")]
+    return (words[-1], words[0][0]) if words else None
+
+
+def papers_for(m, pubs, pi_keys):
+    keys = {name_keys(m["name"])}
+    for alt in m.get("published_as") or []:
+        keys.add(name_keys(alt))
+    keys.discard(None)
+    keys -= pi_keys
+    found = []
+    for p in pubs:
+        for a in p.get("authors", []):
+            k = name_keys(a)
+            if k and any(k[0] == s and k[1] == f for s, f in keys):
+                found.append(p)
+                break
+    return found
+
+
+def years_text(m):
+    start, end = str(m.get("start") or "").strip(), str(m.get("end") or "").strip()
+    if start and end:
+        return f"{start}–{end}"
+    return end or start or str(m.get("years") or "").strip()
+
+
+def alumni_html(alumni, pubs, pi_keys):
+    """Past members: one tab per category; each person is a row that expands for details."""
+    if not alumni:
+        return ""
+    cats = {k: [] for k, _ in ALUMNI_CATEGORIES}
+    for path, m, b in alumni:
+        cats[alumni_category(m)].append((path, m, b))
+
+    def sort_key(x):
+        e = re.findall(r"\d{4}", str(x[1].get("end") or x[1].get("years") or ""))
+        return (-(int(e[-1]) if e else 0), x[1]["name"])
+
+    tabs, panels = [], []
+    for key, heading in ALUMNI_CATEGORIES:
+        if not cats[key]:
+            continue
+        rows = []
+        for path, m, b in sorted(cats[key], key=sort_key):
+            year = esc(str(m.get("end") or years_text(m) or ""))
+            now = f'<span class="al-now">{esc(m["now"])}</span>' if m.get("now") else ""
+            summary = (f'<summary><span class="al-name">{esc(m["name"])}</span>'
+                       f'<span class="al-year">{year}</span>{now}</summary>')
+            facts = []
+            if key in ("phd", "ms"):
+                when = m.get("defended") or m.get("end")
+                facts.append(f'{esc(str(m.get("degree") or "").replace("PhD", "Ph.D."))}, {esc(str(when))}' if when else "")
+            elif m.get("major"):
+                facts.append(f'{esc(m["major"])}, {esc(str(m.get("end", "")))}')
+            elif years_text(m):
+                facts.append(esc(years_text(m)))
+            if m.get("co_advisor"):
+                facts.append(f'Co-advised with {esc(m["co_advisor"])}')
+            facts = [f for f in facts if f]
+            thesis = ""
+            if m.get("thesis"):
+                label = esc(m.get("thesis_type") or ("Dissertation" if key == "phd" else "Thesis"))
+                t = f'&ldquo;{esc(m["thesis"])}&rdquo;'
+                if m.get("thesis_url"):
+                    t = f'<a href="{esc(m["thesis_url"])}">{t}</a>'
+                thesis = f'<p class="al-thesis"><span class="al-label">{label}</span> {t}</p>'
+            story = md(b) if b else ""
+            ps = [] if m.get("published_as") is False else papers_for(m, pubs, pi_keys)
+            links = person_links(m, orcid_from_papers(m, ps))
+            if m.get("published_as"):
+                facts.append("Published as " + ", ".join(esc(x) for x in m["published_as"]))
+            papers = ""
+            if ps:
+                lis = "".join(
+                    (f'<li><a href="{esc(p["doi"])}">{esc(p["title"])}</a>' if p.get("doi") else f'<li>{esc(p["title"])}')
+                    + f' <span class="src">{esc(p.get("venue", ""))}{", " if p.get("venue") else ""}{esc(p["year"])}</span></li>'
+                    for p in ps)
+                n = len(ps)
+                papers = f'<div class="al-papers"><span class="al-label">{n} paper{"s" if n != 1 else ""} with the group</span><ul>{lis}</ul></div>'
+            body = (f'<div class="al-body">'
+                    f'{"<p class=al-facts>" + " &nbsp;|&nbsp; ".join(facts) + "</p>" if facts else ""}'
+                    f'{thesis}{story}{f"<p>{links}</p>" if links else ""}{papers}</div>')
+            rows.append(f'<li><details>{summary}{body}</details></li>')
+        tab_id = f"past-{key}"
+        tabs.append(f'<button type="button" role="tab" id="tab-{tab_id}" aria-controls="{tab_id}" aria-selected="false">'
+                    f'{esc(heading)} <span class="count">{len(rows)}</span></button>')
+        panels.append(f'<div class="past-panel" role="tabpanel" id="{tab_id}" aria-labelledby="tab-{tab_id}">'
+                      f'<h4 class="al-cat">{esc(heading)}</h4><ul class="alumni-list">{"".join(rows)}</ul></div>')
+    tablist = f'<div class="past-tabs" role="tablist" aria-label="Past members by degree">{"".join(tabs)}</div>' if len(tabs) > 1 else ""
+    return (f'<section class="past" aria-labelledby="past-title"><h3 class="past-title" id="past-title">Past members</h3>'
+            f'<p class="note">Click a name to see their thesis, where they went, and their papers with the group.</p>'
+            f'{tablist}{"".join(panels)}</section>')
+
+
+def build_people(people, alumni, pubs):
+    pi_html, groups = "", {g: [] for g, _ in PEOPLE_GROUPS}
+    pi_keys = set()
     for path, m, b in people:
         g = str(m.get("group", "")).strip().lower()
         photo = image(m.get("photo"), path)
         if g == "pi":
+            pi_keys.add(name_keys(m["name"]))
             img = (f'<img class="photo" src="{esc(photo)}" alt="{esc(m["name"])}" style="aspect-ratio:4/5">' if photo
                    else f'<div class="photo" aria-hidden="true" style="aspect-ratio:4/5">{initials(m["name"])}</div>')
             role = "<br>".join(esc(x) for x in str(m.get("role", "")).strip().splitlines())
@@ -314,27 +472,26 @@ def build_people(people):
       </div>
     </div>'''
         elif g == "alumni":
-            extra = ", ".join(x for x in [str(m.get("years") or ""), str(m.get("now") or "")] if x)
-            alumni.append((m["name"], f'<li>{esc(m["name"])}{f"<span>, {esc(extra)}</span>" if extra else ""}</li>'))
+            alumni.append((path, m, b))  # older style: alumni marked in the main folder
         elif g in groups:
             img = (f'<img class="photo" src="{esc(photo)}" alt="{esc(m["name"])}">' if photo
                    else f'<div class="photo" aria-hidden="true">{initials(m["name"])}</div>')
             role = esc(m.get("role", ""))
+            since = f' <span class="since">(joined {esc(m["start"])})</span>' if m.get("start") else ""
             proj = f'<p class="role">{esc(m["project"])}</p>' if m.get("project") else ""
             bio = f'<div class="bio">{md(b)}</div>' if b else ""
             links = person_links(m)
             groups[g].append((m.get("order", 99), m["name"], f'''
-        <div class="person">{img}<h4>{esc(m["name"])}</h4><p class="role">{role}</p>{proj}{bio}{f'<p class="role">{links}</p>' if links else ""}</div>'''))
+        <div class="person">{img}<h4>{esc(m["name"])}</h4><p class="role">{role}{since}</p>{proj}{bio}{f'<p class="role">{links}</p>' if links else ""}</div>'''))
         else:
-            warn(path, f"skipped: 'group:' must be one of pi, postdoc, staff, grad, undergrad, alumni (found '{g}').")
+            warn(path, f"skipped: 'group:' must be one of pi, postdoc, staff, grad, undergrad (found '{g}').")
 
     out = [pi_html]
     for g, label in PEOPLE_GROUPS:
         if groups[g]:
             cards = "".join(c for _, _, c in sorted(groups[g], key=lambda x: (x[0], x[1])))
             out.append(f'<p class="group-label">{label}</p><div class="people">{cards}</div>')
-    if alumni:
-        out.append('<p class="group-label">Alumni</p><ul class="alumni">' + "".join(h for _, h in sorted(alumni)) + "</ul>")
+    out.append(alumni_html(alumni, pubs, pi_keys))
     return f'''
   <section class="page" id="people">
     <h2>People</h2>
@@ -474,6 +631,25 @@ SCRIPT = """
   });
   show();
 
+  // Past members tabs: show one panel at a time (all panels show if JavaScript is off)
+  const pastTabs = [...document.querySelectorAll('.past-tabs [role="tab"]')];
+  function selectPast(tab) {
+    pastTabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  pastTabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectPast(t));
+    t.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { const n = pastTabs[(i + d + pastTabs.length) % pastTabs.length]; selectPast(n); n.focus(); }
+    });
+  });
+  if (pastTabs.length) selectPast(pastTabs[0]);
+
   const more = document.getElementById('pub-more');
   if (more) more.addEventListener('click', () => {
     const open = document.getElementById('pub-list').classList.toggle('show-earlier');
@@ -500,6 +676,13 @@ def main():
         p["title"] = fix(p.get("title", ""))
         p["venue"] = fix(p.get("venue", ""))
         p["authors"] = [fix(a) for a in p.get("authors", [])]
+
+    alumni = []
+    for path, m, b in items("people/alumni"):
+        if not m.get("name"):
+            warn(path, "skipped: needs a 'name:' line.")
+            continue
+        alumni.append((path, m, b))
 
     people = []
     for path, m, b in items("people"):
@@ -537,8 +720,8 @@ def main():
     body = "".join([
         build_home(site, pubs, areas),
         build_research(areas, {doi_url(p['doi'])[1].lower(): p for p in pubs if p.get('doi')}),
-        build_people(people),
-        build_publications(pubs, name_matchers(people, config)),
+        build_people(people, alumni, pubs),
+        build_publications(pubs, name_matchers(people + alumni, config)),
         build_teaching(),
         build_join(site),
     ])

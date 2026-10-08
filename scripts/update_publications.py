@@ -129,6 +129,7 @@ def to_entry(w):
         "year": year,
         "date": w.get("publication_date") or f"{year}-01-01",
         "authors": [clean((a.get("author") or {}).get("display_name")) for a in (w.get("authorships") or [])],
+        "orcids": [((a.get("author") or {}).get("orcid") or "").replace("https://orcid.org/", "") for a in (w.get("authorships") or [])],
         "venue": clean(source.get("display_name")),
         "volume": biblio.get("volume") or "",
         "pages": pages,

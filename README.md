@@ -35,7 +35,32 @@ photo (square-ish, under 1 MB), then put its path in your file:
 `photo: images/people/sarah-kim.jpg`
 
 **Updating later:** open your file, click the pencil icon, edit, and commit.
-**When you graduate:** change `group:` to `alumni` and fill in `years:` and `now:`.
+
+### When someone leaves the group (for the PI)
+
+Move their file into `content/people/alumni/`. On GitHub: open their file in
+`content/people/`, click the pencil icon, and in the file-name box at the top type `alumni/`
+in front of the name (so `sarah-kim.md` becomes `alumni/sarah-kim.md`). In the same edit, add
+these lines above the second `---`:
+
+```
+degree: PhD
+end: 2027
+thesis: "Title of the thesis"
+now: Scientist, Pfizer
+```
+
+Commit, and they move to **Past members** on the People page. Past members are shown in
+tabs by degree (Ph.D. graduates, Honors undergraduates, ...). Each name is a row showing the
+year and where they are now; clicking it opens their thesis, a short story of their path, and
+a list of their papers with the group, found automatically by name. Update `now:` whenever
+you hear news. The full list of fields is in `content/people/alumni/_TEMPLATE.md`.
+
+**Profile links:** anyone's file can have `orcid:`, `scholar:` (Google Scholar),
+`researchgate:`, `linkedin:` and `website:`. For past members, ORCID is filled in
+automatically when journals recorded it on their papers with the group. If someone published
+under a different name (for example before marriage), add it to `published_as:` so their
+papers are found; the site shows "Published as ..." in their entry.
 
 Your name is **bolded automatically** in the publication list once your file exists.
 
