@@ -63,16 +63,32 @@ Copy `content/news/_TEMPLATE.md` to a new file named with the date first, like
 `2026-10-15-new-paper.md`, set the `date:`, and write a sentence or two. The newest
 eight news items appear on the Home page.
 
+## Changing the headline
+
+The large sentence at the top of the site is the `lede:` line in `content/home.md`.
+
 ## Adding a research area
 
 Copy `content/research/_TEMPLATE.md`. The number at the start of the file name sets the
 order (`01-...` comes first).
 
+**Figures from papers:** each research area shows a figure from one of the group's papers.
+To add one, download the figure (the abstract graphic on the journal's article page is a good
+choice), save it with the exact file name given in `figure:` in that area's file, and upload it
+to `images/research/`. Until the file is there, the drawn schematic named in
+`fallback_figure:` is shown instead. Keep the `figure_credit:` line: ACS lets authors post
+figures from their own papers on their websites only with the citation and copyright notice.
+
+**Collaborators and key papers:** list collaborators under `collaborators:` (add `url:` to link
+a name to that person's page) and key papers under `papers:` as DOIs. Titles and journals are
+filled in from the publication list.
+
 ## Adding the logo
 
-Upload it to `images/` (e.g. `images/logo.png`, ideally with a transparent background),
-then in `content/site.yml` set `logo: images/logo.png`. It appears in the banner and the
-browser tab.
+The logo files are in `images/`: `logo.png` (dark lines, for light backgrounds),
+`logo-dark.png` (light lines, used in the footer and in dark mode) and `icon.png` (the hexagon
+mark in the menu bar and browser tab). Your original upload is kept as `LOGO_lab.png`.
+If the logo changes, replace these three files with new versions of the same names.
 
 ---
 
@@ -122,6 +138,9 @@ python scripts/build.py
 Then open `_site/index.html` in a browser.
 
 ### Notes
+
+- The site's font is CMU Serif (Computer Modern, the LaTeX font). The font files are in
+  `fonts/cmu-serif/` (free to use under the SIL Open Font License in `OFL.txt`).
 
 - GitHub pauses scheduled runs in repositories with no activity for 60 days. It emails
   first; click "Enable workflow" on the Actions tab to resume.

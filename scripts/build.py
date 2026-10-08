@@ -100,15 +100,133 @@ def initials(name):
     return (parts[0][0] + (parts[-1][0] if len(parts) > 1 else "")).upper() if parts else "?"
 
 
+def figure_html(path_str, source_file, alt=""):
+    """SVG figures are inlined so they follow the site's colors (and dark mode);
+    other images use a normal <img>."""
+    path_str = image(path_str, source_file)
+    if not path_str:
+        return ""
+    if path_str.lower().endswith(".svg"):
+        svg = (ROOT / path_str).read_text(encoding="utf-8")
+        svg = re.sub(r"<\?xml.*?\?>|<!DOCTYPE.*?>", "", svg, flags=re.S).strip()
+        return svg
+    return f'<img src="{esc(path_str)}" alt="{esc(alt)}" loading="lazy">'
+
+
+
+def pick_figure(m):
+    """Use the paper figure if it has been uploaded; otherwise the drawn fallback (no warning)."""
+    for key, cap, credit in (("figure", "caption", True), ("fallback_figure", "fallback_caption", False)):
+        f = m.get(key)
+        if f and (ROOT / f).is_file():
+            return f, m.get(cap) or m.get("caption", ""), (m.get("figure_credit", "") if credit else ""), (m.get("figure_doi", "") if credit else "")
+    if m.get("figure") and not m.get("fallback_figure"):
+        return m["figure"], m.get("caption", ""), m.get("figure_credit", ""), m.get("figure_doi", "")
+    return "", "", "", ""
+
+
+def doi_url(doi):
+    doi = str(doi).strip()
+    doi = re.sub(r"^(https?://(dx\.)?doi\.org/|doi:)", "", doi, flags=re.I)
+    return "https://doi.org/" + doi, doi
+
+
+def collaborators_html(value):
+    if not value:
+        return ""
+    if isinstance(value, str):
+        return f'<p class="collab">Collaborators: {esc(value)}</p>'
+    items_ = []
+    for c in value:
+        if not isinstance(c, dict) or not c.get("name"):
+            continue
+        name = esc(c["name"])
+        if c.get("url"):
+            name = f'<a href="{esc(c["url"])}">{name}</a>'
+        aff = f' <span class="aff">({esc(c["affiliation"])})</span>' if c.get("affiliation") else ""
+        items_.append(f"<li>{name}{aff}</li>")
+    return f'<div class="collab"><h4>Collaborators</h4><ul>{"".join(items_)}</ul></div>' if items_ else ""
+
+
+def key_papers_html(dois, pubs_by_doi, path):
+    if not dois:
+        return ""
+    rows = []
+    for d in dois:
+        url, bare = doi_url(d)
+        p = pubs_by_doi.get(bare.lower())
+        if p:
+            meta = ", ".join(x for x in [p.get("venue", ""), str(p.get("year", ""))] if x)
+            rows.append(f'<li><a href="{esc(url)}">{esc(p["title"])}</a><span class="src">{esc(meta)}</span></li>')
+        else:
+            warn(path, f"paper {bare} is not in the publication list yet; showing the DOI only.")
+            rows.append(f'<li><a href="{esc(url)}">doi:{esc(bare)}</a></li>')
+    return f'<div class="key-papers"><h4>Key papers</h4><ul>{"".join(rows)}</ul></div>'
+
+
+def lattice_svg():
+    """Background pattern for the banner: hexagons with circuit traces, echoing the logo."""
+    import math
+    import random
+    rnd = random.Random(7)
+    r = 44
+    w, h = r * math.sqrt(3), r * 1.5
+    hexes, traces, nodes, gold = [], [], [], []
+    k = 0
+    for row in range(-1, 8):
+        for col in range(-1, 16):
+            cx = col * w + (w / 2 if row % 2 else 0)
+            cy = row * h
+            pts = [(cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))) for a in range(-90, 270, 60)]
+            hexes.append("M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts) + " Z")
+            if rnd.random() < 0.55:
+                for _ in range(rnd.choice([1, 2])):
+                    i = rnd.randrange(6)
+                    (ax, ay), (bx, by) = pts[i], pts[(i + 1) % 6]
+                    t = rnd.choice([0.3, 0.5, 0.7])
+                    sx, sy = ax + (bx - ax) * t, ay + (by - ay) * t
+                    dx, dy = cx - sx, cy - sy
+                    m1x, m1y = sx + dx * 0.35, sy + dy * 0.35
+                    turn = rnd.choice([-1, 1]) * math.radians(60)
+                    ang = math.atan2(dy, dx) + turn
+                    ex, ey = m1x + math.cos(ang) * r * 0.32, m1y + math.sin(ang) * r * 0.32
+                    k += 1
+                    traces.append(f'<path class="tr" style="--d:{(k % 23) * 0.05:.2f}s" d="M{sx:.1f} {sy:.1f} L{m1x:.1f} {m1y:.1f} L{ex:.1f} {ey:.1f}"/>')
+                    nodes.append(f'<circle class="nd" style="--d:{(k % 23) * 0.05 + 0.5:.2f}s" cx="{ex:.1f}" cy="{ey:.1f}" r="3"/>')
+    for (row, col, i) in [(1, 12, 1), (3, 13, 4), (4, 11, 0), (2, 14, 2)]:
+        cx = col * w + (w / 2 if row % 2 else 0)
+        cy = row * h
+        a = math.radians(-90 + 60 * i)
+        gold.append(f'<circle class="gd" cx="{cx + r * math.cos(a):.1f}" cy="{cy + r * math.sin(a):.1f}" r="8"/>')
+    return (f'<svg class="lattice" viewBox="0 0 1100 460" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">'
+            f'<path class="hx" d="{" ".join(hexes)}"/>{"".join(traces)}{"".join(nodes)}{"".join(gold)}</svg>')
+
+
 # ---------------------------------------------------------------- sections
 
-def build_home(site, pubs):
-    r = read_md(CONTENT / "home.md") or ({}, "")
-    meta, body = r
+def research_areas():
+    areas = []
+    for path, m, b in items("research"):
+        if not m.get("title"):
+            warn(path, "skipped: needs a 'title:' line.")
+            continue
+        slug = re.sub(r"^\d+-", "", path.stem)
+        areas.append((path, m, b, slug))
+    return areas
+
+
+def build_home(site, pubs, areas):
+    meta, body = read_md(CONTENT / "home.md") or ({}, "")
     latest = "".join(
         f'<li><a href="{esc(p["doi"] or "#publications")}">{esc(p["title"])}</a>'
         f'<span class="src">{esc(p.get("venue", ""))}{", " if p.get("venue") else ""}{esc(p["year"])}</span></li>'
         for p in pubs[:4]
+    )
+    tiles = "".join(
+        f'<a class="tile" href="#research" data-target="area-{esc(slug)}">'
+        f'<div class="tile-fig">{figure_html(pick_figure(m)[0], path, pick_figure(m)[1]) if pick_figure(m)[0] else ""}</div>'
+        f'<span class="tile-title">{esc(m["title"])}</span></a>'
+        for path, m, b, slug in areas
     )
     news = sorted(items("news"), key=lambda x: str(x[1].get("date", "")), reverse=True)
     news_html = ""
@@ -123,37 +241,45 @@ def build_home(site, pubs):
                 warn(path, "date should look like 2026-10-15; showing it as written.")
                 label = str(d)
             rows.append(f'<li><time>{esc(label)}</time><div>{md(b)}</div></li>')
-        news_html = '<h2 style="margin:3rem 0 0">News</h2><ul class="news">' + "".join(rows) + "</ul>"
+        news_html = '<h2 class="section-title">News</h2><ul class="news">' + "".join(rows) + "</ul>"
     return f'''
   <section class="page" id="home">
     <div class="split">
-      <div>
-        {f'<p class="lede">{esc(meta.get("lede"))}</p>' if meta.get("lede") else ""}
-        {md(body)}
-      </div>
-      <aside class="aside">
+      <div class="intro">{md(body)}</div>
+      <aside class="latest-box">
         <h3>Latest papers</h3>
         <ul class="latest">{latest}</ul>
+        <a class="more-link" href="#publications">All publications</a>
       </aside>
     </div>
+    {f'<h2 class="section-title">Research</h2><div class="tiles">{tiles}</div>' if tiles else ""}
     {news_html}
   </section>'''
 
 
-def build_research():
+def build_research(areas, pubs_by_doi):
     meta, body = read_md(CONTENT / "research.md") or ({}, "")
-    areas = []
-    for path, m, b in items("research"):
-        if not m.get("title"):
-            warn(path, "skipped: needs a 'title:' line.")
-            continue
-        collab = f'<p class="collab">Collaborators: {esc(m["collaborators"])}</p>' if m.get("collaborators") else ""
-        areas.append(f'<article class="area"><h3>{esc(m["title"])}</h3><div>{md(b)}{collab}</div></article>')
+    out = []
+    for path, m, b, slug in areas:
+        f, cap, credit, fdoi = pick_figure(m)
+        fig = figure_html(f, path, cap) if f else ""
+        fig_html = ""
+        if fig:
+            if fdoi:
+                url, _ = doi_url(fdoi)
+                fig = f'<a class="fig-link" href="{esc(url)}" aria-label="Read the paper this figure comes from">{fig}</a>'
+            parts = [esc(cap)] if cap else []
+            if credit:
+                parts.append(f'<span class="credit">{esc(credit)}</span>')
+            fig_html = f'<figure class="area-fig">{fig}{"<figcaption>" + " ".join(parts) + "</figcaption>" if parts else ""}</figure>'
+        extra = collaborators_html(m.get("collaborators")) + key_papers_html(m.get("papers"), pubs_by_doi, path)
+        out.append(f'<article class="area{" has-fig" if fig else ""}" id="area-{esc(slug)}">'
+                   f'<div class="area-text"><h3>{esc(m["title"])}</h3>{md(b)}{extra}</div>{fig_html}</article>')
     return f'''
   <section class="page" id="research">
     <h2>{esc(meta.get("title", "Research"))}</h2>
-    <div style="margin-bottom:2rem">{md(body)}</div>
-    {"".join(areas)}
+    <div class="page-intro">{md(body)}</div>
+    {"".join(out)}
   </section>'''
 
 
@@ -261,7 +387,7 @@ def build_publications(pubs, matchers):
                 c += f", {esc(p['pages'])}"
             c += "."
             if p.get("doi"):
-                c += f' <a href="{esc(p["doi"])}">DOI</a>'
+                c += f' <a class="doi" href="{esc(p["doi"])}">doi:{esc(doi_url(p["doi"])[1])}</a>'
             lis.append(f"<li>{c}</li>")
         is_earlier = y < cutoff
         earlier += len(by_year[y]) if is_earlier else 0
@@ -322,7 +448,7 @@ def build_join(site):
 SCRIPT = """
   const pages = [...document.querySelectorAll('.page')];
   const links = [...document.querySelectorAll('.tabs a')];
-  const siteName = document.querySelector('.banner h1').textContent;
+  const siteName = document.body.dataset.siteName;
   function show() {
     const id = (location.hash || '#home').slice(1);
     const target = pages.find(p => p.id === id) || pages[0];
@@ -334,7 +460,18 @@ SCRIPT = """
     const h = target.querySelector('h2');
     document.title = (target.id === 'home' || !h ? '' : h.textContent + ' | ') + siteName;
   }
-  window.addEventListener('hashchange', () => { show(); window.scrollTo(0, 0); });
+  let pendingTarget = null;
+  document.querySelectorAll('[data-target]').forEach(a => a.addEventListener('click', () => {
+    pendingTarget = a.dataset.target;
+  }));
+  window.addEventListener('hashchange', () => {
+    show();
+    const el = pendingTarget && document.getElementById(pendingTarget);
+    pendingTarget = null;
+    if (el) el.scrollIntoView({ block: 'start' });
+    else if (location.hash && location.hash !== '#home') window.scrollTo(0, document.querySelector('.tabs').offsetTop);
+    else window.scrollTo(0, 0);
+  });
   show();
 
   const more = document.getElementById('pub-more');
@@ -354,6 +491,15 @@ def main():
     config = json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8"))
     pubs_file = ROOT / "data" / "publications.json"
     pubs = json.loads(pubs_file.read_text(encoding="utf-8")).get("publications", []) if pubs_file.exists() else []
+    fixes = config.get("text_fixes") or {}
+    def fix(text):
+        for bad, good in fixes.items():
+            text = text.replace(bad, good)
+        return text.replace("\ufffd", "")  # drop any broken characters that remain
+    for p in pubs:
+        p["title"] = fix(p.get("title", ""))
+        p["venue"] = fix(p.get("venue", ""))
+        p["authors"] = [fix(a) for a in p.get("authors", [])]
 
     people = []
     for path, m, b in items("people"):
@@ -362,46 +508,75 @@ def main():
             continue
         people.append((path, m, b))
 
-    logo = image(site.get("logo"), CONTENT / "site.yml")
-    logo_html = f'<img src="{esc(logo)}" alt="">' if logo else ""
-    favicon = f'<link rel="icon" href="{esc(logo)}">' if logo else ""
+    site_file = CONTENT / "site.yml"
+    logo = image(site.get("logo"), site_file)
+    logo_dark = image(site.get("logo_dark"), site_file) or logo
+    icon = image(site.get("icon"), site_file) or logo
+    name = site.get("name", "Research Group")
+    home_meta = (read_md(CONTENT / "home.md") or ({}, ""))[0]
+    lede = home_meta.get("lede", "")
+    url = str(site.get("url", "")).rstrip("/") + "/" if site.get("url") else ""
+    description = lede or f'{name}: {site.get("tagline", "")}.'
 
+    mark = image(site.get("mark"), site_file)
+    mark_dark = image(site.get("mark_dark"), site_file) or mark
+    hero_mark = (f'<div class="hero-mark" aria-hidden="true"><img class="logo-light" src="{esc(mark)}" alt="">'
+                 f'<img class="logo-dark" src="{esc(mark_dark)}" alt=""></div>') if mark else ""
+    nav_icon = f'<img src="{esc(icon)}" alt="">' if icon else ""
+    footer_logo = f'<img src="{esc(logo_dark)}" alt="">' if logo_dark else ""
+    social = ""
+    if url:
+        social = (f'<link rel="canonical" href="{esc(url)}">\n'
+                  f'<meta property="og:type" content="website">\n'
+                  f'<meta property="og:url" content="{esc(url)}">\n'
+                  f'<meta property="og:title" content="{esc(name)}">\n'
+                  f'<meta property="og:description" content="{esc(description)}">\n'
+                  + (f'<meta property="og:image" content="{esc(url + logo)}">\n' if logo else ""))
+
+    areas = research_areas()
     body = "".join([
-        build_home(site, pubs),
-        build_research(),
+        build_home(site, pubs, areas),
+        build_research(areas, {doi_url(p['doi'])[1].lower(): p for p in pubs if p.get('doi')}),
         build_people(people),
         build_publications(pubs, name_matchers(people, config)),
         build_teaching(),
         build_join(site),
     ])
-    name = site.get("name", "Research Group")
+    c = site.get("contact") or {}
+    address = "<br>".join(esc(x) for x in [c.get("name", "")] + list(c.get("address") or []) if x)
+    contact_line = "".join(f"<span>{x}</span>" for x in [
+        f'<a href="mailto:{esc(c["email"])}">{esc(c["email"])}</a>' if c.get("email") else "",
+        esc(c.get("phone", "")),
+        f'<a href="{esc(url)}">{esc(url.split("//")[-1].rstrip("/"))}</a>' if url else ""] if x)
+
     page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(name)}</title>
-<meta name="description" content="{esc(name)}: {esc(site.get("tagline", ""))}. {esc(site.get("department", ""))}.">
-{favicon}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="{esc(description)}">
+{social}{f'<link rel="icon" href="{esc(icon)}">' if icon else ""}
+<link rel="preload" href="fonts/cmu-serif/cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 {(TEMPLATES / "style.css").read_text(encoding="utf-8")}
 </style>
 </head>
-<body>
-<header class="banner">
-  <div class="wrap">
-    <div>
-      <div class="brand">{logo_html}<h1>{esc(name)}</h1></div>
-      <p class="sub">{esc(site.get("tagline", ""))}<br>{esc(site.get("department", ""))}</p>
+<body data-site-name="{esc(name)}">
+<header class="hero">
+  {lattice_svg()}
+  <div class="wrap hero-grid">
+    {hero_mark}
+    <div class="hero-text">
+      <h1 class="hero-title">{esc(name)}</h1>
+      {f'<p class="hero-lede">{esc(lede)}</p>' if lede else ""}
+      <p class="hero-meta">{esc(site.get("tagline", ""))}<br>{esc(site.get("department", ""))}</p>
     </div>
-    {(TEMPLATES / "banner.svg").read_text(encoding="utf-8")}
   </div>
 </header>
 <nav class="tabs" aria-label="Site pages">
   <div class="wrap">
+    <a class="tab-icon" href="#home" aria-label="Home">{nav_icon}</a>
     <a href="#home">Home</a>
     <a href="#research">Research</a>
     <a href="#people">People</a>
@@ -412,11 +587,16 @@ def main():
 </nav>
 <main class="wrap">{body}
 </main>
-<footer>
-  <div class="wrap">
-    <span>{esc(name)}, {esc(site.get("department", "").split(",")[-1].strip())}</span>
-    <span>Updated {datetime.date.today().strftime("%B %-d, %Y")}</span>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-logo">{footer_logo}</div>
+    <address>{address}</address>
+    <div class="footer-contact">{contact_line}</div>
   </div>
+  <div class="wrap"><div class="footer-base">
+    <span>{esc(site.get("department", ""))}</span>
+    <span>Updated {datetime.date.today().strftime("%B %-d, %Y")}</span>
+  </div></div>
 </footer>
 <script>{SCRIPT}</script>
 </body>
@@ -426,8 +606,9 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir()
     (OUT / "index.html").write_text(page, encoding="utf-8")
-    if (ROOT / "images").exists():
-        shutil.copytree(ROOT / "images", OUT / "images")
+    for folder in ("images", "fonts"):
+        if (ROOT / folder).exists():
+            shutil.copytree(ROOT / folder, OUT / folder)
     (OUT / ".nojekyll").write_text("")
 
     print(f"Built _site/index.html: {len(people)} people, {len(pubs)} publications.")

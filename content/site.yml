@@ -4,8 +4,19 @@ name: Evanseck Research Group
 tagline: Theoretical and computational chemistry
 department: Department of Chemistry and Biochemistry, Duquesne University
 
-# Put the logo file in the images folder and write its name here, e.g. images/logo.png
-logo: "images/LOGO_lab.png"
+# The site's web address (used when the link is shared on social media or in messages)
+url: https://evanseck.github.io/evanseck-lab-website/
+
+# Logo shown in the banner. logo_dark is a version with light lines, used on dark
+# backgrounds (the footer, and when a visitor's device is in dark mode).
+# icon is the small hexagon mark used in the menu bar and the browser tab.
+# The original upload is kept as images/LOGO_lab.png.
+logo: images/logo.png
+logo_dark: images/logo-dark.png
+icon: images/icon.png
+# The hexagon mark shown next to the big title at the top of the page.
+mark: images/logo-mark.png
+mark_dark: images/logo-mark-dark.png
 
 contact:
   name: Jeffrey D. Evanseck

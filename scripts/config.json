@@ -14,5 +14,10 @@
   "hide_dois": [],
   "hide_titles_containing": [],
 
-  "contact_email": ""
+  "contact_email": "",
+
+  "_text_fixes_help": "Corrections for garbled characters in OpenAlex data. Left side: text as it arrives (\ufffd is the broken-character symbol). Right side: what to show.",
+  "text_fixes": {
+    "Ren\ufffd Castro": "René Castro"
+  }
 }
