@@ -5,6 +5,7 @@ degree: PhD
 end: 2019
 defended: "2019"
 thesis: "Greening of catalytic processes using first-row transition metals for atom transfer radical addition and transfer hydrogenation"
+thesis_url: "https://dsc.duq.edu/etd/1828"
 now: "Bureau of Engraving & Printing, Washington, D.C."
 ---
 

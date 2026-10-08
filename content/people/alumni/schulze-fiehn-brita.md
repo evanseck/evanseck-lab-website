@@ -8,5 +8,3 @@ thesis: "Theoretical Assessment of Global and Local Motions in Carbonmonoxy Myog
 now: "Head of Pharmaceutical Development and Drug Supply, 4SC AG, Germany"
 published_as: ["Brita Schulze"]
 ---
-
-Brita is now Head of Pharmaceutical Development and Drug Supply at 4SC AG in Germany.

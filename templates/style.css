@@ -253,6 +253,10 @@ img.photo { width: 100%; object-fit: cover; object-position: center top; }
   padding: 0.6rem 1.1rem; border-radius: 4px; cursor: pointer; }
 .more-btn:hover { border-color: var(--gold); }
 .yr.earlier { display: none; }
+.other-pubs { margin-top: 2.5rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.other-pubs summary { cursor: pointer; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
+.other-pubs summary:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 2px; }
+.other-pubs .pubs { margin-top: 1rem; }
 .show-earlier .yr.earlier { display: grid; }
 
 /* News */

@@ -8,5 +8,3 @@ thesis_type: "Honors thesis"
 thesis: "Ab Initio Investigation of the Decarboxylation Mechanism of Carboxyphosphate in Aqueous Solution using QM/QM and QM/MM"
 now: "Litigation Paralegal, Schiffman Firm, LLC, Pittsburgh, PA"
 ---
-
-Elise is a Litigation Paralegal at Schiffman Firm, LLC in Pittsburgh, PA.

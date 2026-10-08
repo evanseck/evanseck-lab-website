@@ -5,6 +5,7 @@ degree: PhD
 end: 2009
 defended: "August 2009"
 thesis: "New Conceptual Understanding of Lewis Acidity, Coordinate Covalent Bonding, and Catalysis"
+thesis_url: "https://dsc.duq.edu/etd/1052"
 now: "Principal Software Engineer, RoadBotics, Cheswick, PA"
 ---
 

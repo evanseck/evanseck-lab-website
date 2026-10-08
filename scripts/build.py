@@ -228,7 +228,7 @@ def build_home(site, pubs, areas):
     latest = "".join(
         f'<li><a href="{esc(p["doi"] or "#publications")}">{esc(p["title"])}</a>'
         f'<span class="src">{esc(p.get("venue", ""))}{", " if p.get("venue") else ""}{esc(p["year"])}</span></li>'
-        for p in pubs[:4]
+        for p in [q for q in pubs if is_paper(q)][:4]
     )
     tiles = "".join(
         f'<a class="tile" href="#research" data-target="area-{esc(slug)}">'
@@ -358,6 +358,21 @@ def name_keys(name):
     return (words[-1], words[0][0]) if words else None
 
 
+def is_paper(p):
+    """Journal papers only. Meeting abstracts (pages like '359a', FASEB '.s1.' supplements,
+    'Abstracts of papers'), and records without a journal or DOI are listed separately."""
+    pages = str(p.get("pages", "")).strip()
+    doi = str(p.get("doi", "")).lower()
+    venue = str(p.get("venue", "")).lower()
+    if not doi or not venue:
+        return False
+    if re.fullmatch(r"\d+a(\s*[–-]\s*\d+a)?", pages):
+        return False
+    if re.search(r"\.s\d+\.|/s\d+\.|supplement", doi) or "abstracts of papers" in venue or "osti" in venue:
+        return False
+    return True
+
+
 def papers_for(m, pubs, pi_keys):
     keys = {name_keys(m["name"])}
     for alt in m.get("published_as") or []:
@@ -366,6 +381,8 @@ def papers_for(m, pubs, pi_keys):
     keys -= pi_keys
     found = []
     for p in pubs:
+        if not is_paper(p):
+            continue
         for a in p.get("authors", []):
             k = name_keys(a)
             if k and any(k[0] == s and k[1] == f for s, f in keys):
@@ -405,12 +422,11 @@ def alumni_html(alumni, pubs, pi_keys):
                        f'<span class="al-year">{year}</span>{now}</summary>')
             facts = []
             if key in ("phd", "ms"):
-                when = m.get("defended") or m.get("end")
-                facts.append(f'{esc(str(m.get("degree") or "").replace("PhD", "Ph.D."))}, {esc(str(when))}' if when else "")
-            elif m.get("major"):
-                facts.append(f'{esc(m["major"])}, {esc(str(m.get("end", "")))}')
-            elif years_text(m):
-                facts.append(esc(years_text(m)))
+                when = str(m.get("defended") or "")
+                if when and when != str(m.get("end")):
+                    facts.append(f"Defended {esc(when)}")
+            elif m.get("major") and m["major"] != "Chemistry B.S.":
+                facts.append(esc(m["major"]))
             if m.get("co_advisor"):
                 facts.append(f'Co-advised with {esc(m["co_advisor"])}')
             facts = [f for f in facts if f]
@@ -432,20 +448,18 @@ def alumni_html(alumni, pubs, pi_keys):
                     (f'<li><a href="{esc(p["doi"])}">{esc(p["title"])}</a>' if p.get("doi") else f'<li>{esc(p["title"])}')
                     + f' <span class="src">{esc(p.get("venue", ""))}{", " if p.get("venue") else ""}{esc(p["year"])}</span></li>'
                     for p in ps)
-                n = len(ps)
-                papers = f'<div class="al-papers"><span class="al-label">{n} paper{"s" if n != 1 else ""} with the group</span><ul>{lis}</ul></div>'
+                papers = f'<div class="al-papers"><span class="al-label">Papers</span><ul>{lis}</ul></div>'
             body = (f'<div class="al-body">'
                     f'{"<p class=al-facts>" + " &nbsp;|&nbsp; ".join(facts) + "</p>" if facts else ""}'
                     f'{thesis}{story}{f"<p>{links}</p>" if links else ""}{papers}</div>')
             rows.append(f'<li><details>{summary}{body}</details></li>')
         tab_id = f"past-{key}"
         tabs.append(f'<button type="button" role="tab" id="tab-{tab_id}" aria-controls="{tab_id}" aria-selected="false">'
-                    f'{esc(heading)} <span class="count">{len(rows)}</span></button>')
+                    f'{esc(heading)}</button>')
         panels.append(f'<div class="past-panel" role="tabpanel" id="{tab_id}" aria-labelledby="tab-{tab_id}">'
                       f'<h4 class="al-cat">{esc(heading)}</h4><ul class="alumni-list">{"".join(rows)}</ul></div>')
     tablist = f'<div class="past-tabs" role="tablist" aria-label="Past members by degree">{"".join(tabs)}</div>' if len(tabs) > 1 else ""
     return (f'<section class="past" aria-labelledby="past-title"><h3 class="past-title" id="past-title">Past members</h3>'
-            f'<p class="note">Click a name to see their thesis, where they went, and their papers with the group.</p>'
             f'{tablist}{"".join(panels)}</section>')
 
 
@@ -521,7 +535,25 @@ def is_member(author, matchers):
     return False
 
 
-def build_publications(pubs, matchers):
+def cite(p, matchers):
+    authors = ", ".join(f"<b>{esc(a)}</b>" if is_member(a, matchers) else esc(a) for a in p.get("authors", []))
+    c = f'<span class="t">{esc(p["title"])}</span>{authors}. '
+    if p.get("venue"):
+        c += f"<i>{esc(p['venue'])}</i> "
+    c += esc(p["year"])
+    if p.get("volume"):
+        c += f", {esc(p['volume'])}"
+    if p.get("pages"):
+        c += f", {esc(p['pages'])}"
+    c += "."
+    if p.get("doi"):
+        c += f' <a class="doi" href="{esc(p["doi"])}">doi:{esc(doi_url(p["doi"])[1])}</a>'
+    return f"<li>{c}</li>"
+
+
+def build_publications(all_pubs, matchers):
+    pubs = [p for p in all_pubs if is_paper(p)]
+    other = [p for p in all_pubs if not is_paper(p)]
     by_year = {}
     for p in pubs:
         by_year.setdefault(p["year"], []).append(p)
@@ -531,21 +563,7 @@ def build_publications(pubs, matchers):
     cutoff = years[0] - RECENT_YEARS + 1
     blocks, earlier = [], 0
     for y in years:
-        lis = []
-        for p in by_year[y]:
-            authors = ", ".join(f"<b>{esc(a)}</b>" if is_member(a, matchers) else esc(a) for a in p.get("authors", []))
-            c = f'<span class="t">{esc(p["title"])}</span>{authors}. '
-            if p.get("venue"):
-                c += f"<i>{esc(p['venue'])}</i> "
-            c += esc(y)
-            if p.get("volume"):
-                c += f", {esc(p['volume'])}"
-            if p.get("pages"):
-                c += f", {esc(p['pages'])}"
-            c += "."
-            if p.get("doi"):
-                c += f' <a class="doi" href="{esc(p["doi"])}">doi:{esc(doi_url(p["doi"])[1])}</a>'
-            lis.append(f"<li>{c}</li>")
+        lis = [cite(p, matchers) for p in by_year[y]]
         is_earlier = y < cutoff
         earlier += len(by_year[y]) if is_earlier else 0
         blocks.append(f'<div class="yr{" earlier" if is_earlier else ""}"><span>{y}</span><ol class="pubs">{"".join(lis)}</ol></div>')
@@ -560,6 +578,7 @@ def build_publications(pubs, matchers):
     <p class="note">Group members are shown in bold. This list updates automatically each week from <a href="https://openalex.org">OpenAlex</a>.</p>
     <div id="pub-list">{"".join(blocks)}</div>
     {button}
+    {f'<details class="other-pubs"><summary>Conference abstracts and other items</summary><ol class="pubs">{"".join(cite(p, matchers) for p in other)}</ol></details>' if other else ""}
   </section>'''
 
 

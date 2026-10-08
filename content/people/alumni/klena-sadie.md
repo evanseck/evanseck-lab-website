@@ -9,5 +9,3 @@ thesis: "Quantum Models of Methylphosphonate Adsorption onto a Titanium Dioxide 
 now: "Mary Washington Healthcare"
 published_as: ["Sadie Clifford"]
 ---
-
-Sadie is employed at Mary Washington Healthcare.

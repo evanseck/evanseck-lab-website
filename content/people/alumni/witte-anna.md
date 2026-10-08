@@ -8,5 +8,3 @@ thesis_type: "Honors thesis"
 thesis: "Aggregation effects on the conformations and energetics for urea E to Z isomerization"
 now: "Chemical Engineering, Carnegie Mellon University"
 ---
-
-Anna joined the chemical engineering program at Carnegie Mellon University in Pittsburgh.

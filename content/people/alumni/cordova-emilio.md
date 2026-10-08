@@ -8,5 +8,3 @@ thesis: "From Rotaxanes to Molecular Shuttles: Novel Rotaxanes Based on the Incl
 co_advisor: "Prof. Angel Kaifer"
 now: "Chief Executive Officer, SAMDI Tech, Inc."
 ---
-
-Emilio is now Chief Executive Officer at SAMDI Tech, Inc.

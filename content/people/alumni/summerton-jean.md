@@ -8,5 +8,3 @@ thesis: "The Anomeric Effect in Enzyme-Catalyzed Phosphoryl Transfer in Phosphat
 co_advisor: "Prof. Michael Chapman"
 now: "Research Scientist, Gene Tools LLC, Corvallis, OR"
 ---
-
-Jean is now a Research Scientist at Gene Tools LLC, a small biotech company in Corvallis, Oregon.
