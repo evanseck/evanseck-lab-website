@@ -5,7 +5,7 @@ role: |
   Professor of Chemistry and Biochemistry
   Lambert F. Minucci Endowed Chair in Engineering and Computational Sciences
   John V. Crable Chair of Undergraduate Research
-photo: ""
+photo: "images/people/Evanseck.picture.jpg"
 email: evanseck@duq.edu
 links:
   - label: University profile
