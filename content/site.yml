@@ -5,7 +5,7 @@ tagline: Theoretical and computational chemistry
 department: Department of Chemistry and Biochemistry, Duquesne University
 
 # Put the logo file in the images folder and write its name here, e.g. images/logo.png
-logo: ""
+logo: "images/LOGO_lab.png"
 
 contact:
   name: Jeffrey D. Evanseck
