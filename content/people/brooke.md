@@ -1,6 +1,6 @@
 ---
 name: Brooke Soike
-group: undergraduate
+group: undergrad
 role: Undergraduate, Senior
 project: Molecular dynamics of RNA kissing complexes
 photo: "images/people/81FDDACD-5D56-4386-AF72-7E37B860BAEE_1_201_a.jpeg"
