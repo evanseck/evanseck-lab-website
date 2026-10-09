@@ -22,6 +22,8 @@
     "book"
   ],
   "hide_dois": [],
+  "_extra_dois_help": "DOIs to add by hand when OpenAlex has not linked them to Dr. Evanseck yet (e.g. new meeting abstracts). Example: [\"10.1016/j.bpj.2025.11.1234\"]",
+  "extra_dois": [],
   "hide_titles_containing": [],
   "contact_email": "",
   "_text_fixes_help": "Corrections for garbled characters in OpenAlex data. Left side: text as it arrives (� is the broken-character symbol). Right side: what to show.",

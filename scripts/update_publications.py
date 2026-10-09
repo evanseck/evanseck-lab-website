@@ -66,17 +66,35 @@ def find_author_ids():
             extra = [i for i in pinned if i not in ids]
             if extra:
                 print(f"Also including pinned author IDs: {', '.join(extra)}")
-            return ids + extra
+            # OpenAlex often files conference abstracts under a second, unlinked profile.
+            split = [i for i in name_matched_ids() if i not in ids + extra]
+            if split:
+                print(f"Also including profiles with the same name: {', '.join(split)}")
+            return ids + extra + split
         print(f"::warning::No OpenAlex profile is linked to ORCID {orcid} yet; falling back to a name search.")
 
     if pinned:
         print(f"Using pinned OpenAlex author IDs: {', '.join(pinned)}")
         return pinned
 
+    ids = name_matched_ids(verbose=True)
+    if not ids:
+        sys.exit("No matching author profile found. Add IDs to openalex_author_ids in scripts/config.json.")
+    return ids
+
+
+def name_matched_ids(verbose=False):
+    """OpenAlex author profiles whose name matches the surname and first initial."""
+    surname = CONFIG["author_surname"].lower()
     initial = CONFIG.get("author_first_initial", "").lower()
-    data = api_get("authors", {"search": CONFIG["author_surname"], "per-page": 50})
+    try:
+        data = api_get("authors", {"search": CONFIG["author_surname"], "per-page": 50})
+    except Exception as e:
+        print(f"  name search skipped ({e})")
+        return []
     ids = []
-    print("OpenAlex author profiles found:")
+    if verbose:
+        print("OpenAlex author profiles found:")
     for a in data.get("results", []):
         name = a.get("display_name", "")
         parts = name.lower().split()
@@ -86,8 +104,6 @@ def find_author_ids():
               f"({a.get('works_count', 0)} works; {inst or 'no institution listed'})")
         if ok:
             ids.append(a["id"].rsplit("/", 1)[-1])
-    if not ids:
-        sys.exit("No matching author profile found. Add IDs to openalex_author_ids in scripts/config.json.")
     return ids
 
 
@@ -103,7 +119,81 @@ def fetch_works(ids):
         results = data.get("results", [])
         works.extend(results)
         cursor = data.get("meta", {}).get("next_cursor") if results else None
+    seen = {w["id"] for w in works}
+
+    # Recent records that carry the name but are not attached to any profile yet
+    # (common for conference abstracts, e.g. Biophysical Society meeting abstracts).
+    since = f"{datetime.date.today().year - 3}-01-01"
+    try:
+        data = api_get("works", {
+            "filter": f"raw_author_name.search:{CONFIG['author_surname']},from_publication_date:{since}",
+            "per-page": 200,
+            "select": "id,doi,display_name,publication_year,publication_date,type,authorships,primary_location,biblio",
+        })
+        added = 0
+        for w in data.get("results", []):
+            if w["id"] not in seen and has_author_name(w):
+                works.append(w); seen.add(w["id"]); added += 1
+        print(f"{added} more record(s) found by author name since {since}")
+    except Exception as e:
+        print(f"  author-name search skipped ({e})")
+
+    # DOIs added by hand in scripts/config.json ("extra_dois")
+    for doi in CONFIG.get("extra_dois", []):
+        doi = re.sub(r"^https?://(dx\.)?doi\.org/", "", str(doi).strip(), flags=re.I)
+        if not doi:
+            continue
+        w = None
+        try:
+            w = api_get(f"works/doi:{doi}", {})
+        except Exception:
+            w = crossref_work(doi)
+        if w and w.get("id") not in seen:
+            works.append(w); seen.add(w.get("id"))
+            print(f"  added by hand: {doi}")
+        elif not w:
+            print(f"::warning::Could not find DOI {doi} in OpenAlex or Crossref.")
     return works
+
+
+def has_author_name(w):
+    s = CONFIG["author_surname"].lower()
+    for a in w.get("authorships") or []:
+        names = [(a.get("author") or {}).get("display_name") or "", a.get("raw_author_name") or ""]
+        if any(s in n.lower() for n in names):
+            return True
+    return False
+
+
+def crossref_work(doi):
+    """Turn a Crossref record into the same shape as an OpenAlex work (for very new DOIs)."""
+    try:
+        req = urllib.request.Request(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}",
+                                     headers={"User-Agent": "evanseck-group-website (GitHub Action)"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            m = json.load(r)["message"]
+    except Exception:
+        return None
+    parts = (m.get("published") or m.get("issued") or {}).get("date-parts", [[None]])[0]
+    year = parts[0]
+    date = "-".join(f"{x:02d}" if i else str(x) for i, x in enumerate(parts)) if year else ""
+    if len(parts) < 3:
+        date = f"{year}-{(parts + [1, 1])[1]:02d}-01" if year else ""
+    page = m.get("page") or ""
+    first, _, last = page.partition("-")
+    kind = {"journal-article": "article", "proceedings-article": "proceedings-article"}.get(m.get("type"), "other")
+    return {
+        "id": "crossref:" + doi,
+        "doi": "https://doi.org/" + doi,
+        "display_name": (m.get("title") or [""])[0],
+        "publication_year": year,
+        "publication_date": date,
+        "type": kind,
+        "authorships": [{"author": {"display_name": f'{a.get("given", "")} {a.get("family", "")}'.strip(),
+                                    "orcid": a.get("ORCID")}} for a in m.get("author", [])],
+        "primary_location": {"source": {"display_name": (m.get("container-title") or [""])[0]}},
+        "biblio": {"volume": m.get("volume"), "first_page": first or None, "last_page": last or None},
+    }
 
 
 def clean(text):
