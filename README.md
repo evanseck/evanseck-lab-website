@@ -133,6 +133,17 @@ Go to the **Actions** tab and click the latest run. A yellow warning names the f
 problem (for example, a missing colon or a photo that wasn't uploaded). A broken file is
 skipped, so the rest of the site keeps working. Fix the file and commit again.
 
+## Journal covers (automatic)
+
+Every week the site looks for journal covers featuring the group's papers: cover records that
+publishers register ("Front Cover: ...", "Cover Picture: ..."), and, for ACS papers, wording on
+the paper's page such as "featured on the cover". A cover that is found appears under the
+research area that lists the paper, in a "Journal covers" gallery on the Publications page, and
+as a "Cover" tag next to the paper. ACS sometimes blocks automated reading; the Actions log then
+says so and the check simply tries again the next week. Covers can always be added by hand
+(see `images/covers/README.md`). If a cover is picked up by mistake, add the paper's DOI to
+`"hide"` under `"covers"` in `scripts/config.json`.
+
 ## Publications (automatic)
 
 Every Monday, the site fetches Dr. Evanseck's papers from OpenAlex and rebuilds the page.

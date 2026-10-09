@@ -138,6 +138,21 @@ def to_entry(w):
     }
 
 
+COVER_TITLE = re.compile(r"^\s*(front|back|inside(?: front| back)?|outside(?: front| back)?|supplementary|journal)?\s*"
+                         r"(cover|cover picture|cover image|cover feature|cover art|frontispiece)\b", re.I)
+
+
+def cover_items(works):
+    """Publisher records for journal covers ('Front Cover: ...', 'Cover Picture: ...')."""
+    out = {}
+    for w in works:
+        e = to_entry(w)
+        if e and COVER_TITLE.search(e["title"]):
+            e.pop("_type", None)
+            out[e["doi"] or e["title"]] = e
+    return sorted(out.values(), key=lambda e: e["date"], reverse=True)
+
+
 def process(works):
     include = set(CONFIG.get("include_types") or [])
     hide_dois = {d.lower().replace("https://doi.org/", "") for d in CONFIG.get("hide_dois", [])}
@@ -146,7 +161,7 @@ def process(works):
     best = {}
     for w in works:
         e = to_entry(w)
-        if not e or (include and e["_type"] not in include):
+        if not e or (include and e["_type"] not in include) or COVER_TITLE.search(e["title"]):
             continue
         doi = e["doi"].lower().replace("https://doi.org/", "")
         if doi and doi in hide_dois:
@@ -182,7 +197,7 @@ def main():
         sys.exit(f"Publication count dropped from {len(old_pubs)} to {len(pubs)}; "
                  "leaving the existing file unchanged. Check the log above.")
 
-    if pubs == old_pubs and old.get("highlight") == CONFIG.get("highlight_names"):
+    if pubs == old_pubs and old.get("highlight") == CONFIG.get("highlight_names") and cover_items(works) == old.get("cover_items", []):
         print("No changes.")
         return
 
@@ -193,6 +208,7 @@ def main():
         "author_ids": ids,
         "highlight": CONFIG.get("highlight_names", []),
         "publications": pubs,
+        "cover_items": cover_items(works),
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote data/{OUT.name}")
 

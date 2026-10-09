@@ -26,5 +26,12 @@ papers:
   - 10.1021/acsphyschemau.3c00008
   - 10.1093/nar/gkab1226
   - 10.1080/15476286.2023.2171760
+
+# Journal covers. Paste the journal's issue page (the site downloads the cover itself),
+# or an image address, or the name of an image uploaded to images/covers/.
+covers:
+  - issue: https://pubs.acs.org/apcach/issue/3/1
+    doi: 10.1021/acsphyschemau.2c00032
+    label: "ACS Physical Chemistry Au, January 2023"
 ---
 We run molecular dynamics simulations of conserved RNA elements, including the s2m element found in coronavirus genomes. We study how single mutations change its flexibility and entropy, how two copies pair through a kissing-loop interaction, and how these structures might interact with host microRNAs. Related work examines how chemical modification of histone mRNA alters its binding to partner proteins.

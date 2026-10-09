@@ -20,6 +20,7 @@ import sys
 
 import markdown
 import yaml
+import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
@@ -33,6 +34,8 @@ PEOPLE_GROUPS = [
     ("undergrad", "Honors undergraduates"),
 ]
 DISSERTATIONS = []  # filled in main() from data/dissertations.json
+AUTO_COVERS = []    # filled in main() from data/covers.json (weekly cover check)
+SHOWN_COVERS = {}   # doi -> (image, label) for every cover on the site
 
 ALUMNI_CATEGORIES = [  # (key, heading); order on the page
     ("postdoc", "Postdoctoral researchers"),
@@ -267,6 +270,65 @@ def build_home(site, pubs, areas):
   </section>'''
 
 
+def fetch_cover(c, path):
+    """Get a cover image from the web (an image address, or the journal's issue page) and save it
+    into the built site. Runs on GitHub, which can reach journal websites."""
+    import hashlib
+    import urllib.request
+    src = str(c.get("image") or "")
+    issue = str(c.get("issue") or "")
+    key = hashlib.md5((src or issue).encode()).hexdigest()[:12]
+    rel = f"images/covers/auto-{key}.jpg"
+    if (OUT / rel).exists():
+        return rel
+    ua = {"User-Agent": "Mozilla/5.0 (evanseck-group-website build)", "Accept": "text/html,image/*,*/*"}
+    try:
+        if not src and issue:
+            page = urllib.request.urlopen(urllib.request.Request(issue, headers=ua), timeout=25).read().decode("utf-8", "replace")
+            m = (re.search(r'<img[^>]+src="([^"]*(?:largecover|cover)[^"]*\.(?:jpe?g|png|gif))"', page, re.I)
+                 or re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page, re.I))
+            if not m:
+                warn(path, f"no cover image found on {issue}; paste the image address under image: instead.")
+                return ""
+            src = urllib.parse.urljoin(issue, html.unescape(m.group(1)))
+        data = urllib.request.urlopen(urllib.request.Request(src, headers=ua), timeout=25).read()
+        (OUT / "images" / "covers").mkdir(parents=True, exist_ok=True)
+        (OUT / rel).write_bytes(data)
+        return rel
+    except Exception as e:
+        warn(path, f"could not download cover ({e}); upload the image to images/covers/ instead.")
+        return ""
+
+
+def covers_html(covers, pubs_by_doi, path):
+    """Journal covers featuring the group's work: thumbnail linked to the paper."""
+    if not covers:
+        return ""
+    cards = []
+    for c in covers:
+        if not isinstance(c, dict):
+            continue
+        if str(c.get("image") or "").startswith("http") or (c.get("issue") and not c.get("image")):
+            img = fetch_cover(c, path)
+        else:
+            img = image(c.get("image"), path)
+        if not img:
+            continue
+        url, bare = doi_url(c["doi"]) if c.get("doi") else ("", "")
+        p = pubs_by_doi.get(bare.lower()) if bare else None
+        label = c.get("label") or (", ".join(x for x in [p.get("venue", ""), str(p.get("year", ""))] if x) if p else "")
+        if bare:
+            SHOWN_COVERS.setdefault(bare.lower(), (img, label))
+        alt = f'Journal cover: {label}' if label else "Journal cover"
+        pic = f'<img src="{esc(img)}" alt="{esc(alt)}" loading="lazy">'
+        if url:
+            pic = f'<a href="{esc(url)}" aria-label="{esc(alt)}, read the paper">{pic}</a>'
+        cards.append(f'<figure class="cover">{pic}{f"<figcaption>{esc(label)}</figcaption>" if label else ""}</figure>')
+    if not cards:
+        return ""
+    return f'<div class="covers"><h4>Journal covers</h4><div class="cover-row">{"".join(cards)}</div></div>'
+
+
 def build_research(areas, pubs_by_doi):
     meta, body = read_md(CONTENT / "research.md") or ({}, "")
     out = []
@@ -282,7 +344,13 @@ def build_research(areas, pubs_by_doi):
             if credit:
                 parts.append(f'<span class="credit">{esc(credit)}</span>')
             fig_html = f'<figure class="area-fig">{fig}{"<figcaption>" + " ".join(parts) + "</figcaption>" if parts else ""}</figure>'
-        extra = collaborators_html(m.get("collaborators")) + key_papers_html(m.get("papers"), pubs_by_doi, path)
+        covers = list(m.get("covers") or [])
+        listed = {doi_url(c.get("doi", ""))[1].lower() for c in covers if isinstance(c, dict)}
+        area_dois = {doi_url(d)[1].lower() for d in (m.get("papers") or [])}
+        covers += [{"image": c["image"], "doi": c["doi"], "label": c.get("label", "")}
+                   for c in AUTO_COVERS if c["doi"] in area_dois and c["doi"] not in listed]
+        extra = (collaborators_html(m.get("collaborators")) + key_papers_html(m.get("papers"), pubs_by_doi, path)
+                 + covers_html(covers, pubs_by_doi, path))
         out.append(f'<article class="area{" has-fig" if fig else ""}" id="area-{esc(slug)}">'
                    f'<div class="area-text"><h3>{esc(m["title"])}</h3>{md(b)}{extra}</div>{fig_html}</article>')
     return f'''
@@ -593,7 +661,30 @@ def cite(p, matchers):
     c += "."
     if p.get("doi"):
         c += f' <a class="doi" href="{esc(p["doi"])}">doi:{esc(doi_url(p["doi"])[1])}</a>'
+        if doi_url(p["doi"])[1].lower() in SHOWN_COVERS:
+            c += ' <span class="cover-badge">Cover</span>'
     return f"<li>{c}</li>"
+
+
+def register_auto_covers(pubs):
+    """Automatic covers that are not under a research area still go in the gallery."""
+    by_doi = {doi_url(p["doi"])[1].lower(): p for p in pubs if p.get("doi")}
+    for c in AUTO_COVERS:
+        p = by_doi.get(c["doi"])
+        label = c.get("label") or (f'{p.get("venue", "")}, {p.get("year", "")}' if p else "")
+        SHOWN_COVERS.setdefault(c["doi"], (c["image"], label))
+    return ""
+
+
+def covers_gallery():
+    if not SHOWN_COVERS:
+        return ""
+    cards = "".join(
+        f'<figure class="cover"><a href="https://doi.org/{esc(d)}" aria-label="Journal cover: {esc(label)}, read the paper">'
+        f'<img src="{esc(img)}" alt="Journal cover: {esc(label)}" loading="lazy"></a>'
+        f'{f"<figcaption>{esc(label)}</figcaption>" if label else ""}</figure>'
+        for d, (img, label) in SHOWN_COVERS.items())
+    return f'<div class="covers pub-covers"><h3>Journal covers</h3><div class="cover-row">{cards}</div></div>'
 
 
 def build_publications(all_pubs, matchers):
@@ -621,6 +712,7 @@ def build_publications(all_pubs, matchers):
   <section class="page" id="publications">
     <h2>Publications</h2>
     <p class="note">Group members are shown in bold. This list updates automatically each week from <a href="https://openalex.org">OpenAlex</a>.</p>
+    {covers_gallery()}
     <div id="pub-list">{"".join(blocks)}</div>
     {button}
     {f'<details class="other-pubs"><summary>Conference abstracts and other items</summary><ol class="pubs">{"".join(cite(p, matchers) for p in other)}</ol></details>' if other else ""}
@@ -780,13 +872,20 @@ def main():
                   f'<meta property="og:description" content="{esc(description)}">\n'
                   + (f'<meta property="og:image" content="{esc(url + logo)}">\n' if logo else ""))
 
-    global DISSERTATIONS
+    global DISSERTATIONS, AUTO_COVERS
     DISSERTATIONS = load_dissertations()
+    cf = ROOT / "data" / "covers.json"
+    AUTO_COVERS = [c for c in (json.loads(cf.read_text(encoding="utf-8")).get("covers", []) if cf.exists() else [])
+                   if (ROOT / c.get("image", "")).is_file()]
+    if OUT.exists():
+        shutil.rmtree(OUT)
+    OUT.mkdir()
     areas = research_areas()
     body = "".join([
         build_home(site, pubs, areas),
         build_research(areas, {doi_url(p['doi'])[1].lower(): p for p in pubs if p.get('doi')}),
         build_people(people, alumni, pubs),
+        register_auto_covers(pubs),
         build_publications(pubs, name_matchers(people + alumni, config)),
         build_teaching(),
         build_join(site),
@@ -851,13 +950,10 @@ def main():
 </body>
 </html>
 '''
-    if OUT.exists():
-        shutil.rmtree(OUT)
-    OUT.mkdir()
     (OUT / "index.html").write_text(page, encoding="utf-8")
     for folder in ("images", "fonts", "theses"):
         if (ROOT / folder).exists():
-            shutil.copytree(ROOT / folder, OUT / folder)
+            shutil.copytree(ROOT / folder, OUT / folder, dirs_exist_ok=True)
     (OUT / ".nojekyll").write_text("")
 
     print(f"Built _site/index.html: {len(people)} people, {len(pubs)} publications.")

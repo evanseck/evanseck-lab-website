@@ -31,5 +31,11 @@
     "advisor_surname": "Evanseck",
     "seconds_between_requests": 1.0,
     "max_pages_per_run": 4000
+  },
+  "covers": {
+    "_help": "Weekly check for journal covers featuring the group's papers. Add a paper's DOI to 'hide' to remove a cover that was picked up by mistake.",
+    "hide": [],
+    "check_acs_pages": true,
+    "seconds_between_requests": 2.0
   }
 }
