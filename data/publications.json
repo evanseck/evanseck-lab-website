@@ -2,7 +2,9 @@
   "source": "OpenAlex",
   "updated": "2026-10-09",
   "author_ids": [
-    "A5056080018"
+    "A5056080018",
+    "A5150938311",
+    "A5066182586"
   ],
   "highlight": [
     "Evanseck"
@@ -764,6 +766,32 @@
       "volume": "86",
       "pages": "11502–11518",
       "doi": "https://doi.org/10.1021/acs.joc.1c01047",
+      "type": "article"
+    },
+    {
+      "title": "Molecular Dynamic Simulations of Folding and Dimerization in Mutations Found in the s2m Motif of SARS‐Cov‐2",
+      "year": 2021,
+      "date": "2021-05-01",
+      "authors": [
+        "Nicole Mackenstein",
+        "Kendy A. Pellegrene",
+        "Morgan Shine",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu",
+        "Jeffery Evanseck"
+      ],
+      "orcids": [
+        "",
+        "",
+        "0000-0002-8307-4210",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699",
+        ""
+      ],
+      "venue": "The FASEB Journal",
+      "volume": "35",
+      "pages": "",
+      "doi": "https://doi.org/10.1096/fasebj.2021.35.s1.03761",
       "type": "article"
     },
     {
