@@ -507,6 +507,14 @@ def logo_signals_svg():
             f'{paths}{pads}</svg>')
 
 
+def dept_html(d):
+    """A department line: plain text, or {name, url} to make it a link."""
+    if isinstance(d, dict):
+        name = esc(d.get("name", ""))
+        return f'<a href="{esc(web(d["url"]))}">{name}</a>' if d.get("url") else name
+    return esc(d)
+
+
 def credits_html():
     """Small "Site credits" corner in the footer, from content/credits.yml."""
     f = CONTENT / "credits.yml"
@@ -1075,6 +1083,9 @@ def main():
 
     mark = image(site.get("mark"), site_file)
     mark_dark = image(site.get("mark_dark"), site_file) or mark
+    depts = site.get("departments") or ([site["department"]] if site.get("department") else [])
+    if isinstance(depts, str):
+        depts = [depts]
     hero_mark = (f'<div class="hero-mark" aria-hidden="true"><img class="logo-light" src="{esc(mark)}" alt="">'
                  f'<img class="logo-dark" src="{esc(mark_dark)}" alt="">{logo_signals_svg()}</div>') if mark else ""
     nav_icon = f'<img src="{esc(icon)}" alt="">' if icon else ""
@@ -1160,7 +1171,7 @@ function coverFailed(img) {{
     <div class="hero-text">
       <h1 class="hero-title">{esc(name)}</h1>
       {f'<p class="hero-lede">{esc(lede)}</p>' if lede else ""}
-      <p class="hero-meta">{esc(site.get("tagline", ""))}<br>{esc(site.get("department", ""))}</p>
+      <p class="hero-meta">{"<br>".join([esc(site.get("tagline", ""))] + [dept_html(d) for d in depts])}</p>
     </div>
   </div>
 </header>
@@ -1186,7 +1197,7 @@ function coverFailed(img) {{
   </div>
   <div class="wrap">{credits_html()}</div>
   <div class="wrap"><div class="footer-base">
-    <span>{esc(site.get("department", ""))}</span>
+    <span>{" · ".join(dept_html(d) for d in depts)}</span>
     <span>Updated {datetime.date.today().strftime("%B %-d, %Y")}</span>
   </div></div>
 </footer>

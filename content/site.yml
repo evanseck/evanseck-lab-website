@@ -2,8 +2,13 @@
 
 name: Evanseck Research Group
 tagline: Theoretical and computational chemistry
-department: Department of Chemistry and Biochemistry
-department: Center for Computational Sciences
+# Departments shown under the title at the top of the page and at the bottom of every page.
+# One per line, each starting with "  - ". To make one a link, write it like this instead:
+#   - name: Center for Computational Sciences
+#     url: https://...
+departments:
+  - Department of Chemistry and Biochemistry
+  - Center for Computational Sciences
 
 # The site's web address (used when the link is shared on social media or in messages)
 url: https://evanseck.github.io/evanseck-lab-website/
