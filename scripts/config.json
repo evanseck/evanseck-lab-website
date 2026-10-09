@@ -24,6 +24,8 @@
   "hide_dois": [],
   "_extra_dois_help": "DOIs to add by hand when OpenAlex has not linked them to Dr. Evanseck yet (e.g. new meeting abstracts). Example: [\"10.1016/j.bpj.2025.11.1234\"]",
   "extra_dois": [],
+  "_abstract_journal_issns_help": "Journals searched first in Crossref for meeting abstracts (0006-3495 = Biophysical Journal, where BPS abstracts are published).",
+  "abstract_journal_issns": ["0006-3495", "1542-0086"],
   "hide_titles_containing": [],
   "contact_email": "",
   "_text_fixes_help": "Corrections for garbled characters in OpenAlex data. Left side: text as it arrives (� is the broken-character symbol). Right side: what to show.",

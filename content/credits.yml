@@ -1,5 +1,6 @@
 # Site credits, shown in a small "Site credits" corner at the bottom of every page.
 # Add, remove or reorder entries freely. Each entry needs "what" and "who"; "link" is optional.
+# Several names in one entry: separate names and links with commas, in the same order.
 # Indentation matters: use spaces, not tabs.
 
 credits:
@@ -15,8 +16,8 @@ credits:
     link: https://www.instagram.com/biomoleculemonday?cplk=NnRoeThpOWh6N2J0
 
   - what: Publication list
-    who: OpenAlex
-    link: https://openalex.org
+    who: OpenAlex, Crossref
+    link: https://openalex.org, https://www.crossref.org
 
   - what: Dissertation records
     who: Duquesne Scholarship Collection

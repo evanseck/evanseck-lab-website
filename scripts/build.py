@@ -531,9 +531,19 @@ def credits_html():
     for c in data.get("credits") or []:
         if not isinstance(c, dict) or not c.get("what") or not c.get("who"):
             continue
-        who = esc(c["who"])
-        if c.get("link"):
-            who = f'<a href="{esc(web(c["link"]))}">{who}</a>'
+        # Several names and links can share one entry:
+        #   who: OpenAlex, Crossref        (or a list)
+        #   link: https://openalex.org, https://www.crossref.org
+        def as_list(v):
+            return [x.strip() for x in (v if isinstance(v, list) else str(v).split(",")) if str(x).strip()]
+        links = as_list(c["link"]) if c.get("link") else []
+        names = as_list(c["who"]) if len(links) > 1 or isinstance(c["who"], list) else [str(c["who"])]
+        if len(links) > 1 and len(links) == len(names):
+            who = ", ".join(f'<a href="{esc(web(l))}">{esc(n)}</a>' for n, l in zip(names, links))
+        elif links:
+            who = f'<a href="{esc(web(links[0]))}">{esc(", ".join(names))}</a>'
+        else:
+            who = esc(", ".join(names))
         rows += f'<div class="cr-row"><dt>{esc(c["what"])}</dt><dd>{who}</dd></div>'
     if not rows:
         return ""

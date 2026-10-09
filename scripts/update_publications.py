@@ -207,19 +207,31 @@ def crossref_search():
     since = f"{datetime.date.today().year - 4}-01-01"
     surname = CONFIG["author_surname"].lower()
     initial = CONFIG.get("author_first_initial", "").lower()
-    out, offset = [], 0
-    while True:
-        msg = crossref_get("works", {"query.author": CONFIG["author_surname"],
-                                     "filter": f"from-pub-date:{since}", "rows": 100, "offset": offset})
-        items = msg.get("items", [])
-        for m in items:
-            if any((a.get("family") or "").lower() == surname and
-                   (not initial or (a.get("given") or "").lower().startswith(initial)) for a in m.get("author", [])):
-                out.append(crossref_to_work(m))
-        offset += len(items)
-        if not items or offset >= min(msg.get("total-results", 0), 500):
-            break
-        time.sleep(1)
+    def mine(m):
+        return any(surname in (a.get("family") or "").lower() and
+                   (not initial or (a.get("given") or "").lower().startswith(initial)) for a in m.get("author", []))
+
+    out, seen = [], set()
+    # A focused search in the journals where the group's meeting abstracts appear (Biophysical
+    # Journal for BPS), then a general search across all journals.
+    passes = [{"filter": f"issn:{i},from-pub-date:{since}"} for i in CONFIG.get("abstract_journal_issns", [])]
+    passes.append({"filter": f"from-pub-date:{since}"})
+    for extra in passes:
+        offset = 0
+        while True:
+            msg = crossref_get("works", {"query.author": CONFIG["author_surname"], "rows": 100,
+                                         "offset": offset, **extra})
+            items = msg.get("items", [])
+            for m in items:
+                d = (m.get("DOI") or "").lower()
+                if d not in seen and mine(m):
+                    seen.add(d)
+                    out.append(crossref_to_work(m))
+                    print(f"  Crossref: {(m.get('title') or [''])[0][:80]}  ({d})")
+            offset += len(items)
+            if not items or offset >= min(msg.get("total-results", 0), 500):
+                break
+            time.sleep(1)
     return out
 
 
