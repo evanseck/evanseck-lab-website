@@ -423,11 +423,16 @@ def duquesne_news_items():
     if not f.exists():
         return []
     out = []
+    years = int(json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8"))
+                .get("duquesne_news", {}).get("years", 3))
+    since = datetime.date.today() - datetime.timedelta(days=round(365.25 * years))
     for i in json.loads(f.read_text(encoding="utf-8")).get("items", []):
         try:
             d = datetime.date.fromisoformat(i["date"])
         except (KeyError, ValueError):
             continue
+        if d < since:
+            continue                                    # older than the window (default 3 years)
         times = "Times" in i.get("source", "")
         m = {"title": i["title"], "link": i["url"],
              "link_text": "Read it in the Duquesne Times" if times else "Read the story",

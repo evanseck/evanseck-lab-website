@@ -205,6 +205,9 @@ def main():
     names = member_names()
     pattern = name_pattern(names)
     recheck = CONFIG.get("recheck_monthly", [])
+    years = int(CONFIG.get("years", 3))
+    since = today - datetime.timedelta(days=round(365.25 * years))
+    print(f"Keeping stories from the last {years} years (since {since.isoformat()}).")
     print("Looking for: " + ", ".join(names))
 
     todo = []
@@ -214,7 +217,7 @@ def main():
         if not last or (monthly and (today - datetime.date.fromisoformat(last)).days > 30):
             todo.append((u, None, "Duquesne University"))
     for d, u in times_issues():
-        if u not in checked:
+        if d >= since and u not in checked:          # older newsletter issues are not read at all
             todo.append((u, d, "Duquesne University Times"))
     print(f"{len(todo)} page(s) to read this run.")
     if len(todo) > MAX_PAGES:
@@ -236,6 +239,9 @@ def main():
         if hits:
             title = title_of(page)
             date = issue_date or page_date(page)
+            if date and date < since:
+                time.sleep(DELAY)
+                continue
             if "science-and-engineering" in url:
                 source = "School of Science and Engineering"
             # A newsletter mentions many people: keep each paragraph about us as its own item.
@@ -258,8 +264,8 @@ def main():
         time.sleep(DELAY)
 
     hide = [h.lower() for h in CONFIG.get("hide", [])]
-    kept = [i for i in items.values()
-            if not any(h in i["url"].lower() or h in (i["title"] + " " + i["excerpt"]).lower() for h in hide)]
+    kept = [i for i in items.values() if i["date"] >= since.isoformat()
+            and not any(h in i["url"].lower() or h in (i["title"] + " " + i["excerpt"]).lower() for h in hide)]
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps({
         "updated": today.isoformat(),

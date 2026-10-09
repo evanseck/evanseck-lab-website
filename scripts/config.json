@@ -56,6 +56,7 @@
   },
   "duquesne_news": {
     "_help": "Weekly search of Duquesne's own news for stories that mention Dr. Evanseck or a current group member (see scripts/update_news.py). To hide a story, add its web address, or a few words from it, to 'hide'.",
+    "years": 3,
     "names": [
       "Evanseck"
     ],
