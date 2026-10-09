@@ -1,0 +1,32 @@
+# Site credits, shown in a small "Site credits" corner at the bottom of every page.
+# Add, remove or reorder entries freely. Each entry needs "what" and "who"; "link" is optional.
+# Indentation matters: use spaces, not tabs.
+
+credits:
+  - what: Website design and development
+    who: Sumaiya Tasnim
+
+  - what: Publication list
+    who: OpenAlex, updated weekly
+    link: https://openalex.org
+
+  - what: Dissertation records
+    who: Duquesne Scholarship Collection
+    link: https://dsc.duq.edu
+
+  - what: Journal covers
+    who: American Chemical Society; each cover links to its issue
+
+  - what: Typeface
+    who: CMU Serif by Andrey V. Panov (SIL Open Font License)
+    link: https://cm-unicode.sourceforge.io
+
+  - what: Hosting
+    who: GitHub Pages
+    link: https://pages.github.com
+
+# More examples:
+#  - what: Lab logo
+#    who: Name
+#  - what: Group photos
+#    who: Name

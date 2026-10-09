@@ -254,20 +254,7 @@ def build_home(site, pubs, areas):
         f'<span class="tile-title">{esc(m["title"])}</span></a>'
         for path, m, b, slug in areas
     )
-    news = sorted(items("news"), key=lambda x: str(x[1].get("date", "")), reverse=True)
-    news_html = ""
-    if news:
-        rows = []
-        for path, m, b in news[:8]:
-            d = m.get("date")
-            try:
-                d = d if isinstance(d, datetime.date) else datetime.date.fromisoformat(str(d))
-                label = d.strftime("%B %Y")
-            except ValueError:
-                warn(path, "date should look like 2026-10-15; showing it as written.")
-                label = str(d)
-            rows.append(f'<li><time>{esc(label)}</time><div>{md(b)}</div></li>')
-        news_html = '<h2 class="section-title">News</h2><ul class="news">' + "".join(rows) + "</ul>"
+    news_html = latest_news_html(news_items())
     return f'''
   <section class="page" id="home">
     <div class="split">
@@ -395,6 +382,153 @@ def covers_html(covers, pubs_by_doi, path):
     if not cards:
         return ""
     return f'<div class="covers"><h4>Journal covers</h4><div class="cover-row">{"".join(cards)}</div></div>'
+
+
+NEWS_CATEGORIES = [("accomplishment", "Accomplishments"), ("seminar", "Seminar reviews"), ("news", "Group news")]
+NEWS_TAGS = {"accomplishment": "Accomplishment", "seminar": "Seminar review", "news": "Group news"}
+
+
+def news_items():
+    out = []
+    for path, m, b in items("news"):
+        if not m.get("title"):
+            warn(path, "skipped: news needs a 'title:' line.")
+            continue
+        d = m.get("date")
+        month_only = bool(re.fullmatch(r"\d{4}-\d{2}", str(d)))   # "2023-01" shows as "January 2023"
+        try:
+            d = d if isinstance(d, datetime.date) else datetime.date.fromisoformat(str(d) + ("-01" if month_only else ""))
+        except ValueError:
+            warn(path, "skipped: 'date:' should look like 2026-10-15 (or 2026-10 for a month).")
+            continue
+        cat = str(m.get("category", "news")).strip().lower()
+        if cat not in dict(NEWS_CATEGORIES):
+            warn(path, f"category '{cat}' unknown; using 'news' (use accomplishment, seminar or news).")
+            cat = "news"
+        photos = [ph for ph in (m.get("photos") or []) if image(ph, path)]
+        out.append({"path": path, "slug": "news-" + path.stem, "m": m, "body": b, "date": d, "month_only": month_only,
+                    "cat": cat, "photos": photos})
+    return sorted(out, key=lambda n: n["date"], reverse=True)
+
+
+def news_date(n):
+    d = n["date"]
+    return f"{d.strftime('%B')} {d.year}" if n.get("month_only") else f"{d.strftime('%B')} {d.day}, {d.year}"
+
+
+def build_news(news):
+    if not news:
+        posts = '<p class="note">News will appear here.</p>'
+    else:
+        posts = ""
+        for n in news:
+            m = n["m"]
+            label = NEWS_TAGS[n["cat"]]
+            meta = []
+            if n["cat"] == "seminar":
+                who = ", ".join(x for x in [m.get("speaker", ""), m.get("speaker_affiliation", "")] if x)
+                where = ", ".join(x for x in [m.get("event", ""), m.get("location", "")] if x)
+                if who:
+                    meta.append(f'<span class="nw-who">Speaker: {esc(who)}</span>')
+                if where:
+                    meta.append(f'<span class="nw-where">{esc(where)}</span>')
+            if m.get("author"):
+                meta.append(f'<span class="nw-by">Written by {esc(m["author"])}</span>')
+            photos = ""
+            if n["photos"]:
+                first, rest = n["photos"][0], n["photos"][1:]
+                cap = f'<figcaption>{esc(m["photo_caption"])}</figcaption>' if m.get("photo_caption") else ""
+                thumbs = "".join(f'<a href="{esc(ph)}" target="_blank" rel="noopener"><img src="{esc(web_copy(ph, 400))}" alt="" loading="lazy"></a>' for ph in rest)
+                photos = (f'<figure class="nw-photo"><a href="{esc(first)}" target="_blank" rel="noopener">'
+                          f'<img src="{esc(web_copy(first, 900))}" alt="{esc(m.get("photo_alt") or m["title"])}" loading="lazy"></a>{cap}'
+                          f'{f"<div class=nw-thumbs>{thumbs}</div>" if thumbs else ""}</figure>')
+            body = md(n["body"])
+            paras = re.findall(r"<p>.*?</p>", body, re.S)
+            if n["cat"] == "seminar" and len(paras) > 1:   # long reviews: first paragraph, then "Read the full review"
+                body = paras[0] + f'<details class="nw-more"><summary>Read the full review</summary>{body.replace(paras[0], "", 1)}</details>'
+            link = f'<p><a href="{esc(web(m["link"]))}">{esc(m.get("link_text") or "More")}</a></p>' if m.get("link") else ""
+            posts += (f'<article class="nw-post{" has-photo" if photos else ""}" id="{esc(n["slug"])}" data-cat="{n["cat"]}">'
+                      f'<div class="nw-text"><p class="nw-top"><time datetime="{n["date"].isoformat()}">{news_date(n)}</time>'
+                      f'<span class="nw-tag nw-{n["cat"]}">{esc(label)}</span></p>'
+                      f'<h3>{esc(m["title"])}</h3>{f"<p class=nw-meta>{"".join(meta)}</p>" if meta else ""}{body}{link}</div>'
+                      f'{photos}</article>')
+    used = [c for c, _ in NEWS_CATEGORIES if any(n["cat"] == c for n in news)]
+    chips = ""
+    if len(used) > 1:
+        chips = ('<div class="nw-filter" role="group" aria-label="Show news by type">'
+                 '<button type="button" data-filter="all" aria-pressed="true">All</button>'
+                 + "".join(f'<button type="button" data-filter="{c}" aria-pressed="false">{esc(l)}</button>'
+                           for c, l in NEWS_CATEGORIES if c in used) + "</div>")
+    return f'''
+  <section class="page" id="news">
+    <h2>News</h2>
+    {chips}
+    <div class="nw-list">{posts}</div>
+  </section>'''
+
+
+def latest_news_html(news, count=3):
+    if not news:
+        return ""
+    cards = ""
+    for n in news[:count]:
+        img = f'<img src="{esc(web_copy(n["photos"][0], 400))}" alt="" loading="lazy">' if n["photos"] else ""
+        teaser = re.sub(r"<[^>]+>", "", md(n["body"]).split("</p>")[0])
+        teaser = (teaser[:150].rsplit(" ", 1)[0] + "…") if len(teaser) > 150 else teaser
+        cards += (f'<a class="nw-card" href="#news" data-target="{esc(n["slug"])}">'
+                  f'{f"<span class=nw-card-img>{img}</span>" if img else ""}'
+                  f'<span class="nw-card-text"><span class="nw-top"><time>{news_date(n)}</time>'
+                  f'<span class="nw-tag nw-{n["cat"]}">{esc(NEWS_TAGS[n["cat"]])}</span></span>'
+                  f'<span class="nw-card-title">{esc(n["m"]["title"])}</span>'
+                  f'<span class="nw-card-teaser">{esc(html.unescape(teaser))}</span></span></a>')
+    return (f'<div class="section-head"><h2 class="section-title">News</h2><a class="more-link" href="#news">All news</a></div>'
+            f'<div class="nw-cards">{cards}</div>')
+
+
+def logo_signals_svg():
+    """Gold signals running along the logo's own circuit lines (traced by scripts/trace_logo.py)."""
+    f = ROOT / "data" / "logo-circuit.json"
+    if not f.exists():
+        return ""
+    import random
+    data = json.loads(f.read_text(encoding="utf-8"))
+    rnd = random.Random(7)
+    paths = ""
+    for p in data.get("paths", []):
+        length = max(p["length"], 1)
+        dash = min(35, 100 * 38 / length)                 # each signal is about 38 px long
+        travel = length / 95                               # seconds to cross, at ~95 px per second
+        cycle = travel / 0.4 + rnd.uniform(0, 3)
+        paths += (f'<path class="ls" pathLength="100" d="{p["d"]}" style="stroke-dasharray:{dash:.1f} 300;'
+                  f'--lt:{cycle:.1f}s;--ld:{rnd.uniform(0, 6):.1f}s"/>')
+    pads = "".join(f'<circle class="lg" cx="{c["x"]}" cy="{c["y"]}" r="{c["r"]}" style="--ld:{i * 1.7:.1f}s"/>'
+                   for i, c in enumerate(data.get("pads", [])))
+    return (f'<svg class="logo-signals" viewBox="0 0 {data["width"]} {data["height"]}" aria-hidden="true" focusable="false">'
+            f'{paths}{pads}</svg>')
+
+
+def credits_html():
+    """Small "Site credits" corner in the footer, from content/credits.yml."""
+    f = CONTENT / "credits.yml"
+    if not f.exists():
+        return ""
+    try:
+        data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError as e:
+        warn(f, f"could not read the credits file ({e}); check the indentation.")
+        return ""
+    rows = ""
+    for c in data.get("credits") or []:
+        if not isinstance(c, dict) or not c.get("what") or not c.get("who"):
+            continue
+        who = esc(c["who"])
+        if c.get("link"):
+            who = f'<a href="{esc(web(c["link"]))}">{who}</a>'
+        rows += f'<div class="cr-row"><dt>{esc(c["what"])}</dt><dd>{who}</dd></div>'
+    if not rows:
+        return ""
+    return (f'<aside class="credits" aria-labelledby="credits-h"><h2 id="credits-h">Site credits</h2>'
+            f'<dl>{rows}</dl></aside>')
 
 
 def build_research(areas, pubs_by_doi):
@@ -855,6 +989,7 @@ SCRIPT = """
     show();
     const el = pendingTarget && document.getElementById(pendingTarget);
     pendingTarget = null;
+    if (el && el.hidden) { const all = document.querySelector('.nw-filter [data-filter="all"]'); if (all) all.click(); }
     if (el) el.scrollIntoView({ block: 'start' });
     else if (location.hash && location.hash !== '#home') window.scrollTo(0, document.querySelector('.tabs').offsetTop);
     else window.scrollTo(0, 0);
@@ -879,6 +1014,13 @@ SCRIPT = """
     });
   });
   if (pastTabs.length) selectPast(pastTabs[0]);
+
+  // News: filter by type
+  document.querySelectorAll('.nw-filter button').forEach(b => b.addEventListener('click', () => {
+    const f = b.dataset.filter;
+    document.querySelectorAll('.nw-filter button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    document.querySelectorAll('.nw-post').forEach(p => { p.hidden = f !== 'all' && p.dataset.cat !== f; });
+  }));
 
   const more = document.getElementById('pub-more');
   if (more) more.addEventListener('click', () => {
@@ -934,9 +1076,26 @@ def main():
     mark = image(site.get("mark"), site_file)
     mark_dark = image(site.get("mark_dark"), site_file) or mark
     hero_mark = (f'<div class="hero-mark" aria-hidden="true"><img class="logo-light" src="{esc(mark)}" alt="">'
-                 f'<img class="logo-dark" src="{esc(mark_dark)}" alt=""></div>') if mark else ""
+                 f'<img class="logo-dark" src="{esc(mark_dark)}" alt="">{logo_signals_svg()}</div>') if mark else ""
     nav_icon = f'<img src="{esc(icon)}" alt="">' if icon else ""
     footer_logo = f'<img src="{esc(logo_dark)}" alt="">' if logo_dark else ""
+    uni_dark = image(site.get("university_logo_dark"), site_file) if site.get("university_logo_dark") else ""
+    uni_light = image(site.get("university_logo"), site_file) if site.get("university_logo") else ""
+    if footer_logo and (uni_dark or uni_light):
+        # The lab logo wired to the university logo, with signals passing both ways.
+        uni_img = (f'<img src="{esc(uni_dark)}" alt="{esc(site.get("university_name", "Duquesne University"))}">' if uni_dark else
+                   f'<span class="uni-chip"><img src="{esc(uni_light)}" alt="{esc(site.get("university_name", "Duquesne University"))}"></span>')
+        uni_url = site.get("university_url")
+        uni = f'<a class="uni-logo" href="{esc(web(uni_url))}">{uni_img}</a>' if uni_url else f'<span class="uni-logo">{uni_img}</span>'
+        footer_logo = (f'<div class="logo-pair">{footer_logo}'
+                       '<svg class="wire" viewBox="0 0 120 64" aria-hidden="true" focusable="false">'
+                       '<path class="w" d="M2 24 H38 L50 12 H70 L82 24 H118"/><path class="w" d="M2 40 H30 L42 52 H78 L90 40 H118"/>'
+                       '<circle class="wp" cx="2" cy="24" r="3"/><circle class="wp" cx="2" cy="40" r="3"/>'
+                       '<circle class="wp" cx="118" cy="24" r="3"/><circle class="wp" cx="118" cy="40" r="3"/>'
+                       '<circle class="wn" cx="60" cy="12" r="2.6"/><circle class="wn" cx="60" cy="52" r="2.6"/>'
+                       '<path class="ws" pathLength="100" d="M2 24 H38 L50 12 H70 L82 24 H118"/>'
+                       '<path class="ws back" pathLength="100" d="M118 40 H90 L78 52 H42 L30 40 H2"/></svg>'
+                       f'{uni}</div>')
     social = ""
     if url:
         social = (f'<link rel="canonical" href="{esc(url)}">\n'
@@ -961,6 +1120,7 @@ def main():
         build_people(people, alumni, pubs),
         register_auto_covers(pubs),
         build_publications(pubs, name_matchers(people + alumni, config)),
+        build_news(news_items()),
         build_teaching(),
         build_join(site),
     ])
@@ -1011,6 +1171,7 @@ function coverFailed(img) {{
     <a href="#research">Research</a>
     <a href="#people">People</a>
     <a href="#publications">Publications</a>
+    <a href="#news">News</a>
     <a href="#teaching">Teaching &amp; Outreach</a>
     <a href="#join">Join Us</a>
   </div>
@@ -1023,6 +1184,7 @@ function coverFailed(img) {{
     <address>{address}</address>
     <div class="footer-contact">{contact_line}</div>
   </div>
+  <div class="wrap">{credits_html()}</div>
   <div class="wrap"><div class="footer-base">
     <span>{esc(site.get("department", ""))}</span>
     <span>Updated {datetime.date.today().strftime("%B %-d, %Y")}</span>

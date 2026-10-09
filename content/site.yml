@@ -18,6 +18,15 @@ icon: images/icon.png
 mark: images/logo-mark.png
 mark_dark: images/logo-mark-dark.png
 
+# Duquesne University logo, shown in the footer and wired to the lab logo with signals passing between them.
+# Upload the official file(s) to images/ and type the file names here. Nothing shows until a file is added.
+# university_logo_dark is a white/light version for the dark footer (best). If you only have the
+# regular version, put it in university_logo and it is shown on a small white card instead.
+university_name: Duquesne University
+university_logo: ""
+university_logo_dark: ""
+university_url: https://www.duq.edu
+
 contact:
   name: Jeffrey D. Evanseck
   address:
