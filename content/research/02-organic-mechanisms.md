@@ -1,5 +1,5 @@
 ---
-title: Mechanisms of organic reactions
+title: Mechanistic studies of organic reactions
 
 collaborators:
   - name: Thomas Montgomery
@@ -11,7 +11,7 @@ caption: "N-oxide insertion into LDA dimers, modeled with explicit solvent molec
 figure_credit: "Reprinted with permission from Neal, M. J. et al. J. Org. Chem. 2025, 90, 3673–3683. Copyright 2025 American Chemical Society."
 figure_doi: 10.1021/acs.joc.4c03090
 fallback_figure: images/research/explicit-solvation.svg
-fallback_caption: "Adding explicit THF molecules to the model lowers the computed barrier (ΔG‡) compared with a continuum solvent alone."
+fallback_caption: "Free energy profiles for three LDA/THF aggregates of the N-oxide, relative to the common ground state (N-oxide, THF and dimeric LDA). The aggregate with two LDAs and two THFs gives the lowest-energy transition structures; the mixed LDA dimer and the THF-bridged aggregate lie higher. Dashed lines stand for other mechanistic steps. Based on Neal et al., J. Org. Chem. 2025."
 
 papers:
   - 10.1021/acs.joc.4c03090
@@ -24,4 +24,4 @@ covers:
     doi: 10.1021/acs.joc.4c03090
     label: "The Journal of Organic Chemistry, March 14, 2025"
 ---
-Using quantum chemical methods, we map the pathways of reactions involving tertiary amine N-oxides, lithium amide aggregates, and 1,3-dipoles. A recurring theme is that highly polarized intermediates often need explicit solvent molecules in the model before the computed mechanism matches what is seen in the flask.
+Using quantum chemical methods, we probe the mechanistic details of a range of organic reactions, including the formation of ylides from N-oxides, their subsequent [3+2] cycloadditions, and related systems. In particular, we are interested in how the reaction environment, the physical model, shapes our understanding of organic reactions.
