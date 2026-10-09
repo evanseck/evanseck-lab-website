@@ -265,6 +265,40 @@
       "type": "article"
     },
     {
+      "title": "Dynamic structure of the apical stem loop of the stem loop 2 motif (s2m) from SCoV-2 Delta variant",
+      "year": 2024,
+      "date": "2024-06-05",
+      "authors": [
+        "M.A. Wirtz Martin",
+        "T. Matzel",
+        "J. Makowski",
+        "A. Kensinger",
+        "A. Herr",
+        "A. Wacker",
+        "C. Richter",
+        "H.R.A. Jonker",
+        "J. Evanseck",
+        "H. Schwalbe"
+      ],
+      "orcids": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "venue": "Worldwide Protein Data Bank",
+      "volume": "",
+      "pages": "",
+      "doi": "https://doi.org/10.2210/pdb9fm4/pdb",
+      "type": "other"
+    },
+    {
       "title": "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization and its interactions with miR-1307-3p",
       "year": 2023,
       "date": "2023-08-21",
