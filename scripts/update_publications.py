@@ -143,11 +143,15 @@ def fetch_works(ids):
 
     # Crossref, where publishers register new records (meeting abstracts) first
     try:
-        known = {(w.get("doi") or "").lower() for w in works}
+        known = {(w.get("doi") or "").lower(): i for i, w in enumerate(works) if w.get("doi")}
         added = 0
         for w in crossref_search():
-            if w["doi"].lower() not in known:
-                works.append(w); known.add(w["doi"].lower()); added += 1
+            d = w["doi"].lower()
+            if d not in known:
+                known[d] = len(works); works.append(w); added += 1
+            elif to_entry(works[known[d]]) is None and to_entry(w) is not None:
+                # OpenAlex has the DOI but no usable title or year (common for meeting abstracts)
+                works[known[d]] = w; added += 1
         print(f"{added} more record(s) found in Crossref")
         CHECK["crossref"] = f"ok: {len(CHECK['crossref_found'])} match(es), {added} new"
     except Exception as e:
@@ -355,6 +359,17 @@ def main():
     works = fetch_works(ids)
     pubs = process(works)
     print(f"{len(works)} records from OpenAlex -> {len(pubs)} publications after filtering")
+    # Note why any Crossref match did not make it into the list (saved in last_check)
+    have = {p["doi"].lower() for p in pubs}
+    CHECK["not_listed"] = []
+    for line in CHECK["crossref_found"]:
+        d = line.rsplit("(", 1)[-1].rstrip(")").lower()
+        if "https://doi.org/" + d in have:
+            continue
+        recs = [w for w in works if (w.get("doi") or "").lower() == "https://doi.org/" + d]
+        why = "; ".join(f'{"no title/year" if to_entry(w) is None else "type " + str(w.get("type"))} '
+                        f'[{w.get("id", "")[:30]}]' for w in recs) or "record not kept"
+        CHECK["not_listed"].append(f"{d}: {why}")
 
     old = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
     old_pubs = old.get("publications", [])
