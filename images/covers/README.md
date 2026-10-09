@@ -3,7 +3,8 @@
 Covers appear under a research area on the Research page, linked to the paper. List them
 under `covers:` in that area's file in `content/research/`. Three ways to give the image:
 
-1. **The journal's issue page** (easiest). The site finds and downloads the cover itself:
+1. **The journal's issue page** (easiest). For ACS journals the site works out where ACS keeps
+   the cover image and visitors' browsers load it straight from ACS:
    ```
    covers:
      - issue: https://pubs.acs.org/apcach/issue/3/1
