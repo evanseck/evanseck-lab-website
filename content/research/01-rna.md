@@ -17,7 +17,7 @@ caption: "Predicted kissing complexes and extended duplexes formed by coronaviru
 figure_credit: "Reproduced from Kensinger, A. H.; Makowski, J. A.; Mihailescu, M.-R.; Evanseck, J. D. ACS Phys. Chem. Au 2025, 5, 410–424. Copyright 2025 The Authors. Published by American Chemical Society."
 figure_doi: 10.1021/acsphyschemau.5c00031
 fallback_figure: images/research/rna-kissing.svg
-fallback_caption: "Two s2m hairpins pair through their loops (gold) to form a kissing complex, which can rearrange into an extended duplex."
+fallback_caption: "Two hairpins pair through the palindromic sequences at the terminal loops (gold) to form a kissing complex, which can rearrange into an extended duplex."
 
 # Key papers: list DOIs. Titles and journals are filled in from the publication list.
 papers:
@@ -38,4 +38,4 @@ covers:
     doi: 10.1021/acsphyschemau.3c00008
     label: "ACS Physical Chemistry Au, September/October 2023"
 ---
-We run molecular dynamics simulations of conserved RNA elements, including the s2m element found in coronavirus genomes. We study how single mutations change its flexibility and entropy, how two copies pair through a kissing-loop interaction, and how these structures might interact with host microRNAs. Related work examines how chemical modification of histone mRNA alters its binding to partner proteins.
+Using MD simulations we simulate the biophysical environment to study conserved RNA elements for different viral systems such as the HIV, SARS, HCV etc to determine how the molecule's primary sequence dictates its folding landscape and secondary structure, which directly influences its functional mechanisms during biological processes. 
