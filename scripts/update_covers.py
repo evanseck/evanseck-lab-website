@@ -130,7 +130,7 @@ def main():
                     print(f"  cover record: {it['title'][:70]}")
             checked[key] = today.isoformat()
         except Blocked as e:
-            print(f"::warning::Cover check paused: {e}")
+            print(f"  Journal site not allowing automated reading right now ({e}); will try again next week.")
             break
         except Exception as e:
             print(f"  could not read {it.get('doi')}: {e}")
@@ -163,7 +163,7 @@ def main():
                                      "kind": "Cover", "source": "https://doi.org/" + d}
                         print(f"  ACS cover: {p['title'][:70]}")
             except Blocked as e:
-                print(f"::warning::ACS is not allowing automated reading right now ({e}); will try again next week.")
+                print(f"  ACS not allowing automated reading right now ({e}); will try again next week.")
                 break
             except Exception as e:
                 print(f"  could not read {d}: {e}")
