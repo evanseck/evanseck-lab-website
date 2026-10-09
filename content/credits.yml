@@ -7,7 +7,7 @@ credits:
     who: Sumaiya Tasnim
 
   - what: Publication list
-    who: OpenAlex, updated weekly
+    who: OpenAlex
     link: https://openalex.org
 
   - what: Dissertation records
@@ -15,7 +15,8 @@ credits:
     link: https://dsc.duq.edu
 
   - what: Journal covers
-    who: American Chemical Society; each cover links to its issue
+    who: American Chemical Society
+    link: https://pubs.acs.org/
 
   - what: Typeface
     who: CMU Serif by Andrey V. Panov (SIL Open Font License)
