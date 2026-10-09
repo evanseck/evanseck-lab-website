@@ -28,7 +28,7 @@ jobs:
 
       - run: pip install markdown pyyaml pillow
 
-      - name: Fetch publications, dissertations and covers (weekly and manual runs)
+      - name: Fetch publications, dissertations, covers and Duquesne news (weekly and manual runs)
         if: github.event_name != 'push'
         env:
           OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
@@ -36,12 +36,13 @@ jobs:
           python scripts/update_publications.py || echo "::warning::Publication update skipped; the site uses the existing list."
           python scripts/update_dissertations.py
           python scripts/update_covers.py
-          git add -N data/dissertations.json data/covers.json images/covers/auto 2>/dev/null || true
-          if ! git diff --quiet -- data/publications.json data/dissertations.json data/covers.json images/covers/auto; then
+          python scripts/update_news.py
+          git add -N data images/covers/auto 2>/dev/null || true
+          if ! git diff --quiet -- data images/covers/auto; then
             git config user.name "github-actions[bot]"
             git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
-            git add data/publications.json data/dissertations.json data/covers.json images/covers/auto
-            git commit -m "Weekly update: publications, dissertations and journal covers"
+            git add data images/covers/auto
+            git commit -m "Weekly update: publications, dissertations, covers and Duquesne news"
             git push
           fi
 
