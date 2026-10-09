@@ -288,7 +288,7 @@ def title_key(title):
 
 
 def to_entry(w):
-    title = clean(w.get("display_name"))
+    title = re.sub(r"^\s*BPS\s?\d{4}\s*[–—-]\s*", "", clean(w.get("display_name")))   # "BPS2026 – Title"
     year = w.get("publication_year")
     if not title or not year:
         return None
