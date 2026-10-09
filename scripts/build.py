@@ -32,6 +32,8 @@ PEOPLE_GROUPS = [
     ("grad", "Graduate students"),
     ("undergrad", "Honors undergraduates"),
 ]
+DISSERTATIONS = []  # filled in main() from data/dissertations.json
+
 ALUMNI_CATEGORIES = [  # (key, heading); order on the page
     ("postdoc", "Postdoctoral researchers"),
     ("phd", "Ph.D. graduates"),
@@ -300,6 +302,14 @@ PROFILE_FIELDS = [  # (field in the person's file, link label, how to turn the v
 ]
 
 
+def web(url):
+    """Accept 'www.linkedin.com/in/x' as well as full addresses."""
+    url = str(url or "").strip()
+    if url and not re.match(r"^(https?:|mailto:|#|/|images/|theses/)", url, re.I) and "." in url.split("/")[0]:
+        url = "https://" + url
+    return url
+
+
 def person_links(m, auto_orcid=""):
     links = []
     if m.get("email"):
@@ -308,12 +318,12 @@ def person_links(m, auto_orcid=""):
     for field, label, to_url in PROFILE_FIELDS:
         value = str(m.get(field) or (auto_orcid if field == "orcid" else "") or "").strip()
         if value:
-            url = to_url(value)
+            url = web(to_url(value))
             seen.add(url)
             links.append(f'<a href="{esc(url)}" aria-label="{esc(label)} profile of {esc(m.get("name", ""))}">{esc(label)}</a>')
     for l in m.get("links") or []:
-        if isinstance(l, dict) and l.get("url") and l["url"] not in seen:
-            links.append(f'<a href="{esc(l["url"])}">{esc(l.get("label", l["url"]))}</a>')
+        if isinstance(l, dict) and l.get("url") and web(l["url"]) not in seen:
+            links.append(f'<a href="{esc(web(l["url"]))}">{esc(l.get("label", l["url"]))}</a>')
     return " · ".join(links)
 
 
@@ -398,6 +408,25 @@ def years_text(m):
     return end or start or str(m.get("years") or "").strip()
 
 
+def load_dissertations():
+    f = ROOT / "data" / "dissertations.json"
+    return json.loads(f.read_text(encoding="utf-8")).get("dissertations", []) if f.exists() else []
+
+
+def dissertation_for(m, dissertations):
+    """The archive record whose author matches this person ('Last, First' in the archive)."""
+    keys = {name_keys(m["name"])} | {name_keys(a) for a in (m.get("published_as") or [])}
+    for d in dissertations:
+        a = str(d.get("author", ""))
+        if "," in a:
+            last, first = a.split(",", 1)
+            a = f"{first.strip()} {last.strip()}"
+        k = name_keys(a)
+        if k and k in keys:
+            return d
+    return None
+
+
 def alumni_html(alumni, pubs, pi_keys):
     """Past members: one tab per category; each person is a row that expands for details."""
     if not alumni:
@@ -431,11 +460,27 @@ def alumni_html(alumni, pubs, pi_keys):
                 facts.append(f'Co-advised with {esc(m["co_advisor"])}')
             facts = [f for f in facts if f]
             thesis = ""
+            local_pdf = ROOT / "theses" / (path.stem + ".pdf")
+            if not m.get("thesis_url") and local_pdf.is_file():
+                m = dict(m)
+                m["thesis_url"] = f"theses/{path.stem}.pdf"
+            elif m.get("thesis_url") and not re.match(r"^https?:", str(m["thesis_url"])) and not str(m["thesis_url"]).startswith("www."):
+                if not (ROOT / str(m["thesis_url"])).is_file():
+                    warn(path, f"thesis file '{m['thesis_url']}' not found; upload it to the theses folder.")
+            if not m.get("thesis_url") or not m.get("thesis"):
+                d = dissertation_for(m, DISSERTATIONS)
+                if d:
+                    m = dict(m)
+                    m.setdefault("thesis_url", d["url"])
+                    if not m.get("thesis_url"):
+                        m["thesis_url"] = d["url"]
+                    if not m.get("thesis"):
+                        m["thesis"] = d.get("title", "")
             if m.get("thesis"):
                 label = esc(m.get("thesis_type") or ("Dissertation" if key == "phd" else "Thesis"))
                 t = f'&ldquo;{esc(m["thesis"])}&rdquo;'
                 if m.get("thesis_url"):
-                    t = f'<a href="{esc(m["thesis_url"])}">{t}</a>'
+                    t = f'<a href="{esc(web(m["thesis_url"]))}">{t}</a>'
                 thesis = f'<p class="al-thesis"><span class="al-label">{label}</span> {t}</p>'
             story = md(b) if b else ""
             ps = [] if m.get("published_as") is False else papers_for(m, pubs, pi_keys)
@@ -735,6 +780,8 @@ def main():
                   f'<meta property="og:description" content="{esc(description)}">\n'
                   + (f'<meta property="og:image" content="{esc(url + logo)}">\n' if logo else ""))
 
+    global DISSERTATIONS
+    DISSERTATIONS = load_dissertations()
     areas = research_areas()
     body = "".join([
         build_home(site, pubs, areas),
@@ -808,7 +855,7 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir()
     (OUT / "index.html").write_text(page, encoding="utf-8")
-    for folder in ("images", "fonts"):
+    for folder in ("images", "fonts", "theses"):
         if (ROOT / folder).exists():
             shutil.copytree(ROOT / folder, OUT / folder)
     (OUT / ".nojekyll").write_text("")

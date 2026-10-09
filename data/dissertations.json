@@ -1,0 +1,107 @@
+{
+ "source": [
+  "https://dsc.duq.edu/etd/sitemap.xml"
+ ],
+ "updated": "2026-10-08",
+ "dissertations": [
+  {
+   "url": "https://dsc.duq.edu/etd/2399",
+   "title": "RNA Structural-Dynamical Hierarchy: SARS-CoV, SARS-CoV-2, and Delta/Omicron Variant S2M Monomers, Kissing Complexes, and Extended Duplexes",
+   "author": "Kensinger, Adam",
+   "year": "2024",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey D. Evanseck"
+    }
+   ]
+  },
+  {
+   "url": "https://dsc.duq.edu/etd/2370",
+   "title": "Structure-Function Relationships in Neurodegenerative and Infectious Diseases: Biophysical Characterization of RNA Secondary Structures by Computational Techniques",
+   "author": "Guarinoni, Kendy",
+   "year": "2024",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey D. Evanseck"
+    }
+   ]
+  },
+  {
+   "url": "https://dsc.duq.edu/etd/2183",
+   "title": "Theory of Aqueous Solvation: Uninterrupted, Cyclic Hydrogen-Bonding Essential for Accurate Keto-Enol Energies and Grotthuss Tautomerism of Acetone",
+   "author": "Recznik, Mark",
+   "year": "2022",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey D. Evanseck"
+    }
+   ]
+  },
+  {
+   "url": "https://dsc.duq.edu/etd/1828",
+   "title": "Greening of Catalytic Processes Using First-Row Transition Metals for Atom Transfer Radical Addition and Transfer Hydrogenation",
+   "author": "Pros, Gabrielle",
+   "year": "2019",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey Evanseck"
+    }
+   ]
+  },
+  {
+   "url": "https://dsc.duq.edu/etd/1794",
+   "title": "Nontraditional hydrogen bonding in asymmetric Lewis acid catalysis",
+   "author": "Vernier, Brandon",
+   "year": "2019",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey Evanseck"
+    }
+   ]
+  },
+  {
+   "url": "https://dsc.duq.edu/etd/1052",
+   "title": "New Conceptual Understanding of Lewis Acidity, Coordinate Covalent Bonding, and Catalysis",
+   "author": "Plumley, Joshua A.",
+   "year": "2009",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey D. Evanseck"
+    }
+   ]
+  },
+  {
+   "url": "https://dsc.duq.edu/etd/831",
+   "title": "Molecular Dynamics Simulation Studies of DNA and Proteins: Force Field Parameter Development of Small Ligands and Convergence Analysis for Simulations of Biomolecules",
+   "author": "Loccisano, Anne",
+   "year": "2007",
+   "degree": "PhD",
+   "pdf": "",
+   "committee": [
+    {
+     "role": "Committee Chair",
+     "name": "Jeffrey D. Evanseck"
+    }
+   ]
+  }
+ ],
+ "checked": {}
+}

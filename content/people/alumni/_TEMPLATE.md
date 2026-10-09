@@ -12,7 +12,8 @@ end: 2027                   # year they finished (used for sorting)
 defended: "May 2027"        # optional, PhD/MS: month and year of the defense
 major: ""                   # optional, undergraduates: e.g. "Chemistry B.S."
 thesis_type: ""             # optional: "Honors thesis" or "Senior thesis" (PhD shows "Dissertation")
-thesis: "Title of the thesis or dissertation"
+thesis: ""                  # optional: filled in automatically once the dissertation is in Duquesne's archive
+thesis_url: ""              # optional: link to the thesis if it is somewhere else
 co_advisor: ""              # optional, e.g. "Prof. Michael Chapman"
 now: "Current position, Organization, City"   # shown next to their name
 published_as: []            # other names they published under (e.g. before marriage): ["Sarah Smith"]

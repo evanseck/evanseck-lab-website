@@ -1,23 +1,35 @@
 {
   "_help": "Settings for the weekly publication update. See README.md.",
-
   "orcid": "0000-0003-2616-7354",
-
   "author_surname": "Evanseck",
   "author_first_initial": "J",
   "openalex_author_ids": [],
-
-  "highlight_names": ["Evanseck"],
-
-  "include_types": ["article", "review", "letter", "book-chapter"],
-
+  "highlight_names": [
+    "Evanseck"
+  ],
+  "include_types": [
+    "article",
+    "review",
+    "letter",
+    "book-chapter"
+  ],
   "hide_dois": [],
   "hide_titles_containing": [],
-
   "contact_email": "",
-
-  "_text_fixes_help": "Corrections for garbled characters in OpenAlex data. Left side: text as it arrives (\ufffd is the broken-character symbol). Right side: what to show.",
+  "_text_fixes_help": "Corrections for garbled characters in OpenAlex data. Left side: text as it arrives (� is the broken-character symbol). Right side: what to show.",
   "text_fixes": {
-    "Ren\ufffd Castro": "René Castro"
+    "Ren� Castro": "René Castro"
+  },
+  "dissertations": {
+    "_help": "Weekly check of Duquesne's dissertation archive for dissertations chaired by Dr. Evanseck.",
+    "base_url": "https://dsc.duq.edu",
+    "sitemaps": [
+      "https://dsc.duq.edu/etd/sitemap.xml",
+      "https://dsc.duq.edu/chem-ug-theses/sitemap.xml",
+      "https://dsc.duq.edu/hc-theses/sitemap.xml"
+    ],
+    "advisor_surname": "Evanseck",
+    "seconds_between_requests": 1.0,
+    "max_pages_per_run": 4000
   }
 }

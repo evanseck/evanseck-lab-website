@@ -56,6 +56,16 @@ year and where they are now; clicking it opens their thesis, a short story of th
 a list of their papers with the group, found automatically by name. Update `now:` whenever
 you hear news. The full list of fields is in `content/people/alumni/_TEMPLATE.md`.
 
+**What updates by itself after the move:** their papers with the group, their ORCID link, and
+their dissertation. Every week the site checks Duquesne's dissertation archive
+(dsc.duq.edu) for dissertations Dr. Evanseck chaired; when one appears (usually a few months
+after the defense), the title and a link to the full text are added to that person's entry.
+You can still type `thesis:` and `thesis_url:` yourself, and what you type always wins.
+Theses that are not in Duquesne's archive (honors theses, and dissertations from the
+University of Miami years) can be posted on this site: upload the PDF to the `theses` folder,
+named like the person's file (`witte-anna.md` -> `theses/witte-anna.pdf`), and the title links
+to it automatically. See `theses/README.md`.
+
 **Profile links:** anyone's file can have `orcid:`, `scholar:` (Google Scholar),
 `researchgate:`, `linkedin:` and `website:`. For past members, ORCID is filled in
 automatically when journals recorded it on their papers with the group. If someone published
