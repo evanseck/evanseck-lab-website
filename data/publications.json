@@ -2255,5 +2255,38 @@
       "pages": "2349–2353",
       "doi": "https://doi.org/10.1021/ja00242a018"
     }
+  ],
+  "cover_items": [
+    {
+      "title": "Inside Front Cover Image, Volume 95, Number 1, January 2023",
+      "year": 2023,
+      "date": "2023-01-01",
+      "authors": [
+        "Caleb James Frye",
+        "Morgan Shine",
+        "Joseph A. Makowski",
+        "Adam H. Kensinger",
+        "Caylee L. Cunningham",
+        "Ella J. Milback",
+        "Jeffrey D. Evanseck",
+        "Patrick E. Lackey",
+        "Mihaela‐Rita Mihailescu"
+      ],
+      "orcids": [
+        "0000-0003-1301-2695",
+        "0000-0002-8307-4210",
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "0000-0003-2716-4892",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699"
+      ],
+      "venue": "Journal of Medical Virology",
+      "volume": "95",
+      "pages": "",
+      "doi": "https://doi.org/10.1002/jmv.28467"
+    }
   ]
 }
