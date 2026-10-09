@@ -919,7 +919,7 @@ def build_publications(all_pubs, matchers):
     return f'''
   <section class="page" id="publications">
     <h2>Publications</h2>
-    <p class="note">Group members are shown in bold. This list updates automatically each week from <a href="https://openalex.org">OpenAlex</a>.</p>
+    <p class="note">Group members are shown in bold.</p>
     {covers_gallery()}
     <div id="pub-list">{"".join(blocks)}</div>
     {button}
