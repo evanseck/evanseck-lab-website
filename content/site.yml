@@ -29,7 +29,7 @@ mark_dark: images/logo-mark-dark.png
 # university_logo_dark is a white/light version for the dark footer (best). If you only have the
 # regular version, put it in university_logo and it is shown on a small white card instead.
 university_name: Duquesne University
-university_logo: "Seal_of_Duquesne_University.svg.webp"
+university_logo: images/Seal_of_Duquesne_University.svg.webp
 university_logo_dark: ""
 university_url: https://www.duq.edu
 

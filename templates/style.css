@@ -400,6 +400,9 @@ address { font-style: normal; line-height: 1.8; }
 .uni-logo img { height: 6rem; width: auto; max-width: 12rem; object-fit: contain; }
 .uni-chip { display: inline-block; background: #ffffff; border-radius: 6px; padding: 0.5rem; }
 .uni-chip img { height: 5rem; }
-.uni-logo:hover img { filter: drop-shadow(0 0 6px var(--gold)); }
-@media (max-width: 640px) { .logo-pair .wire { width: 3.75rem; } .uni-logo img { height: 4.5rem; } .uni-chip img { height: 3.75rem; } }
+.uni-chip.round { border-radius: 50%; padding: 0.3rem; }
+.uni-chip.round img { height: 6rem; }
+.uni-logo:hover img, .uni-logo:hover .uni-chip { filter: drop-shadow(0 0 6px var(--gold)); }
+.uni-logo:hover .uni-chip img { filter: none; }
+@media (max-width: 640px) { .logo-pair .wire { width: 3.75rem; } .uni-logo img { height: 4.5rem; } .uni-chip img { height: 3.75rem; } .uni-chip.round img { height: 4.5rem; } }
 @media (prefers-reduced-motion: reduce) { .wire .ws { display: none; } }

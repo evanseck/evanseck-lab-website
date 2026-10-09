@@ -102,6 +102,8 @@ def image(path_str, source_file):
     if not path_str:
         return ""
     p = ROOT / path_str
+    if not p.is_file() and (ROOT / "images" / path_str).is_file():
+        return "images/" + str(path_str).lstrip("/")      # "images/" was left off the file name
     if not p.is_file():
         warn(source_file, f"image '{path_str}' not found; check the file name and that it's uploaded.")
         return ""
@@ -1094,8 +1096,16 @@ def main():
     uni_light = image(site.get("university_logo"), site_file) if site.get("university_logo") else ""
     if footer_logo and (uni_dark or uni_light):
         # The lab logo wired to the university logo, with signals passing both ways.
+        round_cls = ""
+        try:
+            from PIL import Image
+            with Image.open(ROOT / (uni_dark or uni_light)) as im:
+                if 0.9 < im.width / im.height < 1.1:
+                    round_cls = " round"                   # a round seal sits on a round white card
+        except Exception:
+            pass
         uni_img = (f'<img src="{esc(uni_dark)}" alt="{esc(site.get("university_name", "Duquesne University"))}">' if uni_dark else
-                   f'<span class="uni-chip"><img src="{esc(uni_light)}" alt="{esc(site.get("university_name", "Duquesne University"))}"></span>')
+                   f'<span class="uni-chip{round_cls}"><img src="{esc(uni_light)}" alt="{esc(site.get("university_name", "Duquesne University"))}"></span>')
         uni_url = site.get("university_url")
         uni = f'<a class="uni-logo" href="{esc(web(uni_url))}">{uni_img}</a>' if uni_url else f'<span class="uni-logo">{uni_img}</span>'
         footer_logo = (f'<div class="logo-pair">{footer_logo}'
