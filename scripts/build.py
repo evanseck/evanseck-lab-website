@@ -185,6 +185,7 @@ def lattice_svg():
     r = 44
     w, h = r * math.sqrt(3), r * 1.5
     hexes, traces, nodes, gold = [], [], [], []
+    trace_paths, hex_paths = [], []
     k = 0
     for row in range(-1, 8):
         for col in range(-1, 16):
@@ -192,6 +193,7 @@ def lattice_svg():
             cy = row * h
             pts = [(cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))) for a in range(-90, 270, 60)]
             hexes.append("M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts) + " Z")
+            hex_paths.append((cx, cy, hexes[-1]))
             if rnd.random() < 0.55:
                 for _ in range(rnd.choice([1, 2])):
                     i = rnd.randrange(6)
@@ -204,15 +206,26 @@ def lattice_svg():
                     ang = math.atan2(dy, dx) + turn
                     ex, ey = m1x + math.cos(ang) * r * 0.32, m1y + math.sin(ang) * r * 0.32
                     k += 1
-                    traces.append(f'<path class="tr" style="--d:{(k % 23) * 0.05:.2f}s" d="M{sx:.1f} {sy:.1f} L{m1x:.1f} {m1y:.1f} L{ex:.1f} {ey:.1f}"/>')
+                    d = f"M{sx:.1f} {sy:.1f} L{m1x:.1f} {m1y:.1f} L{ex:.1f} {ey:.1f}"
+                    traces.append(f'<path class="tr" style="--d:{(k % 23) * 0.05:.2f}s" d="{d}"/>')
+                    trace_paths.append((sx, d))
                     nodes.append(f'<circle class="nd" style="--d:{(k % 23) * 0.05 + 0.5:.2f}s" cx="{ex:.1f}" cy="{ey:.1f}" r="3"/>')
     for (row, col, i) in [(1, 12, 1), (3, 13, 4), (4, 11, 0), (2, 14, 2)]:
         cx = col * w + (w / 2 if row % 2 else 0)
         cy = row * h
         a = math.radians(-90 + 60 * i)
         gold.append(f'<circle class="gd" cx="{cx + r * math.cos(a):.1f}" cy="{cy + r * math.sin(a):.1f}" r="8"/>')
+    # Ongoing motion: gold "signals" run along circuit traces and around a few hexagons, each on
+    # its own slow cycle, so the pattern keeps changing. Only where the pattern is visible (right side).
+    pulses = []
+    visible_traces = [d for x, d in trace_paths if x > 760]
+    for j, d in enumerate(rnd.sample(visible_traces, min(16, len(visible_traces)))):
+        pulses.append(f'<path class="pl" pathLength="100" style="--pd:{rnd.uniform(0, 9):.1f}s;--pt:{rnd.uniform(5, 9):.1f}s" d="{d}"/>')
+    visible_hexes = [d for cx, cy, d in hex_paths if cx > 800 and -20 < cy < 480]
+    for d in rnd.sample(visible_hexes, min(6, len(visible_hexes))):
+        pulses.append(f'<path class="pl ring" pathLength="100" style="--pd:{rnd.uniform(0, 12):.1f}s;--pt:{rnd.uniform(9, 14):.1f}s" d="{d}"/>')
     return (f'<svg class="lattice" viewBox="0 0 1100 460" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">'
-            f'<path class="hx" d="{" ".join(hexes)}"/>{"".join(traces)}{"".join(nodes)}{"".join(gold)}</svg>')
+            f'<path class="hx" d="{" ".join(hexes)}"/>{"".join(traces)}{"".join(pulses)}{"".join(nodes)}{"".join(gold)}</svg>')
 
 
 # ---------------------------------------------------------------- sections
@@ -270,6 +283,22 @@ def build_home(site, pubs, areas):
   </section>'''
 
 
+def acs_issue_cover_urls(c):
+    """Addresses where ACS keeps an issue's cover, worked out from the issue link
+    (e.g. https://pubs.acs.org/apcach/issue/3/1). Visitors' browsers load the image directly
+    from ACS, so nothing is downloaded during the build. Tried in order; the first that loads wins."""
+    m = re.match(r"https?://pubs\.acs\.org/(?:toc/)?([a-z]+)/(?:issue/)?(\d+)/(\d+)", str(c.get("issue") or ""))
+    if not m:
+        return []
+    code, vol, num = m.groups()
+    urls = [f"https://pubs.acs.org/pb-assets/images/_journalCovers/{code}/{code}_v{int(vol):03d}i{int(num):03d}.jpg"]
+    years = re.findall(r"(?:19|20)\d\d", f'{c.get("year", "")} {c.get("label", "")}')
+    if years:
+        stem = f"{code}.{years[0]}.{vol}.issue-{num}"
+        urls.append(f"https://pubs.acs.org/cms/10.1021/{stem}/asset/{stem}.largecover.jpg")
+    return urls
+
+
 def fetch_cover(c, path):
     """Get a cover image from the web (an image address, or the journal's issue page) and save it
     into the built site. Runs on GitHub, which can reach journal websites."""
@@ -300,6 +329,41 @@ def fetch_cover(c, path):
         return ""
 
 
+def web_copy(img, width=600):
+    """Large uploaded images get a small copy for the web page (originals are kept)."""
+    src = ROOT / img
+    if not src.is_file() or src.stat().st_size < 400_000:
+        return img
+    try:
+        from PIL import Image
+    except ImportError:
+        return img
+    rel = f"images/web/{src.stem}-{width}.jpg"
+    dst = OUT / rel
+    if not dst.exists():
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        with Image.open(src) as im:
+            im = im.convert("RGB")
+            im.thumbnail((width, width * 2))
+            im.save(dst, "JPEG", quality=85, optimize=True, progressive=True)
+    return rel
+
+
+def cover_card(img, label, backup, parent, paper_url):
+    """Cover image linked to the journal issue page (its 'parent site'); paper link below."""
+    alt = f"Journal cover: {label}" if label else "Journal cover"
+    pic = (f'<img src="{esc(img)}" alt="{esc(alt)}" loading="lazy" referrerpolicy="no-referrer"'
+           + (f' data-backup="{esc(backup)}"' if backup else "") + ' onerror="coverFailed(this)">')
+    target = parent or paper_url
+    if target:
+        where = "the journal issue" if parent else "the paper"
+        pic = f'<a href="{esc(target)}" aria-label="{esc(alt)}. Opens {where}.">{pic}</a>'
+    cap = esc(label)
+    if parent and paper_url:
+        cap += f'{"<br>" if cap else ""}<a class="cover-paper" href="{esc(paper_url)}">Read the paper</a>'
+    return f'<figure class="cover">{pic}{f"<figcaption>{cap}</figcaption>" if cap else ""}</figure>'
+
+
 def covers_html(covers, pubs_by_doi, path):
     """Journal covers featuring the group's work: thumbnail linked to the paper."""
     if not covers:
@@ -308,8 +372,13 @@ def covers_html(covers, pubs_by_doi, path):
     for c in covers:
         if not isinstance(c, dict):
             continue
-        if str(c.get("image") or "").startswith("http") or (c.get("issue") and not c.get("image")):
-            img = fetch_cover(c, path)
+        backup = ""
+        if str(c.get("image") or "").startswith("http"):
+            img = c["image"]                      # loaded by the visitor's browser
+        elif c.get("issue") and not c.get("image"):
+            options = acs_issue_cover_urls(c)
+            img = options[0] if options else fetch_cover(c, path)
+            backup = options[1] if len(options) > 1 else ""
         else:
             img = image(c.get("image"), path)
         if not img:
@@ -317,13 +386,12 @@ def covers_html(covers, pubs_by_doi, path):
         url, bare = doi_url(c["doi"]) if c.get("doi") else ("", "")
         p = pubs_by_doi.get(bare.lower()) if bare else None
         label = c.get("label") or (", ".join(x for x in [p.get("venue", ""), str(p.get("year", ""))] if x) if p else "")
+        parent = web(c.get("link") or c.get("issue") or "")
+        if not img.startswith("http"):
+            img = web_copy(img)
         if bare:
-            SHOWN_COVERS.setdefault(bare.lower(), (img, label))
-        alt = f'Journal cover: {label}' if label else "Journal cover"
-        pic = f'<img src="{esc(img)}" alt="{esc(alt)}" loading="lazy">'
-        if url:
-            pic = f'<a href="{esc(url)}" aria-label="{esc(alt)}, read the paper">{pic}</a>'
-        cards.append(f'<figure class="cover">{pic}{f"<figcaption>{esc(label)}</figcaption>" if label else ""}</figure>')
+            SHOWN_COVERS.setdefault(bare.lower(), (img, label, backup, parent))
+        cards.append(cover_card(img, label, backup, parent, url))
     if not cards:
         return ""
     return f'<div class="covers"><h4>Journal covers</h4><div class="cover-row">{"".join(cards)}</div></div>'
@@ -349,10 +417,15 @@ def build_research(areas, pubs_by_doi):
         area_dois = {doi_url(d)[1].lower() for d in (m.get("papers") or [])}
         covers += [{"image": c["image"], "doi": c["doi"], "label": c.get("label", "")}
                    for c in AUTO_COVERS if c["doi"] in area_dois and c["doi"] not in listed]
-        extra = (collaborators_html(m.get("collaborators")) + key_papers_html(m.get("papers"), pubs_by_doi, path)
-                 + covers_html(covers, pubs_by_doi, path))
+        extra = collaborators_html(m.get("collaborators")) + key_papers_html(m.get("papers"), pubs_by_doi, path)
+        cov = covers_html(covers, pubs_by_doi, path)
+        if fig_html:   # covers sit in the figure column, beside the key papers
+            side = f'<div class="area-side">{fig_html}{cov}</div>'
+        else:
+            extra += cov
+            side = ""
         out.append(f'<article class="area{" has-fig" if fig else ""}" id="area-{esc(slug)}">'
-                   f'<div class="area-text"><h3>{esc(m["title"])}</h3>{md(b)}{extra}</div>{fig_html}</article>')
+                   f'<div class="area-text"><h3>{esc(m["title"])}</h3>{md(b)}{extra}</div>{side}</article>')
     return f'''
   <section class="page" id="research">
     <h2>{esc(meta.get("title", "Research"))}</h2>
@@ -672,18 +745,15 @@ def register_auto_covers(pubs):
     for c in AUTO_COVERS:
         p = by_doi.get(c["doi"])
         label = c.get("label") or (f'{p.get("venue", "")}, {p.get("year", "")}' if p else "")
-        SHOWN_COVERS.setdefault(c["doi"], (c["image"], label))
+        SHOWN_COVERS.setdefault(c["doi"], (web_copy(c["image"]), label, "", web(c.get("source", ""))))
     return ""
 
 
 def covers_gallery():
     if not SHOWN_COVERS:
         return ""
-    cards = "".join(
-        f'<figure class="cover"><a href="https://doi.org/{esc(d)}" aria-label="Journal cover: {esc(label)}, read the paper">'
-        f'<img src="{esc(img)}" alt="Journal cover: {esc(label)}" loading="lazy"></a>'
-        f'{f"<figcaption>{esc(label)}</figcaption>" if label else ""}</figure>'
-        for d, (img, label) in SHOWN_COVERS.items())
+    cards = "".join(cover_card(img, label, backup, parent, f"https://doi.org/{d}")
+                    for d, (img, label, backup, parent) in SHOWN_COVERS.items())
     return f'<div class="covers pub-covers"><h3>Journal covers</h3><div class="cover-row">{cards}</div></div>'
 
 
@@ -909,6 +979,14 @@ def main():
 <style>
 {(TEMPLATES / "style.css").read_text(encoding="utf-8")}
 </style>
+<script>
+function coverFailed(img) {{
+  if (img.dataset.backup) {{ const b = img.dataset.backup; delete img.dataset.backup; img.src = b; return; }}
+  const fig = img.closest('figure'); fig.hidden = true;
+  const box = fig.closest('.covers');
+  if (box && ![...box.querySelectorAll('figure')].some(f => !f.hidden)) box.hidden = true;
+}}
+</script>
 </head>
 <body data-site-name="{esc(name)}">
 <header class="hero">

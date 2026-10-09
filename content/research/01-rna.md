@@ -27,11 +27,15 @@ papers:
   - 10.1093/nar/gkab1226
   - 10.1080/15476286.2023.2171760
 
-# Journal covers. Paste the journal's issue page (the site downloads the cover itself),
-# or an image address, or the name of an image uploaded to images/covers/.
+# Journal covers. The image links to the journal issue; "Read the paper" links to the paper.
 covers:
-  - issue: https://pubs.acs.org/apcach/issue/3/1
+  - image: images/covers/apcach.2023.3.issue-1.xlargecover.jpeg
+    issue: https://pubs.acs.org/apcach/issue/3/1
     doi: 10.1021/acsphyschemau.2c00032
-    label: "ACS Physical Chemistry Au, January 2023"
+    label: "ACS Physical Chemistry Au, January/February 2023"
+  - image: images/covers/apcach.2023.3.issue-5.xlargecover-2.jpeg
+    issue: https://pubs.acs.org/apcach/issue/3/5
+    doi: 10.1021/acsphyschemau.3c00008
+    label: "ACS Physical Chemistry Au, September/October 2023"
 ---
 We run molecular dynamics simulations of conserved RNA elements, including the s2m element found in coronavirus genomes. We study how single mutations change its flexibility and entropy, how two copies pair through a kissing-loop interaction, and how these structures might interact with host microRNAs. Related work examines how chemical modification of histone mRNA alters its binding to partner proteins.
