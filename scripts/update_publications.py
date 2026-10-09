@@ -21,6 +21,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8"))
 OUT = ROOT / "data" / "publications.json"
 API = "https://api.openalex.org"
+CHECK = {"date": datetime.date.today().isoformat(), "crossref": "not run", "crossref_found": [], "name_search": "not run"}
 
 
 def api_get(path, params):
@@ -135,8 +136,10 @@ def fetch_works(ids):
             if w["id"] not in seen and has_author_name(w):
                 works.append(w); seen.add(w["id"]); added += 1
         print(f"{added} more record(s) found by author name since {since}")
+        CHECK["name_search"] = f"ok: {added} new"
     except Exception as e:
         print(f"  author-name search skipped ({e})")
+        CHECK["name_search"] = f"failed: {e}"
 
     # Crossref, where publishers register new records (meeting abstracts) first
     try:
@@ -146,8 +149,10 @@ def fetch_works(ids):
             if w["doi"].lower() not in known:
                 works.append(w); known.add(w["doi"].lower()); added += 1
         print(f"{added} more record(s) found in Crossref")
+        CHECK["crossref"] = f"ok: {len(CHECK['crossref_found'])} match(es), {added} new"
     except Exception as e:
         print(f"  Crossref search skipped ({e})")
+        CHECK["crossref"] = f"failed: {e}"
 
     # DOIs added by hand in scripts/config.json ("extra_dois")
     for doi in CONFIG.get("extra_dois", []):
@@ -208,19 +213,25 @@ def crossref_search():
     surname = CONFIG["author_surname"].lower()
     initial = CONFIG.get("author_first_initial", "").lower()
     def mine(m):
-        return any(surname in (a.get("family") or "").lower() and
-                   (not initial or (a.get("given") or "").lower().startswith(initial)) for a in m.get("author", []))
+        for a in m.get("author", []):
+            full = f'{a.get("given", "")} {a.get("family", "")} {a.get("name", "")}'.lower()
+            if surname in full and (not a.get("given") or not initial or
+                                    (a.get("given") or "").lower().startswith(initial)):
+                return True
+        return False
 
     out, seen = [], set()
     # A focused search in the journals where the group's meeting abstracts appear (Biophysical
     # Journal for BPS), then a general search across all journals.
-    passes = [{"filter": f"issn:{i},from-pub-date:{since}"} for i in CONFIG.get("abstract_journal_issns", [])]
-    passes.append({"filter": f"from-pub-date:{since}"})
+    passes = []
+    for i in CONFIG.get("abstract_journal_issns", []):
+        passes.append({"query.author": CONFIG["author_surname"], "filter": f"issn:{i},from-pub-date:{since}"})
+        passes.append({"query.bibliographic": CONFIG["author_surname"], "filter": f"issn:{i},from-pub-date:{since}"})
+    passes.append({"query.author": CONFIG["author_surname"], "filter": f"from-pub-date:{since}"})
     for extra in passes:
         offset = 0
         while True:
-            msg = crossref_get("works", {"query.author": CONFIG["author_surname"], "rows": 100,
-                                         "offset": offset, **extra})
+            msg = crossref_get("works", {"rows": 100, "offset": offset, **extra})
             items = msg.get("items", [])
             for m in items:
                 d = (m.get("DOI") or "").lower()
@@ -228,6 +239,7 @@ def crossref_search():
                     seen.add(d)
                     out.append(crossref_to_work(m))
                     print(f"  Crossref: {(m.get('title') or [''])[0][:80]}  ({d})")
+                    CHECK["crossref_found"].append(f"{(m.get('title') or [''])[0][:90]} ({d})")
             offset += len(items)
             if not items or offset >= min(msg.get("total-results", 0), 500):
                 break
@@ -354,7 +366,10 @@ def main():
         sys.exit(f"Publication count dropped from {len(old_pubs)} to {len(pubs)}; "
                  "leaving the existing file unchanged. Check the log above.")
 
-    if pubs == old_pubs and old.get("highlight") == CONFIG.get("highlight_names") and cover_items(works) == old.get("cover_items", []):
+    same_check = {k: v for k, v in CHECK.items() if k != "date"} == \
+        {k: v for k, v in (old.get("last_check") or {}).items() if k != "date"}
+    if pubs == old_pubs and old.get("highlight") == CONFIG.get("highlight_names") and \
+            cover_items(works) == old.get("cover_items", []) and same_check:
         print("No changes.")
         return
 
@@ -366,6 +381,7 @@ def main():
         "highlight": CONFIG.get("highlight_names", []),
         "publications": pubs,
         "cover_items": cover_items(works),
+        "last_check": CHECK,
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote data/{OUT.name}")
 
