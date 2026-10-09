@@ -17,5 +17,11 @@ papers:
   - 10.1021/acs.joc.4c03090
   - 10.1021/acs.orglett.4c02013
   - 10.1021/acs.joc.1c01047
+# Journal covers. The image links to the journal issue; "Read the paper" links to the paper.
+covers:
+  - image: images/covers/joceah.2025.90.issue-10.xlargecover-2.jpeg
+    issue: https://pubs.acs.org/toc/joceah/90/10
+    doi: 10.1021/acs.joc.4c03090
+    label: "The Journal of Organic Chemistry, March 14, 2025"
 ---
 Using quantum chemical methods, we map the pathways of reactions involving tertiary amine N-oxides, lithium amide aggregates, and 1,3-dipoles. A recurring theme is that highly polarized intermediates often need explicit solvent molecules in the model before the computed mechanism matches what is seen in the flask.

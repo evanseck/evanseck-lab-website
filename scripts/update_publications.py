@@ -170,13 +170,14 @@ def process(works):
             continue
         # Merge duplicates (same title), preferring the record with a DOI and a journal name.
         k = title_key(e["title"])
-        score = (bool(e["doi"]), bool(e["venue"]), bool(e["pages"]))
+        score = (e["_type"] in ("article", "review", "letter", "book-chapter"),
+                 bool(e["doi"]), bool(e["venue"]), bool(e["pages"]))
         if k not in best or score > best[k][0]:
             best[k] = (score, e)
 
     pubs = [e for _, e in best.values()]
     for e in pubs:
-        e.pop("_type", None)
+        e["type"] = e.pop("_type", "") or ""
     pubs.sort(key=lambda e: (e["date"], e["title"]), reverse=True)
     return pubs
 

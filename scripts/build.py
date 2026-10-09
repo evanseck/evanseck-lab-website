@@ -517,6 +517,10 @@ def is_paper(p):
     venue = str(p.get("venue", "")).lower()
     if not doi or not venue:
         return False
+    if p.get("type") and p["type"] not in ("article", "review", "letter", "book-chapter"):
+        return False          # meeting abstracts, preprints, dissertations, reports ...
+    if re.search(r"rxiv|research square|preprints\.org|ssrn", venue):
+        return False
     if re.fullmatch(r"\d+a(\s*[–-]\s*\d+a)?", pages):
         return False
     if re.search(r"\.s\d+\.|/s\d+\.|supplement", doi) or "abstracts of papers" in venue or "osti" in venue:

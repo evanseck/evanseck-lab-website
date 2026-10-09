@@ -11,7 +11,15 @@
     "article",
     "review",
     "letter",
-    "book-chapter"
+    "book-chapter",
+    "other",
+    "paratext",
+    "preprint",
+    "report",
+    "dissertation",
+    "editorial",
+    "proceedings-article",
+    "book"
   ],
   "hide_dois": [],
   "hide_titles_containing": [],
