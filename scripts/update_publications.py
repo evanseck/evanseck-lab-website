@@ -138,6 +138,17 @@ def fetch_works(ids):
     except Exception as e:
         print(f"  author-name search skipped ({e})")
 
+    # Crossref, where publishers register new records (meeting abstracts) first
+    try:
+        known = {(w.get("doi") or "").lower() for w in works}
+        added = 0
+        for w in crossref_search():
+            if w["doi"].lower() not in known:
+                works.append(w); known.add(w["doi"].lower()); added += 1
+        print(f"{added} more record(s) found in Crossref")
+    except Exception as e:
+        print(f"  Crossref search skipped ({e})")
+
     # DOIs added by hand in scripts/config.json ("extra_dois")
     for doi in CONFIG.get("extra_dois", []):
         doi = re.sub(r"^https?://(dx\.)?doi\.org/", "", str(doi).strip(), flags=re.I)
@@ -165,15 +176,55 @@ def has_author_name(w):
     return False
 
 
+def crossref_get(path, params=None):
+    params = dict(params or {})
+    if CONFIG.get("contact_email"):
+        params["mailto"] = CONFIG["contact_email"]
+    url = f"https://api.crossref.org/{path}" + (f"?{urllib.parse.urlencode(params, safe=':,')}" if params else "")
+    req = urllib.request.Request(url, headers={"User-Agent": "evanseck-group-website (GitHub Action; weekly publication check)"})
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                return json.load(r)["message"]
+        except Exception as e:
+            if attempt == 2:
+                raise
+            time.sleep(5 * (attempt + 1))
+
+
 def crossref_work(doi):
-    """Turn a Crossref record into the same shape as an OpenAlex work (for very new DOIs)."""
+    """A single DOI from Crossref, in the same shape as an OpenAlex work."""
     try:
-        req = urllib.request.Request(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}",
-                                     headers={"User-Agent": "evanseck-group-website (GitHub Action)"})
-        with urllib.request.urlopen(req, timeout=30) as r:
-            m = json.load(r)["message"]
+        return crossref_to_work(crossref_get(f"works/{urllib.parse.quote(doi)}"))
     except Exception:
         return None
+
+
+def crossref_search():
+    """Crossref records with the surname in the author list (last few years).
+    Publishers register meeting abstracts here first (e.g. Biophysical Society abstracts in
+    Biophysical Journal); OpenAlex can take months to list them, or never links them."""
+    since = f"{datetime.date.today().year - 4}-01-01"
+    surname = CONFIG["author_surname"].lower()
+    initial = CONFIG.get("author_first_initial", "").lower()
+    out, offset = [], 0
+    while True:
+        msg = crossref_get("works", {"query.author": CONFIG["author_surname"],
+                                     "filter": f"from-pub-date:{since}", "rows": 100, "offset": offset})
+        items = msg.get("items", [])
+        for m in items:
+            if any((a.get("family") or "").lower() == surname and
+                   (not initial or (a.get("given") or "").lower().startswith(initial)) for a in m.get("author", [])):
+                out.append(crossref_to_work(m))
+        offset += len(items)
+        if not items or offset >= min(msg.get("total-results", 0), 500):
+            break
+        time.sleep(1)
+    return out
+
+
+def crossref_to_work(m):
+    doi = m.get("DOI", "")
     parts = (m.get("published") or m.get("issued") or {}).get("date-parts", [[None]])[0]
     year = parts[0]
     date = "-".join(f"{x:02d}" if i else str(x) for i, x in enumerate(parts)) if year else ""
@@ -182,15 +233,18 @@ def crossref_work(doi):
     page = m.get("page") or ""
     first, _, last = page.partition("-")
     kind = {"journal-article": "article", "proceedings-article": "proceedings-article"}.get(m.get("type"), "other")
+    title = (m.get("title") or [""])[0]
+    title = re.sub(r"^\s*BPS\s?\d{4}\s*[–—-]\s*", "", title)   # "BPS2026 – Title" -> "Title"
     return {
-        "id": "crossref:" + doi,
+        "id": "crossref:" + doi.lower(),
         "doi": "https://doi.org/" + doi,
-        "display_name": (m.get("title") or [""])[0],
+        "display_name": title,
         "publication_year": year,
         "publication_date": date,
         "type": kind,
         "authorships": [{"author": {"display_name": f'{a.get("given", "")} {a.get("family", "")}'.strip(),
-                                    "orcid": a.get("ORCID")}} for a in m.get("author", [])],
+                                    "orcid": re.sub(r"^https?://orcid\.org/", "https://orcid.org/", a.get("ORCID") or "") or None}}
+                        for a in m.get("author", [])],
         "primary_location": {"source": {"display_name": (m.get("container-title") or [""])[0]}},
         "biblio": {"volume": m.get("volume"), "first_page": first or None, "last_page": last or None},
     }
