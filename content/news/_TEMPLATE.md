@@ -1,5 +1,5 @@
 ---
-# Copy this file to post news. Name it with the date first, e.g. 2026-10-15-acs-fall-meeting.md
+# Copy this file to post an announcement (shown as a photo tile on the Announcements tab). Name it with the date first, e.g. 2026-10-15-acs-fall-meeting.md
 # Lines starting with # are notes and can be left in or deleted. Leave a line empty if it doesn't apply.
 
 title: "A short headline"

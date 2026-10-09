@@ -134,6 +134,35 @@ def title_of(page):
     return ""
 
 
+def photo_of(page, base, near=None):
+    """The story's main photo: the image next to the paragraph that mentions us (newsletters),
+    else the page's share image (og:image), else the first sizeable image in the story."""
+    skip = re.compile(r"logo|icon|sprite|seal|badge|spacer|pixel|social|facebook|twitter|instagram|linkedin|youtube", re.I)
+
+    def ok(src):
+        return src and not src.startswith("data:") and not skip.search(src)
+
+    if near:   # newsletter: last image before the paragraph, within the same story block
+        words = re.findall(r"\w+", near)[:6]
+        loc = re.search(r"(?:\W|<[^>]+>|&\w+;)+".join(map(re.escape, words)), page) if words else None
+        i = loc.start() if loc else -1
+        if i > 0:
+            imgs = [m for m in re.finditer(r'<img[^>]+src="([^"]+)"', page[max(0, i - 4000):i], re.I) if ok(m.group(1))]
+            if imgs:
+                return urllib.parse.urljoin(base, html.unescape(imgs[-1].group(1)))
+        return ""
+    m = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page, re.I) or \
+        re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', page, re.I)
+    if m and ok(m.group(1)):
+        return urllib.parse.urljoin(base, html.unescape(m.group(1)))
+    main = re.search(r"<main\b.*?</main>", page, re.S | re.I)
+    for m in re.finditer(r'<img[^>]+src="([^"]+)"[^>]*>', main.group(0) if main else page, re.I):
+        w = re.search(r'width="(\d+)"', m.group(0))
+        if ok(m.group(1)) and not (w and int(w.group(1)) < 200):
+            return urllib.parse.urljoin(base, html.unescape(m.group(1)))
+    return ""
+
+
 def page_date(page):
     for pat in (r'<meta[^>]+(?:property|name)="(?:article:published_time|date|dcterms.date)"[^>]+content="(\d{4}-\d\d-\d\d)',
                 r'<time[^>]+datetime="(\d{4}-\d\d-\d\d)'):
@@ -256,6 +285,7 @@ def main():
                     "dated": bool(date),
                     "excerpt": short(" ".join(g), 600),
                     "names": sorted({m.group(0) for h in g for m in pattern.finditer(h)}),
+                    "image": photo_of(page, url, g[0] if issue_date else None),
                 }
                 if url + "#" + key not in items:
                     new += 1

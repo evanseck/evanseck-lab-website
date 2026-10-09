@@ -442,6 +442,7 @@ def duquesne_news_items():
             body = ""                                   # short newsletter notes: the title says it all
         out.append({"path": None, "slug": "dq-" + hashlib.md5((i["url"] + i.get("key", "")).encode()).hexdigest()[:10],
                     "m": m, "body": body, "date": d, "month_only": False, "undated": not i.get("dated", True),
+                    "remote_photo": i.get("image", ""),
                     "cat": "accomplishment", "photos": []})
     return out
 
@@ -466,76 +467,122 @@ def instagram_html(site, lead="Follow along on Instagram"):
     return f'<p class="ig-strip"><span class="ig-lead">{esc(lead)}</span>{"".join(links)}</p>'
 
 
+def fetch_story_photo(url):
+    """Save a story's photo (from Duquesne's site) into the built site as a small square-ish copy.
+    Runs on GitHub during the build; if the photo can't be fetched, the tile shows the lab mark instead."""
+    import hashlib
+    import urllib.request
+    rel = f"images/announcements/{hashlib.md5(url.encode()).hexdigest()[:12]}.jpg"
+    if (OUT / rel).exists():
+        return rel
+    try:
+        from PIL import Image
+        import io
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (evanseck-group-website build)"})
+        data = urllib.request.urlopen(req, timeout=20).read()
+        with Image.open(io.BytesIO(data)) as im:
+            im = im.convert("RGB")
+            im.thumbnail((900, 900))
+            (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
+            im.save(OUT / rel, "JPEG", quality=84, optimize=True, progressive=True)
+        return rel
+    except Exception as e:
+        print(f"  announcement photo not saved ({e}): {url}")
+        return ""
+
+
+def announcement_photo(n):
+    """(image path for the tile and the full view, photo credit) for one announcement."""
+    if n["photos"]:
+        return web_copy(n["photos"][0], 900), ""
+    if n.get("remote_photo"):
+        got = fetch_story_photo(n["remote_photo"])
+        if got:
+            return got, f'Photo: {n["m"].get("source", "Duquesne University")}'
+    return "", ""
+
+
+def news_tile(n):
+    m = n["m"]
+    img, _ = n["_photo"]
+    pic = (f'<img src="{esc(img)}" alt="" loading="lazy">' if img else
+           f'<span class="an-blank" aria-hidden="true"><img src="images/logo-mark-dark.png" alt=""></span>')
+    when = news_date(n)
+    return (f'<button type="button" class="an-tile{"" if img else " no-photo"}" data-open="{esc(n["slug"])}" '
+            f'data-cat="{n["cat"]}" aria-haspopup="dialog">{pic}'
+            f'<span class="an-tag">{esc(NEWS_TAGS[n["cat"]])}</span>'
+            f'<span class="an-cap">{f"<span class=an-date>{esc(when)}</span>" if when else ""}'
+            f'<span class="an-title">{esc(m["title"])}</span></span></button>')
+
+
+def news_article(n):
+    """The full announcement, shown in a pop-up when its tile is clicked (and listed in full if
+    JavaScript is off)."""
+    m = n["m"]
+    meta = []
+    if n["cat"] == "seminar":
+        who = ", ".join(x for x in [m.get("speaker", ""), m.get("speaker_affiliation", "")] if x)
+        where = ", ".join(x for x in [m.get("event", ""), m.get("location", "")] if x)
+        if who:
+            meta.append(f'<span>Speaker: {esc(who)}</span>')
+        if where:
+            meta.append(f'<span>{esc(where)}</span>')
+    if m.get("source"):
+        meta.append(f'<span class="nw-from">From {esc(m["source"])}</span>')
+    if m.get("author"):
+        meta.append(f'<span>Written by {esc(m["author"])}</span>')
+    img, credit = n["_photo"]
+    fig = ""
+    if img:
+        cap = m.get("photo_caption") or credit
+        fig = (f'<figure class="an-photo"><img src="{esc(img)}" alt="{esc(m.get("photo_alt") or m["title"])}" loading="lazy">'
+               f'{f"<figcaption>{esc(cap)}</figcaption>" if cap else ""}</figure>')
+    extra = "".join(f'<img src="{esc(web_copy(ph, 600))}" alt="" loading="lazy">' for ph in n["photos"][1:])
+    link = f'<p class="an-link"><a href="{esc(web(m["link"]))}">{esc(m.get("link_text") or "More")}</a></p>' if m.get("link") else ""
+    when = news_date(n)
+    return (f'<article class="an-post" id="{esc(n["slug"])}" data-cat="{n["cat"]}">{fig}<div class="an-body">'
+            f'<p class="nw-top">{f"<time datetime={n["date"].isoformat()}>{when}</time>" if when else ""}'
+            f'<span class="nw-tag nw-{n["cat"]}">{esc(NEWS_TAGS[n["cat"]])}</span></p>'
+            f'<h3>{esc(m["title"])}</h3>{f"<p class=nw-meta>{"".join(meta)}</p>" if meta else ""}'
+            f'{md(n["body"])}{f"<div class=an-more-photos>{extra}</div>" if extra else ""}{link}</div></article>')
+
+
 def build_news(news, site=None):
-    if not news:
-        posts = '<p class="note">News will appear here.</p>'
-    else:
-        posts = ""
-        for n in news:
-            m = n["m"]
-            label = NEWS_TAGS[n["cat"]]
-            meta = []
-            if n["cat"] == "seminar":
-                who = ", ".join(x for x in [m.get("speaker", ""), m.get("speaker_affiliation", "")] if x)
-                where = ", ".join(x for x in [m.get("event", ""), m.get("location", "")] if x)
-                if who:
-                    meta.append(f'<span class="nw-who">Speaker: {esc(who)}</span>')
-                if where:
-                    meta.append(f'<span class="nw-where">{esc(where)}</span>')
-            if m.get("source"):
-                meta.append(f'<span class="nw-from">From {esc(m["source"])}</span>')
-            if m.get("author"):
-                meta.append(f'<span class="nw-by">Written by {esc(m["author"])}</span>')
-            photos = ""
-            if n["photos"]:
-                first, rest = n["photos"][0], n["photos"][1:]
-                cap = f'<figcaption>{esc(m["photo_caption"])}</figcaption>' if m.get("photo_caption") else ""
-                thumbs = "".join(f'<a href="{esc(ph)}" target="_blank" rel="noopener"><img src="{esc(web_copy(ph, 400))}" alt="" loading="lazy"></a>' for ph in rest)
-                photos = (f'<figure class="nw-photo"><a href="{esc(first)}" target="_blank" rel="noopener">'
-                          f'<img src="{esc(web_copy(first, 900))}" alt="{esc(m.get("photo_alt") or m["title"])}" loading="lazy"></a>{cap}'
-                          f'{f"<div class=nw-thumbs>{thumbs}</div>" if thumbs else ""}</figure>')
-            body = md(n["body"])
-            paras = re.findall(r"<p>.*?</p>", body, re.S)
-            if n["cat"] == "seminar" and len(paras) > 1:   # long reviews: first paragraph, then "Read the full review"
-                body = paras[0] + f'<details class="nw-more"><summary>Read the full review</summary>{body.replace(paras[0], "", 1)}</details>'
-            link = f'<p><a href="{esc(web(m["link"]))}">{esc(m.get("link_text") or "More")}</a></p>' if m.get("link") else ""
-            posts += (f'<article class="nw-post{" has-photo" if photos else ""}" id="{esc(n["slug"])}" data-cat="{n["cat"]}">'
-                      f'<div class="nw-text"><p class="nw-top"><time datetime="{n["date"].isoformat()}">{news_date(n)}</time>'
-                      f'<span class="nw-tag nw-{n["cat"]}">{esc(label)}</span></p>'
-                      f'<h3>{esc(m["title"])}</h3>{f"<p class=nw-meta>{"".join(meta)}</p>" if meta else ""}{body}{link}</div>'
-                      f'{photos}</article>')
+    for n in news:
+        n["_photo"] = announcement_photo(n)
     used = [c for c, _ in NEWS_CATEGORIES if any(n["cat"] == c for n in news)]
     chips = ""
     if len(used) > 1:
-        chips = ('<div class="nw-filter" role="group" aria-label="Show news by type">'
+        chips = ('<div class="nw-filter" role="group" aria-label="Show announcements by type">'
                  '<button type="button" data-filter="all" aria-pressed="true">All</button>'
                  + "".join(f'<button type="button" data-filter="{c}" aria-pressed="false">{esc(l)}</button>'
                            for c, l in NEWS_CATEGORIES if c in used) + "</div>")
+    if news:
+        body = (f'<div class="an-grid">{"".join(news_tile(n) for n in news)}</div>'
+                f'<div class="an-posts">{"".join(news_article(n) for n in news)}</div>')
+    else:
+        body = '<p class="note">Announcements will appear here.</p>'
     return f'''
-  <section class="page" id="news">
-    <h2>News</h2>
+  <section class="page" id="announcements">
+    <h2>Announcements</h2>
     {instagram_html(site or {}, "Duquesne highlights the group on Instagram")}
     {chips}
-    <div class="nw-list">{posts}</div>
+    {body}
+    <dialog class="an-dialog" id="an-dialog" aria-label="Announcement">
+      <button type="button" class="an-close" aria-label="Close">×</button>
+      <div class="an-dialog-body"></div>
+    </dialog>
   </section>'''
 
 
-def latest_news_html(news, count=3):
+def latest_news_html(news, count=4):
     if not news:
         return ""
-    cards = ""
     for n in news[:count]:
-        img = f'<img src="{esc(web_copy(n["photos"][0], 400))}" alt="" loading="lazy">' if n["photos"] else ""
-        teaser = re.sub(r"<[^>]+>", "", md(n["body"]).split("</p>")[0])
-        teaser = (teaser[:150].rsplit(" ", 1)[0] + "…") if len(teaser) > 150 else teaser
-        cards += (f'<a class="nw-card" href="#news" data-target="{esc(n["slug"])}">'
-                  f'{f"<span class=nw-card-img>{img}</span>" if img else ""}'
-                  f'<span class="nw-card-text"><span class="nw-top"><time>{news_date(n)}</time>'
-                  f'<span class="nw-tag nw-{n["cat"]}">{esc(NEWS_TAGS[n["cat"]])}</span></span>'
-                  f'<span class="nw-card-title">{esc(n["m"]["title"])}</span>'
-                  f'<span class="nw-card-teaser">{esc(html.unescape(teaser))}</span></span></a>')
-    return (f'<div class="section-head"><h2 class="section-title">News</h2><a class="more-link" href="#news">All news</a></div>'
-            f'<div class="nw-cards">{cards}</div>')
+        n.setdefault("_photo", announcement_photo(n))
+    return (f'<div class="section-head"><h2 class="section-title">Announcements</h2>'
+            f'<a class="more-link" href="#announcements">All announcements</a></div>'
+            f'<div class="an-grid an-home">{"".join(news_tile(n) for n in news[:count])}</div>')
 
 
 def logo_signals_svg():
@@ -1042,7 +1089,7 @@ SCRIPT = """
   const links = [...document.querySelectorAll('.tabs a')];
   const siteName = document.body.dataset.siteName;
   function show() {
-    const id = (location.hash || '#home').slice(1);
+    const id = (location.hash || '#home').slice(1).replace(/^news$/, 'announcements');
     const target = pages.find(p => p.id === id) || pages[0];
     pages.forEach(p => p.classList.toggle('active', p === target));
     links.forEach(a => {
@@ -1090,8 +1137,25 @@ SCRIPT = """
   document.querySelectorAll('.nw-filter button').forEach(b => b.addEventListener('click', () => {
     const f = b.dataset.filter;
     document.querySelectorAll('.nw-filter button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    document.querySelectorAll('.nw-post').forEach(p => { p.hidden = f !== 'all' && p.dataset.cat !== f; });
+    document.querySelectorAll('#announcements .an-tile, .an-post').forEach(p => { p.hidden = f !== 'all' && p.dataset.cat !== f; });
   }));
+
+  // Announcements: tiles open the full announcement in a pop-up
+  const dlg = document.getElementById('an-dialog');
+  if (dlg && dlg.showModal) {
+    document.body.appendChild(dlg);
+    document.documentElement.classList.add('js-an');
+    const box = dlg.querySelector('.an-dialog-body');
+    document.querySelectorAll('.an-tile').forEach(t => t.addEventListener('click', () => {
+      const a = document.getElementById(t.dataset.open);
+      if (!a) return;
+      box.innerHTML = a.innerHTML;
+      dlg.showModal();
+      dlg.querySelector('.an-close').focus();
+    }));
+    dlg.querySelector('.an-close').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  }
 
   const more = document.getElementById('pub-more');
   if (more) more.addEventListener('click', () => {
@@ -1253,7 +1317,7 @@ function coverFailed(img) {{
     <a href="#research">Research</a>
     <a href="#people">People</a>
     <a href="#publications">Publications</a>
-    <a href="#news">News</a>
+    <a href="#announcements">Announcements</a>
     <a href="#teaching">Teaching &amp; Outreach</a>
     <a href="#join">Join Us</a>
   </div>
