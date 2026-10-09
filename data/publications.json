@@ -2579,8 +2579,8 @@
       "BPS2026 – Structural, dynamical, and entropic impact of Mg2+ on HCV X55 hairpin; role of i (10.1016/j.bpj.2025.11.1809)",
       "Viral-host RNA-RNA interactions in SARS-CoV-2: Study of miR-34a-5p binding interactions wi (10.1016/j.bpj.2022.11.1984)",
       "BPS2026 – Structural determinants of kissing complexation in conserved SL1 hairpins in wes (10.1016/j.bpj.2025.11.1806)",
-      "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS- (10.1016/j.bpj.2021.11.1710)",
       "Delta variant versus ancestral SARS-CoV-2 s2m dynamics and relative entropy (10.1016/j.bpj.2022.11.1980)",
+      "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS- (10.1016/j.bpj.2021.11.1710)",
       "Viral-host RNA-RNA interactions in SARS-CoV-2: study of MIR-760-3p interactions with the g (10.1016/j.bpj.2021.11.1708)",
       "Structural and thermodynamic consequences of the G31U and U5C mutations in the SARS-CoV-2  (10.1016/j.bpj.2022.11.1987)",
       "Characterization of the S2M G15U mutation associated with the SARS-CoV-2 delta variant (10.1016/j.bpj.2021.11.1709)",
@@ -2596,12 +2596,12 @@
       "Delta SARS-CoV-2 s2m Structure, Dynamics, and Entropy: Consequences of the G15U Mutation (10.1021/acsphyschemau.3c00008)",
       "Structural, Dynamical, and Entropic Differences Between SARS-CoV and SARS-CoV-2 s2m Elemen (10.26434/chemrxiv-2022-lpjl9-v2)",
       "Structural heterogeneity and dynamics in the apical stem loop of s2m from SARS-CoV-2 Delta (10.1093/nar/gkaf552)",
-      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1101/2023.02.10.528014)",
       "Inside Front Cover Image, Volume 95, Number 1, January 2023 (10.1002/jmv.28467)",
-      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
+      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1101/2023.02.10.528014)",
       "Bioinformatics analysis of the s2m mutations within the SARS‐CoV‐2 Omicron lineages (10.1002/jmv.28141)",
-      "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elemen (10.1021/acsphyschemau.2c00032)",
+      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
       "Structural, Dynamical, and Entropic Differences Between SARS-CoV and SARS-CoV-2 s2m Elemen (10.26434/chemrxiv-2022-lpjl9)",
+      "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elemen (10.1021/acsphyschemau.2c00032)",
       "Diastereoselective [3 + 2] Cycloaddition between Tertiary Amine <i>N</i>-Oxides and Substi (10.1021/acs.orglett.4c02013)",
       "<i>N</i>-Oxide Insertion into LDA Dimeric Aggregates for Azomethine Ylide Formation: Expli (10.1021/acs.joc.4c03090)",
       "The Scientific Method as a Scaffold to Enhance Communication Skills in Chemistry (10.1021/acs.jchemed.2c00113)"
@@ -2609,8 +2609,8 @@
     "name_search": "ok: 0 new",
     "not_listed": [
       "10.26434/chemrxiv-2022-lpjl9-v2: type other [crossref:10.26434/chemrxiv-202]",
-      "10.1101/2023.02.10.528014: type other [crossref:10.1101/2023.02.10.52]",
       "10.1002/jmv.28467: type paratext [https://openalex.org/W43135756]",
+      "10.1101/2023.02.10.528014: type other [crossref:10.1101/2023.02.10.52]",
       "10.26434/chemrxiv-2022-lpjl9: type other [crossref:10.26434/chemrxiv-202]"
     ]
   }
