@@ -72,6 +72,12 @@
     "recheck_monthly": [
       "/grants-received/"
     ],
+    "listing_pages": [
+      "/grants-received/"
+    ],
+    "always_read": [
+      "https://www.duq.edu/research/sponsored-research/grants-received/index.php"
+    ],
     "times_archive": "https://www.duq.edu/news-and-stories/the-times/",
     "hide": [],
     "seconds_between_requests": 1.0,

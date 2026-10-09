@@ -1,0 +1,66 @@
+{
+ "updated": "2026-10-09",
+ "note": "Started by hand from Duquesne's pages on 2026-10-09; the weekly update keeps it current.",
+ "names": [
+  "Evanseck"
+ ],
+ "items": [
+  {
+   "url": "https://www.duq.edu/research/sponsored-research/grants-received/index.php",
+   "key": "drmihaelaritamihailescuanddrjeffreyevans",
+   "source": "Duquesne University, Grants Received",
+   "title": "$25,000 grant to Dr. Mihaela-Rita Mihailescu and Dr. Jeffrey Evanseck",
+   "date": "2026-08-01",
+   "dated": true,
+   "precision": "month",
+   "excerpt": "Dr. Mihaela-Rita Mihailescu and Dr. Jeffrey Evanseck, Department of Chemistry and Biochemistry, School of Science and Engineering, $25,000",
+   "names": [
+    "Jeffrey Evanseck"
+   ],
+   "image": ""
+  },
+  {
+   "url": "https://www.duq.edu/research/sponsored-research/grants-received/index.php",
+   "key": "drjeffreyevanseckdepartmentofchemistrysc",
+   "source": "Duquesne University, Grants Received",
+   "title": "$507,121 grant to Dr. Jeffrey Evanseck",
+   "date": "2025-09-01",
+   "dated": true,
+   "precision": "month",
+   "excerpt": "Dr. Jeffrey Evanseck, Department of Chemistry, School of Science and Engineering, $507,121",
+   "names": [
+    "Jeffrey Evanseck"
+   ],
+   "image": ""
+  },
+  {
+   "url": "https://www.duq.edu/research/sponsored-research/grants-received/index.php",
+   "key": "drjeffreyevanseckdepartmentofchemistryan",
+   "source": "Duquesne University, Grants Received",
+   "title": "$6,000 grant to Dr. Jeffrey Evanseck",
+   "date": "2025-08-01",
+   "dated": true,
+   "precision": "month",
+   "excerpt": "Dr. Jeffrey Evanseck, Department of Chemistry and Biochemistry, School of Science and Engineering, $6,000",
+   "names": [
+    "Jeffrey Evanseck"
+   ],
+   "image": ""
+  },
+  {
+   "url": "https://www.duq.edu/academics/colleges-and-schools/science-and-engineering/news/presidential-awardees.php",
+   "key": "",
+   "source": "School of Science and Engineering",
+   "title": "Evanseck Receives Presidential Award for Excellence in Research",
+   "date": "2023-10-30",
+   "dated": true,
+   "precision": "day",
+   "excerpt": "Dr. Evanseck's 20-year journey in Duquesne's department of chemistry and biochemistry has been remarkable. During his tenure at Duquesne University, he has secured more than $16.4 million in grants.",
+   "names": [
+    "Evanseck"
+   ],
+   "image": "https://www.duq.edu/images/academics/colleges-and-schools/natural-and-environmental-sciences/academic-programs/biochemistry/hero/evans-gen.jpg"
+  }
+ ],
+ "checked": {}
+}

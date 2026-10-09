@@ -435,14 +435,16 @@ def duquesne_news_items():
             continue                                    # older than the window (default 3 years)
         times = "Times" in i.get("source", "")
         m = {"title": i["title"], "link": i["url"],
-             "link_text": "Read it in the Duquesne Times" if times else "Read the story",
+             "link_text": "Read it in the Duquesne Times" if times else
+                          ("See Duquesne's grants list" if "grants" in i["url"] else "Read the story"),
              "source": i.get("source", "Duquesne University")}
         body = re.sub(r"([\\`*_\[\]#<>])", r"\\\1", i.get("excerpt", ""))
         if times and body == re.sub(r"([\\`*_\[\]#<>])", r"\\\1", i["title"]):
             body = ""                                   # short newsletter notes: the title says it all
         out.append({"path": None, "slug": "dq-" + hashlib.md5((i["url"] + i.get("key", "")).encode()).hexdigest()[:10],
-                    "m": m, "body": body, "date": d, "month_only": False, "undated": not i.get("dated", True),
-                    "remote_photo": i.get("image", ""),
+                    "m": m, "body": body, "date": d, "month_only": i.get("precision") == "month",
+                    "undated": not i.get("dated", True) or i.get("precision") == "year",
+                    "remote_photo": i.get("image", ""), "auto": True,
                     "cat": "accomplishment", "photos": []})
     return out
 
@@ -491,28 +493,47 @@ def fetch_story_photo(url):
         return ""
 
 
+ANN = {}   # site.yml "announcements" settings (photos to use; set in main)
+
+
 def announcement_photo(n):
-    """(image path for the tile and the full view, photo credit) for one announcement."""
+    """(image path for the tile and the full view, photo credit) for one announcement.
+    Order: a photo chosen in site.yml for this announcement, the post's own photo, the story's
+    photo from Duquesne's site, then one of the fill-in photos from site.yml (taking turns)."""
+    text = (n["m"]["title"] + " " + n["m"].get("link", "") + " " + n.get("body", "")).lower()
+    for p in ANN.get("photos") or []:
+        if isinstance(p, dict) and p.get("match") and p.get("image") and str(p["match"]).lower() in text:
+            if image(p["image"], CONTENT / "site.yml"):
+                return web_copy(image(p["image"], CONTENT / "site.yml"), 900), ""
     if n["photos"]:
         return web_copy(n["photos"][0], 900), ""
     if n.get("remote_photo"):
-        got = fetch_story_photo(n["remote_photo"])
-        if got:
-            return got, f'Photo: {n["m"].get("source", "Duquesne University")}'
+        got = fetch_story_photo(n["remote_photo"]) or n["remote_photo"]   # else visitors load it from Duquesne
+        return got, f'Photo: {n["m"].get("source", "Duquesne University")}'
+    fill = [f for f in (ANN.get("fill_in_photos") or []) if image(f, CONTENT / "site.yml")]
+    if fill:
+        import hashlib
+        pick = fill[int(hashlib.md5(n["slug"].encode()).hexdigest(), 16) % len(fill)]
+        return web_copy(pick, 900), ""
     return "", ""
 
 
 def news_tile(n):
     m = n["m"]
     img, _ = n["_photo"]
-    pic = (f'<img src="{esc(img)}" alt="" loading="lazy">' if img else
+    pic = (f'<img src="{esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" '
+           f'onerror="this.outerHTML=\'<span class=an-blank><img src=images/logo-mark-dark.png alt></span>\'">' if img else
            f'<span class="an-blank" aria-hidden="true"><img src="images/logo-mark-dark.png" alt=""></span>')
     when = news_date(n)
+    inner = (f'{pic}<span class="an-tag">{esc(NEWS_TAGS[n["cat"]])}</span>'
+             f'<span class="an-cap">{f"<span class=an-date>{esc(when)}</span>" if when else ""}'
+             f'<span class="an-title">{esc(m["title"])}</span>'
+             f'{f"<span class=an-src>{esc(m["source"])} ↗</span>" if n.get("auto") else ""}</span>')
+    if n.get("auto"):     # stories from Duquesne's site: the tile is a link to the original post
+        return (f'<a class="an-tile{"" if img else " no-photo"}" href="{esc(web(m["link"]))}" target="_blank" '
+                f'rel="noopener" data-cat="{n["cat"]}">{inner}</a>')
     return (f'<button type="button" class="an-tile{"" if img else " no-photo"}" data-open="{esc(n["slug"])}" '
-            f'data-cat="{n["cat"]}" aria-haspopup="dialog">{pic}'
-            f'<span class="an-tag">{esc(NEWS_TAGS[n["cat"]])}</span>'
-            f'<span class="an-cap">{f"<span class=an-date>{esc(when)}</span>" if when else ""}'
-            f'<span class="an-title">{esc(m["title"])}</span></span></button>')
+            f'data-cat="{n["cat"]}" aria-haspopup="dialog">{inner}</button>')
 
 
 def news_article(n):
@@ -1251,6 +1272,7 @@ def main():
                   f'<meta property="og:description" content="{esc(description)}">\n'
                   + (f'<meta property="og:image" content="{esc(url + logo)}">\n' if logo else ""))
 
+    ANN.update(site.get("announcements") or {})
     global DISSERTATIONS, AUTO_COVERS
     DISSERTATIONS = load_dissertations()
     cf = ROOT / "data" / "covers.json"

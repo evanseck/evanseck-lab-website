@@ -471,3 +471,6 @@ address { font-style: normal; line-height: 1.8; }
   .an-blank img { width: 30%; }
   .an-tag { top: 0.45rem; left: 0.45rem; font-size: 0.58rem; }
 }
+.an-src { font-size: 0.7rem; color: #e2bf62; margin-top: 0.15rem; }
+a.an-tile:hover { color: #fff; }
+@media (max-width: 480px) { .an-src { display: none; } }

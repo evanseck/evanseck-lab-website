@@ -50,3 +50,13 @@ instagram:
     url: https://www.instagram.com/duquesneuniversity/
   - name: School of Science and Engineering
     url: https://www.instagram.com/duqscieng/
+
+# Photos for the Announcements tab (upload them to images/news/ first).
+# fill_in_photos: used for announcements that have no photo of their own (taking turns).
+# photos: a photo for one particular announcement; "match" is a few words from its title or link.
+announcements:
+  fill_in_photos: []
+  #  - images/news/group-photo.jpg
+  photos: []
+  #  - match: "507,121"
+  #    image: images/news/nsf-grant.jpg
