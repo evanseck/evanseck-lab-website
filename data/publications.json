@@ -1,6 +1,6 @@
 {
   "source": "OpenAlex",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "author_ids": [
     "A5056080018"
   ],
@@ -57,6 +57,51 @@
         "Darrin M. York",
         "Yaoqi Zhou"
       ],
+      "orcids": [
+        "0000-0002-6655-0721",
+        "0000-0002-7893-3543",
+        "",
+        "0000-0002-2793-6656",
+        "0000-0001-5121-2036",
+        "0000-0002-3586-2730",
+        "0000-0002-2958-0403",
+        "0000-0003-3649-4543",
+        "0000-0002-2317-6792",
+        "0000-0003-2314-2346",
+        "0000-0001-6214-5211",
+        "0000-0002-3569-7771",
+        "0000-0001-8328-6427",
+        "0000-0001-7849-415X",
+        "0000-0003-2616-7354",
+        "0000-0003-0106-7154",
+        "0000-0002-5997-5086",
+        "0000-0002-8233-7461",
+        "0000-0002-4414-5477",
+        "0000-0001-9685-6177",
+        "0000-0001-8696-5177",
+        "0000-0002-5067-6397",
+        "0000-0002-4112-0696",
+        "0000-0001-8287-6804",
+        "0000-0003-3065-1456",
+        "0000-0002-9366-6762",
+        "0000-0003-1015-4567",
+        "0000-0001-7930-8806",
+        "0000-0002-2454-5131",
+        "0000-0002-3649-7675",
+        "0000-0002-5254-2712",
+        "0000-0003-0435-6197",
+        "0000-0002-2392-2062",
+        "0000-0002-2978-3227",
+        "0000-0003-2230-7145",
+        "0000-0002-2355-3316",
+        "0000-0001-5109-0091",
+        "0000-0002-8950-1850",
+        "0000-0001-7192-1999",
+        "0000-0003-1325-1610",
+        "0000-0002-3591-2195",
+        "0000-0002-9193-7055",
+        "0000-0001-9119-2666"
+      ],
       "venue": "Biophysical Journal",
       "volume": "125",
       "pages": "4065–4096",
@@ -74,6 +119,15 @@
         "Maria A. Wirtz Martin",
         "Jeffrey D. Evanseck",
         "Harald Schwalbe"
+      ],
+      "orcids": [
+        "0009-0008-6024-4062",
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "0000-0001-6859-6849",
+        "0000-0002-0318-7785",
+        "0000-0003-2616-7354",
+        "0000-0001-5693-7909"
       ],
       "venue": "RNA",
       "volume": "31",
@@ -96,6 +150,18 @@
         "Jeffrey D. Evanseck",
         "Harald Schwalbe"
       ],
+      "orcids": [
+        "0000-0002-0318-7785",
+        "0000-0002-2597-8211",
+        "0009-0008-6024-4062",
+        "0000-0002-1931-9703",
+        "",
+        "0000-0002-5420-2826",
+        "0000-0002-5582-3931",
+        "0000-0001-5892-5661",
+        "0000-0003-2616-7354",
+        "0000-0001-5693-7909"
+      ],
       "venue": "Nucleic Acids Research",
       "volume": "53",
       "pages": "",
@@ -110,6 +176,12 @@
         "Joseph A. Makowski",
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-1931-9703",
+        "0000-0002-2597-8211",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
       ],
       "venue": "ACS Physical Chemistry Au",
       "volume": "5",
@@ -133,6 +205,19 @@
         "Jeffrey D. Evanseck",
         "Thomas D. Montgomery"
       ],
+      "orcids": [
+        "0000-0002-9767-361X",
+        "0009-0002-1548-3642",
+        "0000-0003-2959-5434",
+        "0009-0004-8742-286X",
+        "0000-0002-8020-7006",
+        "0000-0002-8188-632X",
+        "",
+        "0000-0002-9212-3678",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-6526-8564"
+      ],
       "venue": "The Journal of Organic Chemistry",
       "volume": "90",
       "pages": "3673–3683",
@@ -154,6 +239,18 @@
         "Jeffrey D. Evanseck",
         "Thomas D. Montgomery"
       ],
+      "orcids": [
+        "0000-0003-2684-9355",
+        "0000-0003-2959-5434",
+        "0000-0002-9907-3837",
+        "0009-0002-1548-3642",
+        "0009-0004-9180-4350",
+        "0009-0004-8742-286X",
+        "",
+        "0000-0002-9212-3678",
+        "0000-0003-2616-7354",
+        "0000-0002-6526-8564"
+      ],
       "venue": "Organic Letters",
       "volume": "26",
       "pages": "6546–6550",
@@ -174,6 +271,17 @@
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
       ],
+      "orcids": [
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "0000-0002-8307-4210",
+        "",
+        "0000-0003-2528-1147",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
+      ],
       "venue": "RNA",
       "volume": "29",
       "pages": "1754–1771",
@@ -192,6 +300,15 @@
         "Jeffrey D. Evanseck",
         "Patrick E. Lackey"
       ],
+      "orcids": [
+        "0000-0002-8307-4210",
+        "0000-0002-4807-2578",
+        "",
+        "0000-0002-1931-9703",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354",
+        "0000-0003-2528-1147"
+      ],
       "venue": "RNA Biology",
       "volume": "20",
       "pages": "469–481",
@@ -206,6 +323,12 @@
         "Lennart Nilsson",
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0002-5067-6397",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of Chemical Theory and Computation",
       "volume": "19",
@@ -226,6 +349,16 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0002-8307-4210",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "ACS Physical Chemistry Au",
       "volume": "3",
       "pages": "434–443",
@@ -242,6 +375,14 @@
         "Joseph A. Makowski",
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
+      ],
+      "orcids": [
+        "0000-0003-1301-2695",
+        "0000-0003-2716-4892",
+        "0000-0002-1931-9703",
+        "0000-0002-2597-8211",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
       ],
       "venue": "Biophysical Journal",
       "volume": "122",
@@ -262,6 +403,16 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-1931-9703",
+        "0000-0002-2597-8211",
+        "",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Biophysical Journal",
       "volume": "122",
       "pages": "359a–360a",
@@ -280,6 +431,16 @@
         "Patrick E. Lackey",
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
       ],
       "venue": "Biophysical Journal",
       "volume": "122",
@@ -301,6 +462,17 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-1931-9703",
+        "0000-0002-2597-8211",
+        "",
+        "0000-0003-4949-9263",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "ACS Physical Chemistry Au",
       "volume": "3",
       "pages": "30–43",
@@ -320,6 +492,17 @@
         "Jeffrey D. Evanseck",
         "Patrick E. Lackey",
         "Mihaela‐Rita Mihailescu"
+      ],
+      "orcids": [
+        "0000-0003-1301-2695",
+        "0000-0002-8307-4210",
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "0000-0003-2716-4892",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699"
       ],
       "venue": "Journal of Medical Virology",
       "volume": "95",
@@ -345,6 +528,21 @@
         "Brandon Vernier",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-6526-8564",
+        "",
+        "0000-0002-9061-3163",
+        "0000-0001-6714-1842",
+        "",
+        "0000-0002-8398-2139",
+        "0000-0003-2528-1147",
+        "",
+        "",
+        "0000-0002-9323-0248",
+        "0000-0001-5386-1603",
+        "",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Journal of Chemical Education",
       "volume": "99",
       "pages": "2338–2350",
@@ -361,6 +559,14 @@
         "Kendy A. Pellegrene",
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
+      ],
+      "orcids": [
+        "0000-0003-2528-1147",
+        "0000-0002-8307-4210",
+        "",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
       ],
       "venue": "The FASEB Journal",
       "volume": "36",
@@ -380,6 +586,15 @@
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
       ],
+      "orcids": [
+        "0000-0003-1301-2695",
+        "0000-0003-2716-4892",
+        "",
+        "0000-0002-1931-9703",
+        "0000-0002-2597-8211",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
+      ],
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
@@ -397,6 +612,15 @@
         "Caleb James Frye",
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-1931-9703",
+        "",
+        "0000-0002-2597-8211",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
       ],
       "venue": "Biophysical Journal",
       "volume": "121",
@@ -419,6 +643,18 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-2597-8211",
+        "0000-0002-1931-9703",
+        "",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0002-8307-4210",
+        "",
+        "0000-0003-2528-1147",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
@@ -440,6 +676,18 @@
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
       ],
+      "orcids": [
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "0000-0003-4949-9263",
+        "",
+        "0000-0002-1931-9703",
+        "0000-0002-2597-8211",
+        "0000-0002-8307-4210",
+        "0000-0003-2528-1147",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
+      ],
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
@@ -458,6 +706,15 @@
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
       ],
+      "orcids": [
+        "0000-0003-4949-9263",
+        "0000-0003-2716-4892",
+        "",
+        "0000-0001-5424-990X",
+        "0000-0002-6860-5853",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
+      ],
       "venue": "Nucleic Acids Research",
       "volume": "50",
       "pages": "1017–1032",
@@ -474,6 +731,13 @@
         "Jeffrey D. Evanseck",
         "Thomas D. Montgomery"
       ],
+      "orcids": [
+        "0000-0002-9767-361X",
+        "0009-0004-8742-286X",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-6526-8564"
+      ],
       "venue": "The Journal of Organic Chemistry",
       "volume": "86",
       "pages": "11502–11518",
@@ -489,6 +753,13 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck",
         "Patrick E. Lackey"
+      ],
+      "orcids": [
+        "0000-0002-8307-4210",
+        "",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354",
+        "0000-0003-2528-1147"
       ],
       "venue": "The FASEB Journal",
       "volume": "35",
@@ -507,6 +778,14 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-1931-9703",
+        "",
+        "0000-0003-4949-9263",
+        "0000-0001-5386-1603",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
@@ -523,6 +802,14 @@
         "Kendy A. Pellegrene",
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
+      ],
+      "orcids": [
+        "0000-0003-4949-9263",
+        "0000-0003-2716-4892",
+        "0000-0003-1301-2695",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
       ],
       "venue": "Biophysical Journal",
       "volume": "120",
@@ -543,6 +830,16 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "",
+        "0000-0003-4949-9263",
+        "0000-0003-2716-4892",
+        "0000-0002-1931-9703",
+        "",
+        "0000-0001-5386-1603",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
@@ -562,6 +859,16 @@
         "Jeffrey D. Evanseck",
         "Mihaela‐Rita Mihailescu"
       ],
+      "orcids": [
+        "0000-0003-2716-4892",
+        "0000-0003-4949-9263",
+        "",
+        "0000-0002-8307-4210",
+        "",
+        "0000-0003-2528-1147",
+        "0000-0003-2616-7354",
+        "0000-0002-1162-7699"
+      ],
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
@@ -575,6 +882,11 @@
         "Kendy A. Pellegrene",
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
       ],
       "venue": "Biophysical Journal",
       "volume": "118",
@@ -590,6 +902,11 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Biophysical Journal",
       "volume": "116",
       "pages": "505a",
@@ -602,6 +919,10 @@
       "authors": [
         "Emily M. Benner",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "Biophysical Journal",
       "volume": "114",
@@ -617,6 +938,11 @@
         "Mihaela‐Rita Mihailescu",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "",
+        "0000-0002-1162-7699",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Biophysical Journal",
       "volume": "114",
       "pages": "439a",
@@ -629,6 +955,10 @@
       "authors": [
         "Riley J. Workman",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0009-0002-8784-9949",
+        "0000-0003-2616-7354"
       ],
       "venue": "Biophysical Journal",
       "volume": "114",
@@ -645,6 +975,12 @@
         "Jeffrey J. Rohde",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "",
+        "",
+        "",
+        "0000-0003-2616-7354"
+      ],
       "venue": "",
       "volume": "",
       "pages": "",
@@ -659,6 +995,12 @@
         "Venkata S. Pakkala",
         "Jeffrey D. Evanseck",
         "Fraser F. Fleming"
+      ],
+      "orcids": [
+        "0000-0002-2259-2700",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-9637-0246"
       ],
       "venue": "Tetrahedron Letters",
       "volume": "56",
@@ -678,6 +1020,15 @@
         "Steven M. Firestine",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0001-6213-8476",
+        "",
+        "",
+        "",
+        "",
+        "0000-0001-7325-8043",
+        "0000-0003-2616-7354"
+      ],
       "venue": "The Journal of Physical Chemistry B",
       "volume": "119",
       "pages": "1184–1191",
@@ -693,6 +1044,12 @@
         "Jeffrey D. Evanseck",
         "Michael Stewart Chapman"
       ],
+      "orcids": [
+        "",
+        "0000-0002-2913-9108",
+        "0000-0003-2616-7354",
+        "0000-0001-8525-8585"
+      ],
       "venue": "PLoS ONE",
       "volume": "9",
       "pages": "e108310",
@@ -707,6 +1064,11 @@
         "Jeffrey D. Evanseck",
         "Michael Stewart Chapman"
       ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354",
+        "0000-0001-8525-8585"
+      ],
       "venue": "The Journal of Physical Chemistry A",
       "volume": "116",
       "pages": "10209–10217",
@@ -720,6 +1082,10 @@
         "Jeffrey D. Evanseck",
         "Venkata S. Pakkala"
       ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        ""
+      ],
       "venue": "",
       "volume": "",
       "pages": "",
@@ -732,6 +1098,10 @@
       "authors": [
         "Joshua A. Plumley",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "The Journal of Physical Chemistry A",
       "volume": "113",
@@ -748,6 +1118,12 @@
         "Jeffrey D. Evanseck",
         "Tomislav Pintauer"
       ],
+      "orcids": [
+        "",
+        "0000-0001-9485-6886",
+        "0000-0003-2616-7354",
+        ""
+      ],
       "venue": "Inorganic Chemistry",
       "volume": "48",
       "pages": "16–18",
@@ -760,6 +1136,10 @@
       "authors": [
         "Joshua A. Plumley",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of Chemical Theory and Computation",
       "volume": "4",
@@ -776,6 +1156,12 @@
         "Michael Stewart Chapman",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0003-2748-5530",
+        "",
+        "0000-0001-8525-8585",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Journal of the American Chemical Society",
       "volume": "130",
       "pages": "3349–3358",
@@ -788,6 +1174,10 @@
       "authors": [
         "Joshua A. Plumley",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "The Journal of Physical Chemistry A",
       "volume": "111",
@@ -803,6 +1193,11 @@
         "Michael Stewart Chapman",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0003-2748-5530",
+        "0000-0001-8525-8585",
+        "0000-0003-2616-7354"
+      ],
       "venue": "The Journal of Physical Chemistry A",
       "volume": "111",
       "pages": "10804–10814",
@@ -816,6 +1211,11 @@
         "Orlando Acevedo",
         "William L. Jorgensen",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-6110-3930",
+        "0000-0002-3993-9520",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of Chemical Theory and Computation",
       "volume": "3",
@@ -835,6 +1235,15 @@
         "Hongmei Shen",
         "Wilson S. Meng"
       ],
+      "orcids": [
+        "0000-0002-6618-5103",
+        "",
+        "0000-0003-2616-7354",
+        "",
+        "",
+        "0000-0001-5652-8793",
+        "0000-0003-2575-2260"
+      ],
       "venue": "Molecular Immunology",
       "volume": "44",
       "pages": "322–331",
@@ -850,6 +1259,12 @@
         "Steven M. Firestine",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "",
+        "0000-0001-7366-2206",
+        "0000-0001-7325-8043",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Annual reports in computational chemistry",
       "volume": "",
       "pages": "233–261",
@@ -863,6 +1278,11 @@
         "Eliza A. Ruben",
         "Michael Stewart Chapman",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0003-2748-5530",
+        "0000-0001-8525-8585",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "127",
@@ -878,6 +1298,12 @@
         "Marcela Madrid",
         "Jeffrey D. Evanseck",
         "Jeffry D. Madura"
+      ],
+      "orcids": [
+        "0000-0001-6159-7793",
+        "0000-0002-1138-1537",
+        "0000-0003-2616-7354",
+        "0000-0001-6117-2218"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "127",
@@ -895,6 +1321,13 @@
         "Steven M. Firestine",
         "Richard A. Gibbs"
       ],
+      "orcids": [
+        "",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0001-7325-8043",
+        ""
+      ],
       "venue": "Journal of Chemical Information and Modeling",
       "volume": "45",
       "pages": "1047–1052",
@@ -907,6 +1340,10 @@
       "authors": [
         "Jeffrey D. Evanseck",
         "Steven M. Firestine"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0001-7325-8043"
       ],
       "venue": "Annual reports in computational chemistry",
       "volume": "",
@@ -921,6 +1358,10 @@
         "Orlando Acevedo",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-6110-3930",
+        "0000-0003-2616-7354"
+      ],
       "venue": "ChemInform",
       "volume": "35",
       "pages": "",
@@ -934,6 +1375,11 @@
         "Jason DeChancie",
         "Orlando Acevedo",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0002-6110-3930",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "126",
@@ -951,6 +1397,13 @@
         "Brita G. Schulze",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0001-7366-2206",
+        "0000-0002-6110-3930",
+        "",
+        "",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Journal of Molecular Graphics and Modelling",
       "volume": "22",
       "pages": "369–376",
@@ -965,6 +1418,11 @@
         "Joshua A. Plumley",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-6110-3930",
+        "",
+        "0000-0003-2616-7354"
+      ],
       "venue": "",
       "volume": "227",
       "pages": "",
@@ -977,6 +1435,10 @@
       "authors": [
         "Orlando Acevedo",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-6110-3930",
+        "0000-0003-2616-7354"
       ],
       "venue": "",
       "volume": "",
@@ -992,6 +1454,11 @@
         "Steven M. Firestine",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0001-7366-2206",
+        "0000-0001-7325-8043",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Abstracts of papers - American Chemical Society",
       "volume": "226",
       "pages": "274",
@@ -1004,6 +1471,10 @@
       "authors": [
         "Orlando Acevedo",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-6110-3930",
+        "0000-0003-2616-7354"
       ],
       "venue": "Organic Letters",
       "volume": "5",
@@ -1018,6 +1489,11 @@
         "Alba T. Macias",
         "Joseph E. Norton",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0001-5014-1889",
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "125",
@@ -1035,6 +1511,13 @@
         "Jeffrey D. Evanseck",
         "Michele Parrinello"
       ],
+      "orcids": [
+        "0000-0003-1477-5010",
+        "",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0001-6550-3272"
+      ],
       "venue": "Biophysical Journal",
       "volume": "81",
       "pages": "435–445",
@@ -1047,6 +1530,10 @@
       "authors": [
         "Sue Kong",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "122",
@@ -1061,6 +1548,11 @@
         "Brita G. Schulze",
         "Helmut Grubmüller",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0002-3270-3144",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "122",
@@ -1077,6 +1569,12 @@
         "Arnaud Marchand",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0001-5014-1889",
+        "0000-0001-7001-0034",
+        "0000-0002-0007-382X",
+        "0000-0003-2616-7354"
+      ],
       "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
       "volume": "",
       "pages": "",
@@ -1092,6 +1590,12 @@
         "Alan P. Marchand",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0001-5014-1889",
+        "",
+        "",
+        "0000-0003-2616-7354"
+      ],
       "venue": "The Journal of Organic Chemistry",
       "volume": "65",
       "pages": "2083–2089",
@@ -1104,6 +1608,10 @@
       "authors": [
         "Brita G. Schulze",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "121",
@@ -1145,6 +1653,37 @@
         "D. Yin",
         "Martin Karplus"
       ],
+      "orcids": [
+        "0000-0001-8287-6804",
+        "",
+        "",
+        "0000-0001-7674-6667",
+        "0000-0003-2616-7354",
+        "0000-0001-8674-7997",
+        "0000-0001-8811-7518",
+        "0000-0002-6692-1828",
+        "0000-0002-5997-5086",
+        "",
+        "0000-0001-9685-6177",
+        "",
+        "0000-0003-2358-1349",
+        "",
+        "0000-0002-4112-0696",
+        "0000-0002-9366-6762",
+        "",
+        "",
+        "",
+        "",
+        "0000-0002-5254-2712",
+        "",
+        "0000-0002-2978-3227",
+        "0000-0003-2230-7145",
+        "0000-0002-2355-3316",
+        "0000-0002-5744-197X",
+        "",
+        "",
+        "0000-0002-5485-6117"
+      ],
       "venue": "The Journal of Physical Chemistry B",
       "volume": "102",
       "pages": "3586–3616",
@@ -1158,6 +1697,11 @@
         "Leo S. D. Caves",
         "Jeffrey D. Evanseck",
         "Martin Karplus"
+      ],
+      "orcids": [
+        "0000-0002-8610-1114",
+        "0000-0003-2616-7354",
+        "0000-0002-5485-6117"
       ],
       "venue": "Protein Science",
       "volume": "7",
@@ -1176,6 +1720,14 @@
         "Jeffrey D. Evanseck",
         "Angel E. Kaifer"
       ],
+      "orcids": [
+        "",
+        "",
+        "",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0001-7155-9889"
+      ],
       "venue": "Journal of Physical Organic Chemistry",
       "volume": "10",
       "pages": "369–382",
@@ -1189,6 +1741,11 @@
         "Richardson",
         "Cara-Lee Davey",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "",
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
       "volume": "",
@@ -1207,6 +1764,14 @@
         "Jeffrey D. Evanseck",
         "Angel E. Kaifer"
       ],
+      "orcids": [
+        "0000-0002-4136-3858",
+        "",
+        "",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0001-7155-9889"
+      ],
       "venue": "Supramolecular chemistry",
       "volume": "8",
       "pages": "17–22",
@@ -1224,6 +1789,14 @@
         "Angel E. Kaifer",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0001-5314-4567",
+        "",
+        "",
+        "",
+        "0000-0001-7155-9889",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Journal of the American Chemical Society",
       "volume": "118",
       "pages": "10257–10268",
@@ -1237,6 +1810,11 @@
         "Matthew P. Repasky",
         "Ramkumar Rajamani",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-0259-7053",
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "Springer eBooks",
       "volume": "",
@@ -1253,6 +1831,12 @@
         "Jeffrey D. Evanseck",
         "Angel E. Kaifer"
       ],
+      "orcids": [
+        "0000-0001-5314-4567",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0001-7155-9889"
+      ],
       "venue": "The Journal of Organic Chemistry",
       "volume": "61",
       "pages": "7298–7303",
@@ -1267,6 +1851,12 @@
         "Bert E. Thomas",
         "David C. Spellmeyer",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "",
+        "0009-0002-9259-0767",
+        "0000-0002-8387-5261"
       ],
       "venue": "The Journal of Organic Chemistry",
       "volume": "60",
@@ -1283,6 +1873,12 @@
         "James M. Briggs",
         "William L. Jorgensen"
       ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261",
+        "0000-0001-5863-8945",
+        "0000-0002-3993-9520"
+      ],
       "venue": "Journal of the American Chemical Society",
       "volume": "116",
       "pages": "10630–10638",
@@ -1296,6 +1892,11 @@
         "Bert E. IV Thomas",
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
       ],
       "venue": "ChemInform",
       "volume": "25",
@@ -1313,6 +1914,13 @@
         "Kendall N. Houk",
         "C. S. Foote"
       ],
+      "orcids": [
+        "0000-0003-0650-5766",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261",
+        ""
+      ],
       "venue": "ChemInform",
       "volume": "24",
       "pages": "",
@@ -1326,6 +1934,11 @@
         "Bert E. IV Thomas",
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
       ],
       "venue": "ChemInform",
       "volume": "24",
@@ -1343,6 +1956,13 @@
         "Kendall N. Houk",
         "Christopher S. Foote"
       ],
+      "orcids": [
+        "0000-0003-0650-5766",
+        "0000-0002-7018-180X",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261",
+        ""
+      ],
       "venue": "Journal of the American Chemical Society",
       "volume": "115",
       "pages": "4879–4884",
@@ -1356,6 +1976,11 @@
         "Bert E. Thomas",
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "115",
@@ -1371,6 +1996,11 @@
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
       ],
+      "orcids": [
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
+      ],
       "venue": "Israel Journal of Chemistry",
       "volume": "33",
       "pages": "287–293",
@@ -1384,6 +2014,11 @@
         "Kendall N. Houk",
         "Y. LI",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-8387-5261",
+        "",
+        "0000-0003-2616-7354"
       ],
       "venue": "ChemInform",
       "volume": "23",
@@ -1399,6 +2034,11 @@
         "Yi Li",
         "Jeffrey D. Evanseck"
       ],
+      "orcids": [
+        "0000-0002-8387-5261",
+        "0000-0002-4236-262X",
+        "0000-0003-2616-7354"
+      ],
       "venue": "Angewandte Chemie",
       "volume": "104",
       "pages": "711–739",
@@ -1412,6 +2052,11 @@
         "Kendall N. Houk",
         "Yi Li",
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0002-8387-5261",
+        "0000-0002-5222-3674",
+        "0000-0003-2616-7354"
       ],
       "venue": "Angewandte Chemie International Edition in English",
       "volume": "31",
@@ -1429,6 +2074,13 @@
         "Paul A. Bash",
         "Martin J. Field"
       ],
+      "orcids": [
+        "0000-0002-5485-6117",
+        "0000-0003-2616-7354",
+        "0000-0001-9685-6177",
+        "",
+        "0000-0001-8674-7997"
+      ],
       "venue": "Faraday Discussions",
       "volume": "93",
       "pages": "239",
@@ -1441,6 +2093,10 @@
       "authors": [
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
       ],
       "venue": "ChemInform",
       "volume": "22",
@@ -1455,6 +2111,10 @@
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
       ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
+      ],
       "venue": "Journal of the American Chemical Society",
       "volume": "112",
       "pages": "9148–9156",
@@ -1467,6 +2127,10 @@
       "authors": [
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
       ],
       "venue": "ChemInform",
       "volume": "21",
@@ -1481,6 +2145,10 @@
         "Jeffrey D. Evanseck",
         "Kendall N. Houk"
       ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261"
+      ],
       "venue": "The Journal of Physical Chemistry",
       "volume": "94",
       "pages": "5518–5523",
@@ -1494,6 +2162,11 @@
         "Jeffrey D. Evanseck",
         "Jiri Mareda",
         "Kendall N. Houk"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "",
+        "0000-0002-8387-5261"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "112",
@@ -1514,6 +2187,16 @@
         "Kendall N. Houk",
         "F. Diederich"
       ],
+      "orcids": [
+        "0000-0003-4141-2872",
+        "0000-0002-1280-4044",
+        "0000-0001-7916-0231",
+        "",
+        "",
+        "0000-0003-2616-7354",
+        "0000-0002-8387-5261",
+        ""
+      ],
       "venue": "Pure and Applied Chemistry",
       "volume": "62",
       "pages": "2227–2236",
@@ -1525,6 +2208,9 @@
       "date": "1990-01-01",
       "authors": [
         "Jeffrey D. Evanseck"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354"
       ],
       "venue": "",
       "volume": "",
@@ -1540,6 +2226,11 @@
         "James F. Blake",
         "William L. Jorgensen"
       ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0001-7525-7140",
+        "0000-0002-3993-9520"
+      ],
       "venue": "ChemInform",
       "volume": "18",
       "pages": "",
@@ -1553,6 +2244,11 @@
         "Jeffrey D. Evanseck",
         "James F. Blake",
         "William L. Jorgensen"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0001-7525-7140",
+        "0000-0002-3993-9520"
       ],
       "venue": "Journal of the American Chemical Society",
       "volume": "109",
