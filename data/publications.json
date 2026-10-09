@@ -105,7 +105,8 @@
       "venue": "Biophysical Journal",
       "volume": "125",
       "pages": "4065–4096",
-      "doi": "https://doi.org/10.1016/j.bpj.2026.03.050"
+      "doi": "https://doi.org/10.1016/j.bpj.2026.03.050",
+      "type": "article"
     },
     {
       "title": "Integrated NMR and MD structure and dynamics of the stem–loop-II motif (s2m) from the Omicron variant of SARS-CoV-2",
@@ -132,7 +133,8 @@
       "venue": "RNA",
       "volume": "31",
       "pages": "1766–1787",
-      "doi": "https://doi.org/10.1261/rna.080576.125"
+      "doi": "https://doi.org/10.1261/rna.080576.125",
+      "type": "article"
     },
     {
       "title": "Structural heterogeneity and dynamics in the apical stem loop of s2m from SARS-CoV-2 Delta by an integrative NMR spectroscopy and MD simulation approach",
@@ -165,7 +167,8 @@
       "venue": "Nucleic Acids Research",
       "volume": "53",
       "pages": "",
-      "doi": "https://doi.org/10.1093/nar/gkaf552"
+      "doi": "https://doi.org/10.1093/nar/gkaf552",
+      "type": "article"
     },
     {
       "title": "Structural Prediction of Coronavirus s2m Kissing Complexes and Extended Duplexes",
@@ -186,7 +189,8 @@
       "venue": "ACS Physical Chemistry Au",
       "volume": "5",
       "pages": "410–424",
-      "doi": "https://doi.org/10.1021/acsphyschemau.5c00031"
+      "doi": "https://doi.org/10.1021/acsphyschemau.5c00031",
+      "type": "article"
     },
     {
       "title": "N-Oxide Insertion into LDA Dimeric Aggregates for Azomethine Ylide Formation: Explicit Solvation in Quantum Mechanical Treatment of Polarized Intermediates",
@@ -221,7 +225,8 @@
       "venue": "The Journal of Organic Chemistry",
       "volume": "90",
       "pages": "3673–3683",
-      "doi": "https://doi.org/10.1021/acs.joc.4c03090"
+      "doi": "https://doi.org/10.1021/acs.joc.4c03090",
+      "type": "article"
     },
     {
       "title": "Diastereoselective [3 + 2] Cycloaddition between Tertiary Amine N-Oxides and Substituted Alkenes to Access 7-Azanorbornanes",
@@ -254,7 +259,8 @@
       "venue": "Organic Letters",
       "volume": "26",
       "pages": "6546–6550",
-      "doi": "https://doi.org/10.1021/acs.orglett.4c02013"
+      "doi": "https://doi.org/10.1021/acs.orglett.4c02013",
+      "type": "article"
     },
     {
       "title": "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization and its interactions with miR-1307-3p",
@@ -285,7 +291,8 @@
       "venue": "RNA",
       "volume": "29",
       "pages": "1754–1771",
-      "doi": "https://doi.org/10.1261/rna.079627.123"
+      "doi": "https://doi.org/10.1261/rna.079627.123",
+      "type": "article"
     },
     {
       "title": "Uridylation of the histone mRNA stem-loop weakens binding interactions with SLBP while maintaining interactions with 3’hExo",
@@ -312,7 +319,8 @@
       "venue": "RNA Biology",
       "volume": "20",
       "pages": "469–481",
-      "doi": "https://doi.org/10.1080/15476286.2023.2171760"
+      "doi": "https://doi.org/10.1080/15476286.2023.2171760",
+      "type": "article"
     },
     {
       "title": "Parameterization of the miniPEG-Modified γPNA Backbone: Toward Induced γPNA Duplex Dissociation",
@@ -333,7 +341,8 @@
       "venue": "Journal of Chemical Theory and Computation",
       "volume": "19",
       "pages": "3346–3358",
-      "doi": "https://doi.org/10.1021/acs.jctc.2c01163"
+      "doi": "https://doi.org/10.1021/acs.jctc.2c01163",
+      "type": "article"
     },
     {
       "title": "Delta SARS-CoV-2 s2m Structure, Dynamics, and Entropy: Consequences of the G15U Mutation",
@@ -362,7 +371,8 @@
       "venue": "ACS Physical Chemistry Au",
       "volume": "3",
       "pages": "434–443",
-      "doi": "https://doi.org/10.1021/acsphyschemau.3c00008"
+      "doi": "https://doi.org/10.1021/acsphyschemau.3c00008",
+      "type": "article"
     },
     {
       "title": "Viral-host RNA-RNA interactions in SARS-CoV-2: Study of miR-34a-5p binding interactions within the genome 3'-untranslated region",
@@ -387,7 +397,8 @@
       "venue": "Biophysical Journal",
       "volume": "122",
       "pages": "359a",
-      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1984"
+      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1984",
+      "type": "article"
     },
     {
       "title": "Structural and thermodynamic consequences of the G31U and U5C mutations in the SARS-CoV-2 s2m",
@@ -416,7 +427,8 @@
       "venue": "Biophysical Journal",
       "volume": "122",
       "pages": "359a–360a",
-      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1987"
+      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1987",
+      "type": "article"
     },
     {
       "title": "Delta variant versus ancestral SARS-CoV-2 s2m dynamics and relative entropy",
@@ -445,7 +457,8 @@
       "venue": "Biophysical Journal",
       "volume": "122",
       "pages": "358a",
-      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1980"
+      "doi": "https://doi.org/10.1016/j.bpj.2022.11.1980",
+      "type": "article"
     },
     {
       "title": "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elements Using Molecular Dynamics Simulations",
@@ -476,7 +489,8 @@
       "venue": "ACS Physical Chemistry Au",
       "volume": "3",
       "pages": "30–43",
-      "doi": "https://doi.org/10.1021/acsphyschemau.2c00032"
+      "doi": "https://doi.org/10.1021/acsphyschemau.2c00032",
+      "type": "article"
     },
     {
       "title": "Bioinformatics analysis of the s2m mutations within the SARS‐CoV‐2 Omicron lineages",
@@ -507,7 +521,8 @@
       "venue": "Journal of Medical Virology",
       "volume": "95",
       "pages": "e28141",
-      "doi": "https://doi.org/10.1002/jmv.28141"
+      "doi": "https://doi.org/10.1002/jmv.28141",
+      "type": "article"
     },
     {
       "title": "The Scientific Method as a Scaffold to Enhance Communication Skills in Chemistry",
@@ -546,7 +561,8 @@
       "venue": "Journal of Chemical Education",
       "volume": "99",
       "pages": "2338–2350",
-      "doi": "https://doi.org/10.1021/acs.jchemed.2c00113"
+      "doi": "https://doi.org/10.1021/acs.jchemed.2c00113",
+      "type": "article"
     },
     {
       "title": "Computational and Biophysical Analysis of RNA/Protein Complexes in Histone mRNA Degradation",
@@ -571,7 +587,8 @@
       "venue": "The FASEB Journal",
       "volume": "36",
       "pages": "",
-      "doi": "https://doi.org/10.1096/fasebj.2022.36.s1.r4351"
+      "doi": "https://doi.org/10.1096/fasebj.2022.36.s1.r4351",
+      "type": "article"
     },
     {
       "title": "Viral-host RNA-RNA interactions in SARS-CoV-2: study of MIR-760-3p interactions with the genome 3'-untranslated region",
@@ -598,7 +615,8 @@
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
-      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1708"
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1708",
+      "type": "article"
     },
     {
       "title": "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS-CoV and SARS-CoV-2 s2m using molecular dynamics",
@@ -625,7 +643,8 @@
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
-      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1710"
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1710",
+      "type": "article"
     },
     {
       "title": "Stem-loop II motif (s2m) structural and dynamical differences between SARS-CoV-2 and b.1.617.2 (Delta) variant",
@@ -658,7 +677,8 @@
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
-      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1711"
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1711",
+      "type": "article"
     },
     {
       "title": "Characterization of the S2M G15U mutation associated with the SARS-CoV-2 delta variant",
@@ -691,7 +711,8 @@
       "venue": "Biophysical Journal",
       "volume": "121",
       "pages": "207a",
-      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1709"
+      "doi": "https://doi.org/10.1016/j.bpj.2021.11.1709",
+      "type": "article"
     },
     {
       "title": "Highly conserved s2m element of SARS-CoV-2 dimerizes via a kissing complex and interacts with host miRNA-1307-3p",
@@ -718,7 +739,8 @@
       "venue": "Nucleic Acids Research",
       "volume": "50",
       "pages": "1017–1032",
-      "doi": "https://doi.org/10.1093/nar/gkab1226"
+      "doi": "https://doi.org/10.1093/nar/gkab1226",
+      "type": "article"
     },
     {
       "title": "Multi-Ion Bridged Pathway of N-Oxides to 1,3-Dipole Dilithium Oxide Complexes",
@@ -741,7 +763,8 @@
       "venue": "The Journal of Organic Chemistry",
       "volume": "86",
       "pages": "11502–11518",
-      "doi": "https://doi.org/10.1021/acs.joc.1c01047"
+      "doi": "https://doi.org/10.1021/acs.joc.1c01047",
+      "type": "article"
     },
     {
       "title": "Biophysical Characterization and Computational Modeling of Histone mRNA Degradation Intermediates",
@@ -764,7 +787,8 @@
       "venue": "The FASEB Journal",
       "volume": "35",
       "pages": "",
-      "doi": "https://doi.org/10.1096/fasebj.2021.35.s1.00264"
+      "doi": "https://doi.org/10.1096/fasebj.2021.35.s1.00264",
+      "type": "article"
     },
     {
       "title": "Enhanced Sampling of the SARS-CoV-2 s2m Element",
@@ -789,7 +813,8 @@
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
-      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1985"
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1985",
+      "type": "article"
     },
     {
       "title": "Conserved Elements in the 3'-UTR of SARS-CoV-2: Involvement in Genomic Dimerization and Interactions with Cellular Micrornas",
@@ -814,7 +839,8 @@
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
-      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1982"
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1982",
+      "type": "article"
     },
     {
       "title": "Condensed Liquid Phase 3D Structure of SARS-CoV-2 s2m Guided by NMR Spectroscopy",
@@ -843,7 +869,8 @@
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
-      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1984"
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1984",
+      "type": "article"
     },
     {
       "title": "Characterization of SARS-CoV-2 Conserved Elements’ Structures and their RNA-RNA Interactions",
@@ -872,7 +899,8 @@
       "venue": "Biophysical Journal",
       "volume": "120",
       "pages": "313a",
-      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1983"
+      "doi": "https://doi.org/10.1016/j.bpj.2020.11.1983",
+      "type": "article"
     },
     {
       "title": "Energy Landscape of the Complex Between the RGG Box Domain of Fragile-X Mental Retardation Protein and an RNA G-quadruplex",
@@ -891,7 +919,8 @@
       "venue": "Biophysical Journal",
       "volume": "118",
       "pages": "224a–225a",
-      "doi": "https://doi.org/10.1016/j.bpj.2019.11.1330"
+      "doi": "https://doi.org/10.1016/j.bpj.2019.11.1330",
+      "type": "article"
     },
     {
       "title": "Characterization of the Interactions of Fragile-X Mental Retardation Protein with C9orf72 Repeat Expanded RNA",
@@ -910,7 +939,8 @@
       "venue": "Biophysical Journal",
       "volume": "116",
       "pages": "505a",
-      "doi": "https://doi.org/10.1016/j.bpj.2018.11.2724"
+      "doi": "https://doi.org/10.1016/j.bpj.2018.11.2724",
+      "type": "article"
     },
     {
       "title": "Translocation of Potassium in Initiating Reset of Monoamine Transporter Proteins from Microsecond Molecular Dynamics Simulations",
@@ -927,7 +957,8 @@
       "venue": "Biophysical Journal",
       "volume": "114",
       "pages": "332a",
-      "doi": "https://doi.org/10.1016/j.bpj.2017.11.1861"
+      "doi": "https://doi.org/10.1016/j.bpj.2017.11.1861",
+      "type": "article"
     },
     {
       "title": "G Quadruplex and Stem Interactions in RGG Box Domain Recognition",
@@ -946,7 +977,8 @@
       "venue": "Biophysical Journal",
       "volume": "114",
       "pages": "439a",
-      "doi": "https://doi.org/10.1016/j.bpj.2017.11.2431"
+      "doi": "https://doi.org/10.1016/j.bpj.2017.11.2431",
+      "type": "article"
     },
     {
       "title": "Determining the Interaction Enthalpy of Side Chain and Backbone Amides in Polyglutamine Monomers and Fibrils",
@@ -963,7 +995,8 @@
       "venue": "Biophysical Journal",
       "volume": "114",
       "pages": "528a",
-      "doi": "https://doi.org/10.1016/j.bpj.2017.11.2891"
+      "doi": "https://doi.org/10.1016/j.bpj.2017.11.2891",
+      "type": "article"
     },
     {
       "title": "Non-traditional hydrogen bond explanation of asymmetric catalysis of Mukaiyama aldol reactions by dinuclear zinc semi-crown ligands",
@@ -984,7 +1017,8 @@
       "venue": "",
       "volume": "",
       "pages": "",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "Metalated nitriles: SNi′ cyclizations with a propargylic electrophile",
@@ -1005,7 +1039,8 @@
       "venue": "Tetrahedron Letters",
       "volume": "56",
       "pages": "3216–3219",
-      "doi": "https://doi.org/10.1016/j.tetlet.2015.01.013"
+      "doi": "https://doi.org/10.1016/j.tetlet.2015.01.013",
+      "type": "article"
     },
     {
       "title": "Intramolecular Charge-Assisted Hydrogen Bond Strength in Pseudochair Carboxyphosphate",
@@ -1032,7 +1067,8 @@
       "venue": "The Journal of Physical Chemistry B",
       "volume": "119",
       "pages": "1184–1191",
-      "doi": "https://doi.org/10.1021/jp506796r"
+      "doi": "https://doi.org/10.1021/jp506796r",
+      "type": "article"
     },
     {
       "title": "Common Hydrogen Bond Interactions in Diverse Phosphoryl Transfer Active Sites",
@@ -1053,7 +1089,8 @@
       "venue": "PLoS ONE",
       "volume": "9",
       "pages": "e108310",
-      "doi": "https://doi.org/10.1371/journal.pone.0108310"
+      "doi": "https://doi.org/10.1371/journal.pone.0108310",
+      "type": "article"
     },
     {
       "title": "Hyperconjugation-Mediated Solvent Effects in Phosphoanhydride Bonds",
@@ -1072,7 +1109,8 @@
       "venue": "The Journal of Physical Chemistry A",
       "volume": "116",
       "pages": "10209–10217",
-      "doi": "https://doi.org/10.1021/jp306607k"
+      "doi": "https://doi.org/10.1021/jp306607k",
+      "type": "article"
     },
     {
       "title": "Computational investigation of the mechanism of n5-carboxyaminoimidazole ribonculeotide synthetase",
@@ -1089,7 +1127,8 @@
       "venue": "",
       "volume": "",
       "pages": "",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "Periodic Trends and Index of Boron Lewis Acidity",
@@ -1106,7 +1145,8 @@
       "venue": "The Journal of Physical Chemistry A",
       "volume": "113",
       "pages": "5985–5992",
-      "doi": "https://doi.org/10.1021/jp811202c"
+      "doi": "https://doi.org/10.1021/jp811202c",
+      "type": "article"
     },
     {
       "title": "Strong Coordination of Tetraphenylborate Anion to Copper(I) Bipyridine and Phenanthroline-Based Complexes and Its Effect on Catalytic Activity in the Cyclopropanation of Styrene",
@@ -1127,7 +1167,8 @@
       "venue": "Inorganic Chemistry",
       "volume": "48",
       "pages": "16–18",
-      "doi": "https://doi.org/10.1021/ic801783r"
+      "doi": "https://doi.org/10.1021/ic801783r",
+      "type": "article"
     },
     {
       "title": "Hybrid Meta-Generalized Gradient Functional Modeling of Boron−Nitrogen Coordinate Covalent Bonds",
@@ -1144,7 +1185,8 @@
       "venue": "Journal of Chemical Theory and Computation",
       "volume": "4",
       "pages": "1249–1253",
-      "doi": "https://doi.org/10.1021/ct800210e"
+      "doi": "https://doi.org/10.1021/ct800210e",
+      "type": "article"
     },
     {
       "title": "Anomeric Effect in “High Energy” Phosphate Bonds. Selective Destabilization of the Scissile Bond and Modulation of the Exothermicity of Hydrolysis",
@@ -1165,7 +1207,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "130",
       "pages": "3349–3358",
-      "doi": "https://doi.org/10.1021/ja073652x"
+      "doi": "https://doi.org/10.1021/ja073652x",
+      "type": "article"
     },
     {
       "title": "Covalent and Ionic Nature of the Dative Bond and Account of Accurate Ammonia Borane Binding Enthalpies",
@@ -1182,7 +1225,8 @@
       "venue": "The Journal of Physical Chemistry A",
       "volume": "111",
       "pages": "13472–13483",
-      "doi": "https://doi.org/10.1021/jp074937z"
+      "doi": "https://doi.org/10.1021/jp074937z",
+      "type": "article"
     },
     {
       "title": "Hydrogen Bonding Mediated by Key Orbital Interactions Determines Hydration Enthalpy Differences of Phosphate Water Clusters",
@@ -1201,7 +1245,8 @@
       "venue": "The Journal of Physical Chemistry A",
       "volume": "111",
       "pages": "10804–10814",
-      "doi": "https://doi.org/10.1021/jp0748112"
+      "doi": "https://doi.org/10.1021/jp0748112",
+      "type": "article"
     },
     {
       "title": "Elucidation of Rate Variations for a Diels−Alder Reaction in Ionic Liquids from QM/MM Simulations",
@@ -1220,7 +1265,8 @@
       "venue": "Journal of Chemical Theory and Computation",
       "volume": "3",
       "pages": "132–138",
-      "doi": "https://doi.org/10.1021/ct6002753"
+      "doi": "https://doi.org/10.1021/ct6002753",
+      "type": "article"
     },
     {
       "title": "Secondary anchor substitutions in an HLA-A*0201-restricted T-cell epitope derived from Her-2/neu",
@@ -1247,7 +1293,8 @@
       "venue": "Molecular Immunology",
       "volume": "44",
       "pages": "322–331",
-      "doi": "https://doi.org/10.1016/j.molimm.2006.02.027"
+      "doi": "https://doi.org/10.1016/j.molimm.2006.02.027",
+      "type": "article"
     },
     {
       "title": "Chapter 13 Principal Components Analysis: A Review of its Application on Molecular Dynamics Data",
@@ -1268,7 +1315,8 @@
       "venue": "Annual reports in computational chemistry",
       "volume": "",
       "pages": "233–261",
-      "doi": "https://doi.org/10.1016/s1574-1400(06)02013-5"
+      "doi": "https://doi.org/10.1016/s1574-1400(06)02013-5",
+      "type": "book-chapter"
     },
     {
       "title": "Generalized Anomeric Interpretation of the “High-Energy” N−P Bond inN-Methyl-N‘-phosphorylguanidine: Importance of Reinforcing Stereoelectronic Effects in “High-Energy” Phosphoester Bonds",
@@ -1287,7 +1335,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "127",
       "pages": "17789–17798",
-      "doi": "https://doi.org/10.1021/ja054708v"
+      "doi": "https://doi.org/10.1021/ja054708v",
+      "type": "article"
     },
     {
       "title": "Effect of a Bound Non-Nucleoside RT Inhibitor on the Dynamics of Wild-Type and Mutant HIV-1 Reverse Transcriptase",
@@ -1308,7 +1357,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "127",
       "pages": "17253–17260",
-      "doi": "https://doi.org/10.1021/ja053973d"
+      "doi": "https://doi.org/10.1021/ja053973d",
+      "type": "article"
     },
     {
       "title": "Computational and Conformational Evaluation of FTase Alternative Substrates: Insight into a Novel Enzyme Binding Pocket",
@@ -1331,7 +1381,28 @@
       "venue": "Journal of Chemical Information and Modeling",
       "volume": "45",
       "pages": "1047–1052",
-      "doi": "https://doi.org/10.1021/ci0496550"
+      "doi": "https://doi.org/10.1021/ci0496550",
+      "type": "article"
+    },
+    {
+      "title": "USE OF MOLECULAR MODELING TO DETERMINE THE INTERACTION AND COMPETITION OF GASES WITHIN COAL FOR CARBON DIOXIDE SEQUESTRATION",
+      "year": 2005,
+      "date": "2005-05-27",
+      "authors": [
+        "Jeffrey D. Evanseck",
+        "Jeffry D. Madura",
+        "Jonathan P. Mathews"
+      ],
+      "orcids": [
+        "0000-0003-2616-7354",
+        "0000-0001-6117-2218",
+        "0000-0002-7281-1094"
+      ],
+      "venue": "",
+      "volume": "",
+      "pages": "",
+      "doi": "https://doi.org/10.2172/841533",
+      "type": "report"
     },
     {
       "title": "Chapter 14 Status of Research-Based Experiences for First- and Second-Year Undergraduate Students",
@@ -1348,7 +1419,8 @@
       "venue": "Annual reports in computational chemistry",
       "volume": "",
       "pages": "205–214",
-      "doi": "https://doi.org/10.1016/s1574-1400(05)01014-5"
+      "doi": "https://doi.org/10.1016/s1574-1400(05)01014-5",
+      "type": "book-chapter"
     },
     {
       "title": "Transition States and Transition Structures",
@@ -1365,7 +1437,8 @@
       "venue": "ChemInform",
       "volume": "35",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.200427286"
+      "doi": "https://doi.org/10.1002/chin.200427286",
+      "type": "article"
     },
     {
       "title": "Density Functional Theory Determination of an Axial Gateway To Explain the Rate and Endo Selectivity Enhancement of Diels−Alder Reactions by Bis(oxazoline)-Cu(II)",
@@ -1384,7 +1457,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "126",
       "pages": "6043–6047",
-      "doi": "https://doi.org/10.1021/ja037702j"
+      "doi": "https://doi.org/10.1021/ja037702j",
+      "type": "article"
     },
     {
       "title": "Enhanced sampling by multiple molecular dynamics trajectories: carbonmonoxy myoglobin 10 μs A0 → A1–3 transition from ten 400 picosecond simulations",
@@ -1407,7 +1481,8 @@
       "venue": "Journal of Molecular Graphics and Modelling",
       "volume": "22",
       "pages": "369–376",
-      "doi": "https://doi.org/10.1016/j.jmgm.2003.12.004"
+      "doi": "https://doi.org/10.1016/j.jmgm.2003.12.004",
+      "type": "article"
     },
     {
       "title": "Understanding how ionic liquids impact the Diels-Alder reaction: An AB initio, semiempirical and QM/MM approach",
@@ -1426,7 +1501,8 @@
       "venue": "",
       "volume": "227",
       "pages": "",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "Transition structure models of organic reactions in chloroaluminate ionic liquids cyclopentadiene and methyl acrylate diels-alder reaction in acidic and basic melts of 1-ethyl-3-methylimidazolium chloride with aluminum(III) chloride",
@@ -1443,7 +1519,8 @@
       "venue": "",
       "volume": "",
       "pages": "174–190",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "Development and testing of new sequence-specific DNA bending agents",
@@ -1462,7 +1539,8 @@
       "venue": "Abstracts of papers - American Chemical Society",
       "volume": "226",
       "pages": "274",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "The Effect of Solvent on a Lewis Acid Catalyzed Diels−Alder Reaction, Using Computed and Experimental Kinetic Isotope Effects",
@@ -1479,7 +1557,8 @@
       "venue": "Organic Letters",
       "volume": "5",
       "pages": "649–652",
-      "doi": "https://doi.org/10.1021/ol027408g"
+      "doi": "https://doi.org/10.1021/ol027408g",
+      "type": "article"
     },
     {
       "title": "Impact of Multiple Cation−π Interactions upon Calix[4]arene Substrate Binding and Specificity",
@@ -1498,7 +1577,34 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "125",
       "pages": "2351–2360",
-      "doi": "https://doi.org/10.1021/ja0285971"
+      "doi": "https://doi.org/10.1021/ja0285971",
+      "type": "article"
+    },
+    {
+      "title": "Molecular Basis for Carbon Dioxide Sequestration in Coal",
+      "year": 2002,
+      "date": "2002-03-01",
+      "authors": [
+        "Thomas J. Dick",
+        "Orlando Acevedo",
+        "Pranav Dalal",
+        "Jeffry D. Madura",
+        "Jeffrey D. Evanseck",
+        "Jonathan P. Mathews"
+      ],
+      "orcids": [
+        "",
+        "0000-0002-6110-3930",
+        "",
+        "0000-0001-6117-2218",
+        "0000-0003-2616-7354",
+        "0000-0002-7281-1094"
+      ],
+      "venue": "",
+      "volume": "47",
+      "pages": "14–16",
+      "doi": "",
+      "type": "preprint"
     },
     {
       "title": "Influence of the Heme Pocket Conformation on the Structure and Vibrations of the Fe-CO Bond in Myoglobin: A QM/MM Density Functional Study",
@@ -1521,7 +1627,8 @@
       "venue": "Biophysical Journal",
       "volume": "81",
       "pages": "435–445",
-      "doi": "https://doi.org/10.1016/s0006-3495(01)75711-6"
+      "doi": "https://doi.org/10.1016/s0006-3495(01)75711-6",
+      "type": "article"
     },
     {
       "title": "Density Functional Theory Study of Aqueous-Phase Rate Acceleration and Endo/Exo Selectivity of the Butadiene and Acrolein Diels−Alder Reaction",
@@ -1538,7 +1645,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "122",
       "pages": "10418–10427",
-      "doi": "https://doi.org/10.1021/ja0010249"
+      "doi": "https://doi.org/10.1021/ja0010249",
+      "type": "article"
     },
     {
       "title": "Functional Significance of Hierarchical Tiers in Carbonmonoxy Myoglobin: Conformational Substates and Transitions Studied by Conformational Flooding Simulations",
@@ -1557,7 +1665,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "122",
       "pages": "8700–8711",
-      "doi": "https://doi.org/10.1021/ja993788y"
+      "doi": "https://doi.org/10.1021/ja993788y",
+      "type": "article"
     },
     {
       "title": "Synthesis and Inclusion Complexation Studies of a Novel Molecular Receptor for 1,4-disubstituted Benzenes and 4,4'-disubstituted Biphenyls",
@@ -1578,7 +1687,8 @@
       "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
       "volume": "",
       "pages": "",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "Computational Studies of Inclusion Phenomena and Synthesis of a Novel and Selective Molecular Receptor for 1,4-Disubstituted Benzenes and 4,4‘-Disubstituted Biphenyls",
@@ -1599,7 +1709,8 @@
       "venue": "The Journal of Organic Chemistry",
       "volume": "65",
       "pages": "2083–2089",
-      "doi": "https://doi.org/10.1021/jo991669v"
+      "doi": "https://doi.org/10.1021/jo991669v",
+      "type": "article"
     },
     {
       "title": "Cooperative Role of Arg45 and His64 in the Spectroscopic A3 State of Carbonmonoxy Myoglobin: Molecular Dynamics Simulations, Multivariate Analysis, and Quantum Mechanical Computations",
@@ -1616,7 +1727,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "121",
       "pages": "6444–6454",
-      "doi": "https://doi.org/10.1021/ja982115x"
+      "doi": "https://doi.org/10.1021/ja982115x",
+      "type": "article"
     },
     {
       "title": "All-Atom Empirical Potential for Molecular Modeling and Dynamics Studies of Proteins",
@@ -1687,7 +1799,8 @@
       "venue": "The Journal of Physical Chemistry B",
       "volume": "102",
       "pages": "3586–3616",
-      "doi": "https://doi.org/10.1021/jp973084f"
+      "doi": "https://doi.org/10.1021/jp973084f",
+      "type": "article"
     },
     {
       "title": "Locally accessible conformations of proteins: Multiple molecular dynamics simulations of crambin",
@@ -1706,7 +1819,8 @@
       "venue": "Protein Science",
       "volume": "7",
       "pages": "649–666",
-      "doi": "https://doi.org/10.1002/pro.5560070314"
+      "doi": "https://doi.org/10.1002/pro.5560070314",
+      "type": "article"
     },
     {
       "title": "INCLUSION COMPLEXATION OF CYCLOBIS(PARAQUAT-p-PHENYLENE) AND RELATED CYCLOPHANE DERIVATIVES WITH SUBSTITUTED AROMATICS: COOPERATIVE NON-COVALENT CAVITY AND EXTERNAL INTERACTIONS",
@@ -1731,7 +1845,8 @@
       "venue": "Journal of Physical Organic Chemistry",
       "volume": "10",
       "pages": "369–382",
-      "doi": "https://doi.org/10.1002/(sici)1099-1395(199705)10:5<369::aid-poc917>3.0.co;2-i"
+      "doi": "https://doi.org/10.1002/(sici)1099-1395(199705)10:5<369::aid-poc917>3.0.co;2-i",
+      "type": "article"
     },
     {
       "title": "Quantum mechanical study of atmospheric nitrogen oxides and nitric acid: Implications on acid rain",
@@ -1750,7 +1865,8 @@
       "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
       "volume": "",
       "pages": "",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "Observation and Interpretation of Anomalous Inorganic Anion Binding with α- and β-Cyclodextrins in Aqueous Media",
@@ -1775,7 +1891,8 @@
       "venue": "Supramolecular chemistry",
       "volume": "8",
       "pages": "17–22",
-      "doi": "https://doi.org/10.1080/10610279608233964"
+      "doi": "https://doi.org/10.1080/10610279608233964",
+      "type": "article"
     },
     {
       "title": "Unexpected Roles of Guest Polarizability and Maximum Hardness, and of Host Solvation in Supramolecular Inclusion Complexes: A Dual Theoretical and Experimental Study",
@@ -1800,7 +1917,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "118",
       "pages": "10257–10268",
-      "doi": "https://doi.org/10.1021/ja960700x"
+      "doi": "https://doi.org/10.1021/ja960700x",
+      "type": "article"
     },
     {
       "title": "Molecular Dynamics Simulation and Preliminary Analysis of a Lipid Bilayer near the Liquid-Crystalline Phase",
@@ -1819,7 +1937,8 @@
       "venue": "Springer eBooks",
       "volume": "",
       "pages": "103–113",
-      "doi": "https://doi.org/10.1007/978-94-009-0317-3_7"
+      "doi": "https://doi.org/10.1007/978-94-009-0317-3_7",
+      "type": "book-chapter"
     },
     {
       "title": "Effects of Side Arm Length and Structure of Para-Substituted Phenyl Derivatives on Their Binding to the Host Cyclobis(paraquat-p-phenylene)",
@@ -1840,7 +1959,8 @@
       "venue": "The Journal of Organic Chemistry",
       "volume": "61",
       "pages": "7298–7303",
-      "doi": "https://doi.org/10.1021/jo9610321"
+      "doi": "https://doi.org/10.1021/jo9610321",
+      "type": "article"
     },
     {
       "title": "Transition Structures of Thermally Allowed Disrotatory Electrocyclizations. The Prediction of Stereoselective Substituent Effects in Six-Electron Pericyclic Reactions",
@@ -1861,7 +1981,8 @@
       "venue": "The Journal of Organic Chemistry",
       "volume": "60",
       "pages": "7134–7141",
-      "doi": "https://doi.org/10.1021/jo00127a016"
+      "doi": "https://doi.org/10.1021/jo00127a016",
+      "type": "article"
     },
     {
       "title": "Quantification of Solvent Effects on the Acidities of Z and E Esters from Fluid Simulations",
@@ -1882,7 +2003,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "116",
       "pages": "10630–10638",
-      "doi": "https://doi.org/10.1021/ja00102a032"
+      "doi": "https://doi.org/10.1021/ja00102a032",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Transition Structures of the Electrocyclic Reactions of cis,cis,cis‐1, 3,5‐Cyclooctatriene",
@@ -1901,7 +2023,8 @@
       "venue": "ChemInform",
       "volume": "25",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199414041"
+      "doi": "https://doi.org/10.1002/chin.199414041",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Structures and Energies of Intermediates in the Reactions of Singlet Oxygen with Organic Phosphines and Sulfides.",
@@ -1924,7 +2047,8 @@
       "venue": "ChemInform",
       "volume": "24",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199341121"
+      "doi": "https://doi.org/10.1002/chin.199341121",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Electrocyclic Reactions of 1‐Substituted 1,3,5,7‐Octatetraenes (I) and (II). An ab initio Molecular Orbital Study of Torquoselectivity in Eight‐Electron Electrocyclizations.",
@@ -1943,7 +2067,8 @@
       "venue": "ChemInform",
       "volume": "24",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199341035"
+      "doi": "https://doi.org/10.1002/chin.199341035",
+      "type": "article"
     },
     {
       "title": "Structures and energies of intermediates in the reactions of singlet oxygen with organic phosphines and sulfides",
@@ -1966,7 +2091,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "115",
       "pages": "4879–4884",
-      "doi": "https://doi.org/10.1021/ja00064a057"
+      "doi": "https://doi.org/10.1021/ja00064a057",
+      "type": "article"
     },
     {
       "title": "Electrocyclic reactions of 1-substituted 1,3,5,7-octatetraenes. An ab initio molecular orbital study of torquoselectivity in eight-electron electrocyclizations",
@@ -1985,7 +2111,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "115",
       "pages": "4165–4169",
-      "doi": "https://doi.org/10.1021/ja00063a039"
+      "doi": "https://doi.org/10.1021/ja00063a039",
+      "type": "article"
     },
     {
       "title": "Transition Structures of the Electrocyclic Reactions of cis,cis,cis‐1,3,5‐Cyclooctatriene",
@@ -2004,7 +2131,8 @@
       "venue": "Israel Journal of Chemistry",
       "volume": "33",
       "pages": "287–293",
-      "doi": "https://doi.org/10.1002/ijch.199300035"
+      "doi": "https://doi.org/10.1002/ijch.199300035",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Transition Structures of Hydrocarbon Pericyclic Reactions",
@@ -2023,7 +2151,8 @@
       "venue": "ChemInform",
       "volume": "23",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199238322"
+      "doi": "https://doi.org/10.1002/chin.199238322",
+      "type": "article"
     },
     {
       "title": "Übergangsstrukturen in pericyclischen Reaktionen von Kohlenwasserstoffen",
@@ -2042,7 +2171,8 @@
       "venue": "Angewandte Chemie",
       "volume": "104",
       "pages": "711–739",
-      "doi": "https://doi.org/10.1002/ange.19921040606"
+      "doi": "https://doi.org/10.1002/ange.19921040606",
+      "type": "article"
     },
     {
       "title": "Transition Structures of Hydrocarbon Pericyclic Reactions",
@@ -2061,7 +2191,8 @@
       "venue": "Angewandte Chemie International Edition in English",
       "volume": "31",
       "pages": "682–708",
-      "doi": "https://doi.org/10.1002/anie.199206821"
+      "doi": "https://doi.org/10.1002/anie.199206821",
+      "type": "article"
     },
     {
       "title": "Simulation analysis of triose phosphate isomerase: conformational transition and catalysis",
@@ -2084,7 +2215,8 @@
       "venue": "Faraday Discussions",
       "volume": "93",
       "pages": "239",
-      "doi": "https://doi.org/10.1039/fd9929300239"
+      "doi": "https://doi.org/10.1039/fd9929300239",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Stereoselectivity of Hydrogen 1,2‐Shifts in Singlet Alkylcarbenes: A Quantitative Theoretical Assessment of Ground‐State Orbital Alignment and Torsional and Steric Effects",
@@ -2101,7 +2233,8 @@
       "venue": "ChemInform",
       "volume": "22",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199112101"
+      "doi": "https://doi.org/10.1002/chin.199112101",
+      "type": "article"
     },
     {
       "title": "Stereoselectivity of hydrogen 1,2-shifts in singlet alkylcarbenes: a quantitative theoretical assessment of ground-state orbital alignment, and torsional, and steric effects",
@@ -2118,7 +2251,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "112",
       "pages": "9148–9156",
-      "doi": "https://doi.org/10.1021/ja00181a018"
+      "doi": "https://doi.org/10.1021/ja00181a018",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Theoretical Predictions of Activation Energies for 1,2‐Hydrogen Shifts in Singlet Carbenes",
@@ -2135,7 +2269,8 @@
       "venue": "ChemInform",
       "volume": "21",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199043087"
+      "doi": "https://doi.org/10.1002/chin.199043087",
+      "type": "article"
     },
     {
       "title": "Theoretical predictions of activation energies for 1,2-hydrogen shifts in singlet carbenes",
@@ -2152,7 +2287,8 @@
       "venue": "The Journal of Physical Chemistry",
       "volume": "94",
       "pages": "5518–5523",
-      "doi": "https://doi.org/10.1021/j100377a020"
+      "doi": "https://doi.org/10.1021/j100377a020",
+      "type": "article"
     },
     {
       "title": "Theoretical investigation of intramolecular singlet carbene 1,4- and 1,2-cycloadditions",
@@ -2171,7 +2307,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "112",
       "pages": "73–80",
-      "doi": "https://doi.org/10.1021/ja00157a012"
+      "doi": "https://doi.org/10.1021/ja00157a012",
+      "type": "article"
     },
     {
       "title": "Solvent effects in molecular recognition",
@@ -2200,7 +2337,8 @@
       "venue": "Pure and Applied Chemistry",
       "volume": "62",
       "pages": "2227–2236",
-      "doi": "https://doi.org/10.1351/pac199062122227"
+      "doi": "https://doi.org/10.1351/pac199062122227",
+      "type": "article"
     },
     {
       "title": "Quantum and Statistical Mechanics Applied to Singlet Carbenes, Pericyclic Reactions, and Condensed Phase Phenomena",
@@ -2215,7 +2353,8 @@
       "venue": "",
       "volume": "",
       "pages": "",
-      "doi": ""
+      "doi": "",
+      "type": "article"
     },
     {
       "title": "ChemInform Abstract: Ab initio Study of the SN2 Reactions of OH‐ and OOH‐ with CH3Cl",
@@ -2234,7 +2373,8 @@
       "venue": "ChemInform",
       "volume": "18",
       "pages": "",
-      "doi": "https://doi.org/10.1002/chin.198734106"
+      "doi": "https://doi.org/10.1002/chin.198734106",
+      "type": "article"
     },
     {
       "title": "Ab initio study of the SN2 reactions of hydroxide and hydroperoxide with chloromethane",
@@ -2253,7 +2393,8 @@
       "venue": "Journal of the American Chemical Society",
       "volume": "109",
       "pages": "2349–2353",
-      "doi": "https://doi.org/10.1021/ja00242a018"
+      "doi": "https://doi.org/10.1021/ja00242a018",
+      "type": "article"
     }
   ],
   "cover_items": [
