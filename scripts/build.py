@@ -466,7 +466,8 @@ def instagram_html(site, lead="Follow along on Instagram"):
                          f' <span class="ig-handle">{esc(handle)}</span></a>')
     if not links:
         return ""
-    return f'<p class="ig-strip"><span class="ig-lead">{esc(lead)}</span>{"".join(links)}</p>'
+    lead = f'<span class="ig-lead">{esc(lead)}</span>' if lead else ""
+    return f'<p class="ig-strip">{lead}{"".join(links)}</p>'
 
 
 def fetch_story_photo(url):
@@ -525,7 +526,8 @@ def news_tile(n):
            f'onerror="this.outerHTML=\'<span class=an-blank><img src=images/logo-mark-dark.png alt></span>\'">' if img else
            f'<span class="an-blank" aria-hidden="true"><img src="images/logo-mark-dark.png" alt=""></span>')
     when = news_date(n)
-    inner = (f'{pic}<span class="an-tag">{esc(NEWS_TAGS[n["cat"]])}</span>'
+    tag = "" if n["cat"] == "accomplishment" else f'<span class="an-tag">{esc(NEWS_TAGS[n["cat"]])}</span>'
+    inner = (f'{pic}{tag}'
              f'<span class="an-cap">{f"<span class=an-date>{esc(when)}</span>" if when else ""}'
              f'<span class="an-title">{esc(m["title"])}</span>'
              f'{f"<span class=an-src>{esc(m["source"])} ↗</span>" if n.get("auto") else ""}</span>')
@@ -563,7 +565,7 @@ def news_article(n):
     when = news_date(n)
     return (f'<article class="an-post" id="{esc(n["slug"])}" data-cat="{n["cat"]}">{fig}<div class="an-body">'
             f'<p class="nw-top">{f"<time datetime={n["date"].isoformat()}>{when}</time>" if when else ""}'
-            f'<span class="nw-tag nw-{n["cat"]}">{esc(NEWS_TAGS[n["cat"]])}</span></p>'
+            f'{"" if n["cat"] == "accomplishment" else f"<span class=\'nw-tag nw-{n["cat"]}\'>{esc(NEWS_TAGS[n["cat"]])}</span>"}</p>'
             f'<h3>{esc(m["title"])}</h3>{f"<p class=nw-meta>{"".join(meta)}</p>" if meta else ""}'
             f'{md(n["body"])}{f"<div class=an-more-photos>{extra}</div>" if extra else ""}{link}</div></article>')
 
@@ -586,7 +588,7 @@ def build_news(news, site=None):
     return f'''
   <section class="page" id="announcements">
     <h2>Announcements</h2>
-    {instagram_html(site or {}, "Duquesne highlights the group on Instagram")}
+    {instagram_html(site or {}, "")}
     {chips}
     {body}
     <dialog class="an-dialog" id="an-dialog" aria-label="Announcement">
