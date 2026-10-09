@@ -406,3 +406,13 @@ address { font-style: normal; line-height: 1.8; }
 .uni-logo:hover .uni-chip img { filter: none; }
 @media (max-width: 640px) { .logo-pair .wire { width: 3.75rem; } .uni-logo img { height: 4.5rem; } .uni-chip img { height: 3.75rem; } .uni-chip.round img { height: 4.5rem; } }
 @media (prefers-reduced-motion: reduce) { .wire .ws { display: none; } }
+
+/* Instagram links (News) */
+.ig-strip { max-width: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.6rem; margin: 0 0 1.25rem; font-size: 0.92rem; }
+.ig-lead { color: var(--muted); margin-right: 0.2rem; }
+.ig-strip a { display: inline-flex; align-items: baseline; gap: 0.35rem; text-decoration: none; color: var(--ink);
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.25rem 0.8rem; }
+.ig-strip a:hover { border-color: var(--gold); color: var(--ink); }
+.ig-handle { color: var(--gold-text); font-size: 0.85rem; }
+.nw-cards + .ig-strip { margin-top: 1.25rem; }
+.nw-from { font-style: italic; }

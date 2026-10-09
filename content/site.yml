@@ -42,3 +42,11 @@ contact:
     - Pittsburgh, PA 15282
   email: evanseck@duq.edu
   phone: (412) 396-6337
+
+# Instagram accounts that feature the group's news. Shown on the News tab and under the news on the Home page.
+# Add or remove accounts freely (for example a department account, if one starts).
+instagram:
+  - name: Duquesne University
+    url: https://www.instagram.com/duquesneuniversity/
+  - name: School of Science and Engineering
+    url: https://www.instagram.com/duqscieng/

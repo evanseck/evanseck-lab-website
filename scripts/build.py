@@ -257,6 +257,8 @@ def build_home(site, pubs, areas):
         for path, m, b, slug in areas
     )
     news_html = latest_news_html(news_items())
+    if news_html:
+        news_html += instagram_html(site, "More on Instagram")
     return f'''
   <section class="page" id="home">
     <div class="split">
@@ -410,15 +412,56 @@ def news_items():
         photos = [ph for ph in (m.get("photos") or []) if image(ph, path)]
         out.append({"path": path, "slug": "news-" + path.stem, "m": m, "body": b, "date": d, "month_only": month_only,
                     "cat": cat, "photos": photos})
+    out += duquesne_news_items()
     return sorted(out, key=lambda n: n["date"], reverse=True)
 
 
+def duquesne_news_items():
+    """Stories found on Duquesne's own news pages and in the Duquesne Times (scripts/update_news.py)."""
+    import hashlib
+    f = ROOT / "data" / "duquesne-news.json"
+    if not f.exists():
+        return []
+    out = []
+    for i in json.loads(f.read_text(encoding="utf-8")).get("items", []):
+        try:
+            d = datetime.date.fromisoformat(i["date"])
+        except (KeyError, ValueError):
+            continue
+        times = "Times" in i.get("source", "")
+        m = {"title": i["title"], "link": i["url"],
+             "link_text": "Read it in the Duquesne Times" if times else "Read the story",
+             "source": i.get("source", "Duquesne University")}
+        body = re.sub(r"([\\`*_\[\]#<>])", r"\\\1", i.get("excerpt", ""))
+        if times and body == re.sub(r"([\\`*_\[\]#<>])", r"\\\1", i["title"]):
+            body = ""                                   # short newsletter notes: the title says it all
+        out.append({"path": None, "slug": "dq-" + hashlib.md5((i["url"] + i.get("key", "")).encode()).hexdigest()[:10],
+                    "m": m, "body": body, "date": d, "month_only": False, "undated": not i.get("dated", True),
+                    "cat": "accomplishment", "photos": []})
+    return out
+
+
 def news_date(n):
+    if n.get("undated"):
+        return ""
     d = n["date"]
     return f"{d.strftime('%B')} {d.year}" if n.get("month_only") else f"{d.strftime('%B')} {d.day}, {d.year}"
 
 
-def build_news(news):
+def instagram_html(site, lead="Follow along on Instagram"):
+    """Links to the Duquesne Instagram accounts that feature the group (site.yml: instagram)."""
+    links = []
+    for a in site.get("instagram") or []:
+        if isinstance(a, dict) and a.get("url"):
+            handle = "@" + a["url"].rstrip("/").rsplit("/", 1)[-1]
+            links.append(f'<a href="{esc(web(a["url"]))}"><span class="ig-name">{esc(a.get("name", handle))}</span>'
+                         f' <span class="ig-handle">{esc(handle)}</span></a>')
+    if not links:
+        return ""
+    return f'<p class="ig-strip"><span class="ig-lead">{esc(lead)}</span>{"".join(links)}</p>'
+
+
+def build_news(news, site=None):
     if not news:
         posts = '<p class="note">News will appear here.</p>'
     else:
@@ -434,6 +477,8 @@ def build_news(news):
                     meta.append(f'<span class="nw-who">Speaker: {esc(who)}</span>')
                 if where:
                     meta.append(f'<span class="nw-where">{esc(where)}</span>')
+            if m.get("source"):
+                meta.append(f'<span class="nw-from">From {esc(m["source"])}</span>')
             if m.get("author"):
                 meta.append(f'<span class="nw-by">Written by {esc(m["author"])}</span>')
             photos = ""
@@ -464,6 +509,7 @@ def build_news(news):
     return f'''
   <section class="page" id="news">
     <h2>News</h2>
+    {instagram_html(site or {}, "Duquesne highlights the group on Instagram")}
     {chips}
     <div class="nw-list">{posts}</div>
   </section>'''
@@ -1151,7 +1197,7 @@ def main():
         build_people(people, alumni, pubs),
         register_auto_covers(pubs),
         build_publications(pubs, name_matchers(people + alumni, config)),
-        build_news(news_items()),
+        build_news(news_items(), site),
         build_teaching(),
         build_join(site),
     ])
