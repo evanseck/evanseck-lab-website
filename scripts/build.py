@@ -575,6 +575,44 @@ def news_article(n):
             f'{md(n["body"])}{f"<div class=an-more-photos>{extra}</div>" if extra else ""}{link}</div></article>')
 
 
+SPEAKER_ROLES = [("keynote", "Keynote"), ("invited", "Invited talk"), ("student", "Student talk")]
+
+
+def seminar_speakers(m):
+    """Guest speakers, highlighted and linked to their own websites. Keynote and invited speakers
+    get a card each; student talks are listed compactly behind a "Student talks" toggle."""
+    people = [p for p in (m.get("speakers") or []) if isinstance(p, dict) and p.get("name")]
+    if not people and m.get("speaker"):        # older single-speaker posts
+        people = [{"name": m["speaker"], "affiliation": m.get("speaker_affiliation", ""),
+                   "url": m.get("speaker_url", ""), "talk": m.get("talk", ""), "role": "invited"}]
+    if not people:
+        return ""
+
+    def name(p):
+        return (f'<a href="{esc(web(p["url"]))}">{esc(p["name"])}</a>' if p.get("url") else esc(p["name"]))
+
+    cards, students = "", ""
+    for p in people:
+        role = str(p.get("role", "invited")).lower()
+        if role == "student":
+            students += (f'<li><span class="sp-name">{name(p)}</span>'
+                         f'{f" <span class=sp-aff>{esc(p["affiliation"])}</span>" if p.get("affiliation") else ""}'
+                         f'{f"<span class=sp-talk>{esc(p["talk"])}</span>" if p.get("talk") else ""}</li>')
+        else:
+            label = dict(SPEAKER_ROLES).get(role, "")
+            cards += (f'<li class="sp-card{" is-keynote" if role == "keynote" else ""}">'
+                      f'{f"<span class=sp-role>{esc(label)}</span>" if label and len(people) > 1 else ""}'
+                      f'<span class="sp-name">{name(p)}</span>'
+                      f'{f"<span class=sp-aff>{esc(p["affiliation"])}</span>" if p.get("affiliation") else ""}'
+                      f'{f"<span class=sp-talk>{esc(p["talk"])}</span>" if p.get("talk") else ""}</li>')
+    out = f'<ul class="sp-cards">{cards}</ul>' if cards else ""
+    if students:
+        n_st = students.count("<li>")
+        out += (f'<details class="sp-students"><summary>Student talks ({n_st})</summary>'
+                f'<ul>{students}</ul></details>')
+    return f'<div class="sm-speakers">{out}</div>'
+
+
 def seminar_block(n):
     """One seminar the group attended: a wide block whose strip starts with the seminar's logo,
     followed by the group's photos (scrolls sideways when there are many), then the review."""
@@ -590,21 +628,22 @@ def seminar_block(n):
         strip += (f'<button type="button" class="sm-pic" data-full="{esc(web_copy(ph, 1400))}" data-cap="{esc(cap)}" '
                   f'aria-label="Photo {i + 1}, larger"><img src="{esc(web_copy(ph, 600))}" '
                   f'alt="{esc(cap or m.get("photo_alt") or "Group photo at the seminar")}" loading="lazy"></button>')
-    who = ", ".join(x for x in [m.get("speaker", ""), m.get("speaker_affiliation", "")] if x)
     where = ", ".join(x for x in [m.get("event", ""), m.get("location", "")] if x)
     when = news_date(n)
     meta = " · ".join(esc(x) for x in [when, where] if x)
+    if m.get("event_url") and m.get("event"):
+        meta = meta.replace(esc(m["event"]), f'<a href="{esc(web(m["event_url"]))}">{esc(m["event"])}</a>', 1)
+    speakers = seminar_speakers(m)
     body = md(n["body"])
-    paras = re.findall(r"<p>.*?</p>", body, re.S)
-    if len(paras) > 1:
-        body = paras[0] + (f'<details class="nw-more"><summary>Read the full review</summary>'
-                           f'{body.replace(paras[0], "", 1)}</details>')
     link = f'<p class="an-link"><a href="{esc(web(m["link"]))}">{esc(m.get("link_text") or "More")}</a></p>' if m.get("link") else ""
+    # Photos first; the seminar title below them opens the review, speakers and links.
     return (f'<article class="sm-block" id="{esc(n["slug"])}">'
-            f'{f"<div class=sm-strip>{strip}</div>" if strip else ""}<div class="sm-text">'
-            f'{f"<p class=sm-meta>{meta}</p>" if meta else ""}<h3>{esc(m["title"])}</h3>'
-            f'{f"<p class=sm-who>Speaker: {esc(who)}</p>" if who else ""}{body}'
-            f'{f"<p class=sm-by>Review by {esc(m["author"])}</p>" if m.get("author") else ""}{link}</div></article>')
+            f'{f"<div class=sm-strip>{strip}</div>" if strip else ""}'
+            f'<details class="sm-details"><summary class="sm-summary"><span class="sm-sum-text">'
+            f'<span class="sm-title">{esc(m["title"])}</span>{f"<span class=sm-meta>{meta}</span>" if meta else ""}'
+            f'</span><span class="sm-chev" aria-hidden="true"></span></summary><div class="sm-text">'
+            f'{body}{speakers}'
+            f'{f"<p class=sm-by>Review by {esc(m["author"])}</p>" if m.get("author") else ""}{link}</div></details></article>')
 
 
 def build_news(news, site=None):
@@ -1177,6 +1216,7 @@ SCRIPT = """
     const el = pendingTarget && document.getElementById(pendingTarget);
     pendingTarget = null;
     if (el && el.hidden) { const all = document.querySelector('.nw-filter [data-filter="all"]'); if (all) all.click(); }
+    if (el) { const d = el.querySelector('.sm-details'); if (d) d.open = true; }
     if (el) el.scrollIntoView({ block: 'start' });
     else if (location.hash && location.hash !== '#home') window.scrollTo(0, document.querySelector('.tabs').offsetTop);
     else window.scrollTo(0, 0);
