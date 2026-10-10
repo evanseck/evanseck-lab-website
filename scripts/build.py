@@ -508,6 +508,8 @@ def announcement_photo(n):
                 return web_copy(image(p["image"], CONTENT / "site.yml"), 900), ""
     if n["photos"]:
         return web_copy(n["photos"][0], 900), ""
+    if n["cat"] == "seminar" and n["m"].get("logo") and image(n["m"]["logo"], n["path"]):
+        return web_copy(n["m"]["logo"], 900), ""
     if n.get("remote_photo"):
         got = fetch_story_photo(n["remote_photo"]) or n["remote_photo"]   # else visitors load it from Duquesne
         return got, f'Photo: {n["m"].get("source", "Duquesne University")}'
@@ -531,6 +533,9 @@ def news_tile(n):
              f'<span class="an-cap">{f"<span class=an-date>{esc(when)}</span>" if when else ""}'
              f'<span class="an-title">{esc(m["title"])}</span>'
              f'{f"<span class=an-src>{esc(m["source"])} ↗</span>" if n.get("auto") else ""}</span>')
+    if n.get("seminar_link"):   # Home page: a seminar tile jumps to its block on the Announcements tab
+        return (f'<a class="an-tile{"" if img else " no-photo"}" href="#announcements" data-target="{esc(n["slug"])}" '
+                f'data-cat="{n["cat"]}">{inner}</a>')
     if n.get("auto"):     # stories from Duquesne's site: the tile is a link to the original post
         return (f'<a class="an-tile{"" if img else " no-photo"}" href="{esc(web(m["link"]))}" target="_blank" '
                 f'rel="noopener" data-cat="{n["cat"]}">{inner}</a>')
@@ -570,7 +575,41 @@ def news_article(n):
             f'{md(n["body"])}{f"<div class=an-more-photos>{extra}</div>" if extra else ""}{link}</div></article>')
 
 
+def seminar_block(n):
+    """One seminar the group attended: a wide block whose strip starts with the seminar's logo,
+    followed by the group's photos (scrolls sideways when there are many), then the review."""
+    m = n["m"]
+    logo = image(m["logo"], n["path"]) if m.get("logo") else ""
+    strip = ""
+    if logo:
+        strip += (f'<button type="button" class="sm-pic sm-logo" data-full="{esc(logo)}" aria-label="Seminar logo, larger">'
+                  f'<img src="{esc(web_copy(logo, 600))}" alt="{esc(m.get("logo_alt") or (m.get("event") or "Seminar") + " logo")}" loading="lazy"></button>')
+    caps = m.get("photo_captions") or []
+    for i, ph in enumerate(n["photos"]):
+        cap = caps[i] if i < len(caps) and caps[i] else (m.get("photo_caption") or "")
+        strip += (f'<button type="button" class="sm-pic" data-full="{esc(web_copy(ph, 1400))}" data-cap="{esc(cap)}" '
+                  f'aria-label="Photo {i + 1}, larger"><img src="{esc(web_copy(ph, 600))}" '
+                  f'alt="{esc(cap or m.get("photo_alt") or "Group photo at the seminar")}" loading="lazy"></button>')
+    who = ", ".join(x for x in [m.get("speaker", ""), m.get("speaker_affiliation", "")] if x)
+    where = ", ".join(x for x in [m.get("event", ""), m.get("location", "")] if x)
+    when = news_date(n)
+    meta = " · ".join(esc(x) for x in [when, where] if x)
+    body = md(n["body"])
+    paras = re.findall(r"<p>.*?</p>", body, re.S)
+    if len(paras) > 1:
+        body = paras[0] + (f'<details class="nw-more"><summary>Read the full review</summary>'
+                           f'{body.replace(paras[0], "", 1)}</details>')
+    link = f'<p class="an-link"><a href="{esc(web(m["link"]))}">{esc(m.get("link_text") or "More")}</a></p>' if m.get("link") else ""
+    return (f'<article class="sm-block" id="{esc(n["slug"])}">'
+            f'{f"<div class=sm-strip>{strip}</div>" if strip else ""}<div class="sm-text">'
+            f'{f"<p class=sm-meta>{meta}</p>" if meta else ""}<h3>{esc(m["title"])}</h3>'
+            f'{f"<p class=sm-who>Speaker: {esc(who)}</p>" if who else ""}{body}'
+            f'{f"<p class=sm-by>Review by {esc(m["author"])}</p>" if m.get("author") else ""}{link}</div></article>')
+
+
 def build_news(news, site=None):
+    seminars = [n for n in news if n["cat"] == "seminar"]
+    news = [n for n in news if n["cat"] != "seminar"]
     for n in news:
         n["_photo"] = announcement_photo(n)
     used = [c for c, _ in NEWS_CATEGORIES if any(n["cat"] == c for n in news)]
@@ -585,12 +624,17 @@ def build_news(news, site=None):
                 f'<div class="an-posts">{"".join(news_article(n) for n in news)}</div>')
     else:
         body = '<p class="note">Announcements will appear here.</p>'
+    sem = ""
+    if seminars:
+        sem = (f'<h3 class="sm-head" id="seminar-reviews">Seminar reviews</h3>'
+               f'<div class="sm-list">{"".join(seminar_block(n) for n in seminars)}</div>')
     return f'''
   <section class="page" id="announcements">
     <h2>Announcements</h2>
     {instagram_html(site or {}, "")}
     {chips}
     {body}
+    {sem}
     <dialog class="an-dialog" id="an-dialog" aria-label="Announcement">
       <button type="button" class="an-close" aria-label="Close">×</button>
       <div class="an-dialog-body"></div>
@@ -603,6 +647,8 @@ def latest_news_html(news, count=4):
         return ""
     for n in news[:count]:
         n.setdefault("_photo", announcement_photo(n))
+        if n["cat"] == "seminar":
+            n["seminar_link"] = True
     return (f'<div class="section-head"><h2 class="section-title">Announcements</h2>'
             f'<a class="more-link" href="#announcements">All announcements</a></div>'
             f'<div class="an-grid an-home">{"".join(news_tile(n) for n in news[:count])}</div>')
@@ -1173,6 +1219,16 @@ SCRIPT = """
       const a = document.getElementById(t.dataset.open);
       if (!a) return;
       box.innerHTML = a.innerHTML;
+      dlg.showModal();
+      dlg.querySelector('.an-close').focus();
+    }));
+    document.querySelectorAll('.sm-pic').forEach(b => b.addEventListener('click', () => {
+      const img = document.createElement('img');
+      img.src = b.dataset.full; img.alt = b.querySelector('img').alt;
+      const fig = document.createElement('figure'); fig.className = 'an-photo sm-big' + (b.classList.contains('sm-logo') ? ' is-logo' : '');
+      fig.appendChild(img);
+      if (b.dataset.cap) { const c = document.createElement('figcaption'); c.textContent = b.dataset.cap; fig.appendChild(c); }
+      box.replaceChildren(fig);
       dlg.showModal();
       dlg.querySelector('.an-close').focus();
     }));

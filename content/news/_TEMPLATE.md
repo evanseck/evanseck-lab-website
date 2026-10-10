@@ -6,10 +6,13 @@ title: "A short headline"
 date: 2026-10-15            # or just the month: 2026-10
 category: accomplishment    # accomplishment, seminar or news
 
-# Photos: upload them to images/news/ and list them here. The first one is shown large.
+# Seminar reviews are shown as a wide block: the seminar's logo first, then your photos in a row.
+logo: ""                    # seminar logo, e.g. images/news/2026-10-15-seminar-logo.png
+# Photos: upload them to images/news/ and list them here.
 photos:
   - images/news/2026-10-15-photo-1.jpg
 photo_caption: ""           # e.g. "Left to right: ..."
+photo_captions: []          # optional: one caption per photo, in the same order
 photo_alt: ""               # describe the photo for screen readers
 
 # For seminar reviews
