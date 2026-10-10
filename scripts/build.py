@@ -517,6 +517,9 @@ def announcement_photo(n):
                 return web_copy(image(p["image"], CONTENT / "site.yml"), 900), ""
     if n["photos"]:
         return web_copy(n["photos"][0], 900), ""
+    hdr = str(n["m"].get("header_image") or "") if n["cat"] == "seminar" else ""
+    if hdr:
+        return ((fetch_story_photo(hdr) or hdr) if hdr.startswith("http") else web_copy(image(hdr, n["path"]), 900)), ""
     if n["cat"] == "seminar" and n["m"].get("logo") and image(n["m"]["logo"], n["path"]):
         return web_copy(n["m"]["logo"], 900), ""
     if n.get("remote_photo"):
@@ -622,12 +625,37 @@ def seminar_speakers(m):
     return f'<div class="sm-speakers">{out}</div>'
 
 
+def group_presentations(m):
+    """The group's own talks and posters at an event, with any awards highlighted."""
+    rows = [p for p in (m.get("presentations") or []) if isinstance(p, dict) and p.get("presenter")]
+    if not rows:
+        return ""
+    cards = ""
+    for p in rows:
+        who = (f'<a href="{esc(web(p["url"]))}">{esc(p["presenter"])}</a>' if p.get("url") else esc(p["presenter"]))
+        cards += (f'<li class="sp-card{" is-award" if p.get("award") else ""}">'
+                  f'{f"<span class=sp-award>Award · {esc(p["award"])}</span>" if p.get("award") else ""}'
+                  f'{f"<span class=sp-role>{esc(p["format"])}</span>" if p.get("format") else ""}'
+                  f'<span class="sp-name">{who}</span>'
+                  f'{f"<span class=sp-talk>{esc(p["title"])}</span>" if p.get("title") else ""}'
+                  f'{f"<span class=sp-aff>{esc(p["note"])}</span>" if p.get("note") else ""}</li>')
+    return f'<div class="sm-speakers"><h4 class="sm-sub">From our group</h4><ul class="sp-cards">{cards}</ul></div>'
+
+
 def seminar_block(n):
     """One seminar the group attended: a wide block whose strip starts with the seminar's logo,
     followed by the group's photos (scrolls sideways when there are many), then the review."""
     m = n["m"]
     logo = image(m["logo"], n["path"]) if m.get("logo") else ""
     strip = ""
+    hdr = str(m.get("header_image") or "")
+    if hdr:     # an event banner or photo, from the web (saved during the build) or from images/news/
+        src = (fetch_story_photo(hdr) or hdr) if hdr.startswith("http") else web_copy(image(hdr, n["path"]), 1400)
+        if src:
+            cap = m.get("header_caption") or ""
+            strip += (f'<button type="button" class="sm-pic" data-full="{esc(src)}" data-cap="{esc(cap)}" '
+                      f'aria-label="Event photo, larger"><img src="{esc(src)}" alt="{esc(m.get("header_alt") or m["title"])}" '
+                      f'loading="lazy" referrerpolicy="no-referrer" onerror="this.closest(\'.sm-pic\').remove()"></button>')
     if logo:
         strip += (f'<button type="button" class="sm-pic sm-logo" data-full="{esc(logo)}" aria-label="Seminar logo, larger">'
                   f'<img src="{esc(web_copy(logo, 600))}" alt="{esc(m.get("logo_alt") or (m.get("event") or "Seminar") + " logo")}" loading="lazy"></button>')
@@ -644,9 +672,13 @@ def seminar_block(n):
     meta = " · ".join(esc(x) for x in [when, where] if x)
     if m.get("event_url") and m.get("event"):
         meta = meta.replace(esc(m["event"]), f'<a href="{esc(web(m["event_url"]))}">{esc(m["event"])}</a>', 1)
-    speakers = seminar_speakers(m)
+    speakers = seminar_speakers(m) + group_presentations(m)
     body = md(n["body"])
     link = f'<p class="an-link"><a href="{esc(web(m["link"]))}">{esc(m.get("link_text") or "More")}</a></p>' if m.get("link") else ""
+    more = [l for l in (m.get("links") or []) if isinstance(l, dict) and l.get("url")]
+    if more:
+        link += ('<ul class="sm-links">' + "".join(
+            f'<li><a href="{esc(web(l["url"]))}">{esc(l.get("text") or l["url"])}</a></li>' for l in more) + "</ul>")
     # Photos first; the seminar title below them opens the review, speakers and links.
     return (f'<article class="sm-block" id="{esc(n["slug"])}">'
             f'{f"<div class=sm-strip>{strip}</div>" if strip else ""}'

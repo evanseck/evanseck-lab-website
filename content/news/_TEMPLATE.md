@@ -28,6 +28,19 @@ speakers:
     url: ""                 # the speaker's faculty or lab page
     role: invited
 
+# For events where the group presented (e.g. the Graduate Research Symposium):
+# header_image: a banner or event photo, a web address or a file in images/news/ (shown first)
+# presentations: the group's talks and posters; add "award:" to highlight an award in gold
+#presentations:
+#  - presenter: "Your Name"
+#    format: "Oral presentation"
+#    title: "Talk or poster title"
+#    award: ""
+# links: several links at the end, e.g. program booklet, award list
+#links:
+#  - text: "Program (PDF)"
+#    url: https://...
+
 author: ""                  # who wrote this post (shown as "Review by" on seminar reviews)
 link: ""                    # optional: paper, event page or slides
 link_text: ""               # e.g. "Read the paper"

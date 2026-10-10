@@ -537,3 +537,10 @@ a.an-tile:hover { color: #fff; }
 .sm-details .sm-text { padding-top: 0; }
 @media (max-width: 640px) { .sm-pic { height: 10rem; } .sm-logo { width: 10rem; } .sm-pic img { max-width: 17rem; } .sm-title { font-size: 1.12rem; } }
 @media (prefers-reduced-motion: reduce) { .sm-chev::before { transition: none; } }
+
+.sm-sub { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 0.5rem; }
+.sp-card.is-award { border-left-color: var(--gold); background: color-mix(in srgb, var(--gold) 9%, var(--panel)); }
+.sp-award { font-size: 0.8rem; font-weight: 600; color: var(--gold-text); }
+.sm-links { list-style: none; padding: 0; margin: 0.4rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
+.sm-strip:empty { display: none; }
