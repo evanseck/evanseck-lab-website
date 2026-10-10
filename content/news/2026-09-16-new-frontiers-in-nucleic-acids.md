@@ -6,7 +6,7 @@ category: seminar
 # The symposium's header image comes first in the strip; add the group's photos under "photos:".
 logo: images/news/2026-09-16-new-frontiers-logo.png
 logo_alt: "New Frontiers in Nucleic Acids symposium artwork: DNA strands over a map of Pittsburgh"
-photos: []
+photos: [IMG_20261010_142101.heic]
 photo_captions: []
 
 event: "New Frontiers in Nucleic Acids Symposium"
