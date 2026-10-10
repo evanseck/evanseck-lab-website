@@ -77,8 +77,17 @@ def text_of(fragment):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
 
 
+NUM_DATE_RE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(20\d\d)\b")
+
+
 def parse_date(s):
     m = DATE_RE.search(s or "")
+    n = NUM_DATE_RE.search(s or "")
+    if n and (not m or n.start() < m.start()):          # "10/30/2023"
+        try:
+            return datetime.date(int(n.group(3)), int(n.group(1)), int(n.group(2)))
+        except ValueError:
+            pass
     if not m:
         return None
     mon = m.group(1).rstrip(".")[:3].title()
@@ -192,7 +201,10 @@ def story_items(page, url, pattern, since, today, issue_date, source):
         return []
     title = title_of(page)
     date = issue_date or page_date(page)
-    if date and date < since:
+    if not date:
+        print(f"  no date found, not listed: {url}")
+        return []
+    if date < since:
         return []
     if "science-and-engineering" in url:
         source = "School of Science and Engineering"
@@ -280,7 +292,15 @@ def sitemap_urls():
         else:
             out += locs
     wanted = CONFIG.get("url_contains", [])
-    return sorted({u for u in out if any(w in u for w in wanted)} | set(CONFIG.get("always_read", [])))
+    return sorted({u for u in out if any(w in u for w in wanted) and is_page(u)} | set(CONFIG.get("always_read", [])))
+
+
+def is_page(url):
+    """A web page (not an image, a document or a feed)."""
+    path = urllib.parse.urlsplit(url).path.lower()
+    if re.search(r"/(images|documents|_resources|files)/", path):
+        return False
+    return path.endswith((".php", ".html", ".htm", "/")) or "." not in path.rsplit("/", 1)[-1]
 
 
 def times_issues():
@@ -303,8 +323,16 @@ def times_issues():
 
 def main():
     state = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
-    items = {i["url"] + "#" + i.get("key", ""): i for i in state.get("items", [])}
     checked = state.get("checked", {})
+    items = {}
+    for i in state.get("items", []):
+        if "createsend" not in i["url"] and not is_page(i["url"]):
+            continue                                   # e.g. an .xml feed copy of a story
+        if not i.get("dated", True):
+            checked.pop(i["url"], None)                # read again once, to find its date
+            continue
+        items[i["url"] + "#" + i.get("key", "")] = i
+    checked = {u: d for u, d in checked.items() if "createsend" in u or is_page(u)}
     today = datetime.date.today()
     names = member_names()
     pattern = name_pattern(names)

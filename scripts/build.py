@@ -102,8 +102,9 @@ def image(path_str, source_file):
     if not path_str:
         return ""
     p = ROOT / path_str
-    if not p.is_file() and (ROOT / "images" / path_str).is_file():
-        return "images/" + str(path_str).lstrip("/")      # "images/" was left off the file name
+    for folder in ("images", "images/news", "images/people"):   # the folder was left off the file name
+        if not p.is_file() and (ROOT / folder / path_str).is_file():
+            return f"{folder}/" + str(path_str).lstrip("/")
     if not p.is_file():
         warn(source_file, f"image '{path_str}' not found; check the file name and that it's uploaded.")
         return ""
@@ -321,20 +322,28 @@ def fetch_cover(c, path):
 
 
 def web_copy(img, width=600):
-    """Large uploaded images get a small copy for the web page (originals are kept)."""
+    """Large uploaded images get a small copy for the web page (originals are kept).
+    iPhone photos (.heic), which most browsers can't show, are always converted to .jpg."""
     src = ROOT / img
-    if not src.is_file() or src.stat().st_size < 400_000:
+    heic = src.suffix.lower() in (".heic", ".heif")
+    if not src.is_file() or (src.stat().st_size < 400_000 and not heic):
         return img
     try:
-        from PIL import Image
+        from PIL import Image, ImageOps
+        if heic:
+            import pillow_heif
+            pillow_heif.register_heif_opener()
     except ImportError:
+        if heic:
+            print(f"  {img}: .heic photos need pillow-heif (see the workflow file); skipped.")
+            return ""
         return img
-    rel = f"images/web/{src.stem}-{width}.jpg"
+    rel = f"images/web/{re.sub(r'[^A-Za-z0-9._-]+', '-', src.stem)}-{width}.jpg"
     dst = OUT / rel
     if not dst.exists():
         dst.parent.mkdir(parents=True, exist_ok=True)
         with Image.open(src) as im:
-            im = im.convert("RGB")
+            im = ImageOps.exif_transpose(im).convert("RGB")
             im.thumbnail((width, width * 2))
             im.save(dst, "JPEG", quality=85, optimize=True, progressive=True)
     return rel
@@ -624,6 +633,8 @@ def seminar_block(n):
                   f'<img src="{esc(web_copy(logo, 600))}" alt="{esc(m.get("logo_alt") or (m.get("event") or "Seminar") + " logo")}" loading="lazy"></button>')
     caps = m.get("photo_captions") or []
     for i, ph in enumerate(n["photos"]):
+        if not web_copy(ph, 600):
+            continue                                    # e.g. a .heic photo that couldn't be converted
         cap = caps[i] if i < len(caps) and caps[i] else (m.get("photo_caption") or "")
         strip += (f'<button type="button" class="sm-pic" data-full="{esc(web_copy(ph, 1400))}" data-cap="{esc(cap)}" '
                   f'aria-label="Photo {i + 1}, larger"><img src="{esc(web_copy(ph, 600))}" '
