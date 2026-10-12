@@ -7,6 +7,11 @@ role: |
   John V. Crable Chair of Undergraduate Research
 photo: "images/people/Evanseck.picture.jpg"
 email: evanseck@duq.edu
+# His rescue dogs: drawings that appear one at a time under his photo. To use real photos instead, list them:
+#   dogs:
+#     - image: images/people/dogs/buddy.jpg
+#       name: "Buddy"
+dogs: illustrated
 links:
   - label: University profile
     url: https://duq.edu/faculty-and-staff/jeff-evanseck.php

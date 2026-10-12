@@ -1141,6 +1141,35 @@ def alumni_html(alumni, pubs, pi_keys):
             f'{tablist}{"".join(panels)}</section>')
 
 
+def dogs_html(m, path):
+    """A small, slowly changing portrait of the PI's dogs under his photo (front matter "dogs:").
+    The portraits fade from one dog to the next every few seconds; they stand still for visitors
+    who ask their device for reduced motion."""
+    art = json.loads((ROOT / "templates" / "dog-art.json").read_text(encoding="utf-8"))
+    entries = m.get("dogs") or []
+    if entries == "illustrated":                  # drawings of common rescue-dog types, no photos needed
+        entries = [{"art": k} for k in art]
+    dogs = []
+    for d in entries:
+        d = d if isinstance(d, dict) else {"image": d}
+        name = str(d.get("name", "")).strip()
+        if d.get("art") in art:
+            dogs.append(("art", art[d["art"]]["svg"], name, art[d["art"]]["label"]))
+            continue
+        img = image(d.get("image"), path)
+        if img:
+            dogs.append(("photo", web_copy(img, 500), name, ""))
+    if not dogs:
+        return ""
+    frames = ""
+    for i, (kind, src, name, kind_label) in enumerate(dogs):
+        pic = (src.replace('aria-hidden="true"', f'aria-label="{esc(name or kind_label)}"') if kind == "art"
+               else f'<img src="{esc(src)}" alt="{esc(name or "One of the lab dogs")}" loading="lazy">')
+        frames += f'<figure class="dog{" is-art" if kind == "art" else ""}">{pic}</figure>'
+    label = m.get("dogs_label") or "The lab's rescue dogs"
+    return f'<div class="dogs" role="img" aria-label="{esc(label)}"><div class="dog-frame">{frames}</div></div>'
+
+
 def build_people(people, alumni, pubs):
     pi_html, groups = "", {g: [] for g, _ in PEOPLE_GROUPS}
     pi_keys = set()
@@ -1155,7 +1184,7 @@ def build_people(people, alumni, pubs):
             links = person_links(m)
             pi_html += f'''
     <div class="pi">
-      {img}
+      <div class="pi-side">{img}{dogs_html(m, path)}</div>
       <div>
         <h3>{esc(m["name"])}</h3>
         <p class="role">{role}</p>
@@ -1403,6 +1432,25 @@ SCRIPT = """
     dlg.querySelector('.an-close').addEventListener('click', () => dlg.close());
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   }
+
+  // The PI's dogs: one dog fades in, stays 2 seconds, fades away; the next comes 5 seconds later.
+  // (Still, with the first dog showing, for visitors who ask for reduced motion.)
+  document.querySelectorAll('.dog-frame').forEach(frame => {
+    const dogs = [...frame.querySelectorAll('.dog')];
+    if (!dogs.length) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { dogs[0].classList.add('on'); return; }
+    const FADE = 900, STAY = 2000, GAP = 5000;
+    let i = 0;
+    const step = () => {
+      if (document.hidden || !frame.offsetParent) { setTimeout(step, 1000); return; }
+      const d = dogs[i];
+      d.classList.add('on');
+      setTimeout(() => d.classList.remove('on'), FADE + STAY);
+      i = (i + 1) % dogs.length;
+      setTimeout(step, FADE + STAY + FADE + GAP);
+    };
+    setTimeout(step, 1200);
+  });
 
   const more = document.getElementById('pub-more');
   if (more) more.addEventListener('click', () => {
