@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]        # rebuild whenever anyone changes a file
   schedule:
-    - cron: "0 10 * * 1"    # every Monday: fetch new publications, then rebuild
+    - cron: "0 10 * * *"    # every day: fetch new publications, news and Instagram posts, then rebuild
   workflow_dispatch:         # "Run workflow" button on the Actions tab
 
 permissions:
@@ -26,23 +26,27 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install markdown pyyaml pillow
+      - run: pip install markdown pyyaml pillow pillow-heif pypdf
 
-      - name: Fetch publications, dissertations, covers and Duquesne news (weekly and manual runs)
+      - name: Fetch publications, dissertations, covers, Duquesne news, GRS and Instagram (daily and manual runs)
         if: github.event_name != 'push'
         env:
           OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
         run: |
           python scripts/update_publications.py || echo "::warning::Publication update skipped; the site uses the existing list."
           python scripts/update_dissertations.py
           python scripts/update_covers.py
           python scripts/update_news.py
-          git add -N data images/covers/auto 2>/dev/null || true
-          if ! git diff --quiet -- data images/covers/auto; then
+          python scripts/update_grs.py
+          python scripts/update_instagram.py
+          mkdir -p images/covers/auto images/instagram
+          git add -N data images/covers/auto images/instagram 2>/dev/null || true
+          if ! git diff --quiet -- data images/covers/auto images/instagram; then
             git config user.name "github-actions[bot]"
             git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
-            git add data images/covers/auto
-            git commit -m "Weekly update: publications, dissertations, covers and Duquesne news"
+            git add -A data images/covers/auto images/instagram
+            git commit -m "Automatic update: publications, news, GRS and Instagram"
             git push
           fi
 
