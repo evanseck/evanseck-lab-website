@@ -397,8 +397,10 @@ def covers_html(covers, pubs_by_doi, path):
     return f'<div class="covers"><h4>Journal covers</h4><div class="cover-row">{"".join(cards)}</div></div>'
 
 
-NEWS_CATEGORIES = [("accomplishment", "Accomplishments"), ("seminar", "Seminar reviews"), ("news", "Group news")]
-NEWS_TAGS = {"accomplishment": "Accomplishment", "seminar": "Seminar review", "news": "Group news"}
+NEWS_CATEGORIES = [("accomplishment", "Accomplishments"), ("instagram", "Instagram"), ("seminar", "Seminar reviews"),
+                   ("news", "Group news")]
+NEWS_TAGS = {"accomplishment": "Accomplishment", "seminar": "Seminar review", "news": "Group news",
+             "instagram": "Instagram"}
 
 
 def news_items():
@@ -422,7 +424,90 @@ def news_items():
         out.append({"path": path, "slug": "news-" + path.stem, "m": m, "body": b, "date": d, "month_only": month_only,
                     "cat": cat, "photos": photos})
     out += duquesne_news_items()
+    out += grs_items(out)
+    out += instagram_items()
     return sorted(out, key=lambda n: n["date"], reverse=True)
+
+
+def instagram_items():
+    """Posts from the lab's Instagram account (scripts/update_instagram.py), as photo tiles that open
+    the post on Instagram."""
+    f = ROOT / "data" / "instagram.json"
+    if not f.exists():
+        return []
+    data = json.loads(f.read_text(encoding="utf-8"))
+    out = []
+    for p in data.get("posts", []):
+        try:
+            d = datetime.date.fromisoformat(p.get("date", ""))
+        except ValueError:
+            continue
+        cap = (p.get("caption") or "").strip()
+        first = re.split(r"(?<=[.!?])\s|\n", cap, maxsplit=1)[0].strip() if cap else ""
+        title = first if first and len(first) <= 110 else (first[:107].rsplit(" ", 1)[0] + "…" if first else "Instagram post")
+        m = {"title": title, "link": p["permalink"], "link_text": "View on Instagram",
+             "source": "@" + data["username"] if data.get("username") else "Instagram"}
+        out.append({"path": f, "slug": "ig-" + p["id"], "m": m, "body": "", "date": d, "month_only": False,
+                    "cat": "instagram", "photos": [p["image"]] if p.get("image") and (ROOT / p["image"]).is_file() else [],
+                    "auto": True})
+    return out
+
+
+def grs_items(existing):
+    """Graduate Research Symposium years found by scripts/update_grs.py (data/grs.json), shown as
+    seminar blocks. A post you write for the same year takes its place. Photos named
+    images/news/grs-<year>-*.jpg (or .png) are added automatically."""
+    f = ROOT / "data" / "grs.json"
+    if not f.exists():
+        return []
+    cfg = json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8")).get("grs", {})
+    hide = {str(y) for y in cfg.get("hide_years", [])}
+    written = {n["date"].year for n in existing
+               if n["cat"] == "seminar" and "graduate research symposium" in (n["m"]["title"] + " " + str(n["m"].get("event", ""))).lower()}
+    out = []
+    for year, e in sorted(json.loads(f.read_text(encoding="utf-8")).get("years", {}).items()):
+        if year in hide or int(year) in written:
+            continue
+        try:
+            d = datetime.date.fromisoformat(e.get("date") or "")
+            month_only = False
+        except ValueError:
+            d, month_only = datetime.date(int(year), 3, 1), True
+        won = {a["presenter"]: a for a in e.get("awards", []) if a.get("presenter")}
+        pres = []
+        for p in e.get("presentations", []):
+            row = {"presenter": p["presenter"], "title": p.get("title", ""), "format": p.get("format", "")}
+            if p["presenter"] in won:
+                row["award"] = won.pop(p["presenter"]).get("award") or "Award"
+            pres.append(row)
+        for a in won.values():   # award winners not found in the booklet
+            pres.append({"presenter": a["presenter"], "title": a.get("title", ""), "award": a.get("award") or "Award"})
+        links = [{"text": t, "url": e["links"][k]} for k, t in
+                 [("program", "Program booklet (PDF)"), ("awards", "Award winners (PDF)"),
+                  ("schedule", "Schedule (PDF)"), ("forager", "Presentations on Symposium by ForagerOne")]
+                 if e.get("links", {}).get(k)]
+        n_talk = sum(1 for p in pres if "Oral" in p.get("format", ""))
+        n_award = sum(1 for p in pres if p.get("award"))
+        words = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+        say = lambda k: words[k] if k < len(words) else str(k)
+        body = ("Duquesne's annual Graduate Research Symposium brings graduate students from every school together "
+                "to share their research.")
+        if pres:
+            body += (f" At the {year} symposium, {say(len(pres))} group member{'s' if len(pres) != 1 else ''} "
+                     f"presented {'their' if len(pres) != 1 else 'their'} research"
+                     + (f", {say(n_talk)} in the oral sessions" if n_talk else "") + ".")
+        if n_award:
+            body += f" {say(n_award).capitalize()} of them received {'awards' if n_award != 1 else 'an award'}."
+        photos = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "images" / "news").glob(f"grs-{year}-*")
+                        if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".heic"))
+        m = {"title": f"Graduate Research Symposium {year}",
+             "event": "Duquesne University Graduate Research Symposium (GRS)", "event_url": e.get("page", ""),
+             "location": "Duquesne University", "header_image": e.get("image", ""),
+             "header_caption": "Photo: Duquesne University" if e.get("image") else "",
+             "presentations": pres, "links": links}
+        out.append({"path": f, "slug": f"grs-{year}", "m": m, "body": body, "date": d, "month_only": month_only,
+                    "cat": "seminar", "photos": photos})
+    return out
 
 
 def duquesne_news_items():

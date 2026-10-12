@@ -82,5 +82,16 @@
     "hide": [],
     "seconds_between_requests": 1.0,
     "max_pages_per_run": 600
+  },
+  "grs": {
+    "_help": "Yearly Graduate Research Symposium check (scripts/update_grs.py). Every year found stays on the website; to take one off, add it to hide_years, e.g. [2027]. Photos named images/news/grs-<year>-1.jpg, -2.jpg ... are shown automatically.",
+    "page": "https://www.duq.edu/research/graduate-research/graduate-symposium.php",
+    "advisor_surname": "Evanseck",
+    "hide_years": []
+  },
+  "instagram": {
+    "_help": "The lab's Instagram posts (scripts/update_instagram.py). Needs the INSTAGRAM_TOKEN secret. To hide a post, add its link to 'hide'.",
+    "max_posts": 60,
+    "hide": []
   }
 }
