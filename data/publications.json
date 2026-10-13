@@ -1,9 +1,8 @@
 {
   "source": "OpenAlex",
-  "updated": "2026-10-09",
+  "updated": "2026-10-13",
   "author_ids": [
     "A5056080018",
-    "A5150938311",
     "A5066182586"
   ],
   "highlight": [
@@ -1823,7 +1822,7 @@
       "orcids": [
         "0000-0001-5014-1889",
         "0000-0001-7001-0034",
-        "0000-0002-0007-382X",
+        "",
         "0000-0003-2616-7354"
       ],
       "venue": "OSTI OAI (U.S. Department of Energy Office of Scientific and Technical Information)",
@@ -1884,7 +1883,7 @@
         "Jeffrey D. Evanseck",
         "Martin J. Field",
         "Stefan Fischer",
-        "Jun Gao",
+        "Jiali Gao",
         "Hong Xu Guo",
         "Sookhee Ha",
         "Diane Joseph‐McCarthy",
@@ -1914,8 +1913,8 @@
         "0000-0001-7674-6667",
         "0000-0003-2616-7354",
         "0000-0001-8674-7997",
-        "0000-0001-8811-7518",
-        "0000-0002-6692-1828",
+        "0000-0003-2353-4497",
+        "0000-0003-0106-7154",
         "0000-0002-5997-5086",
         "",
         "0000-0001-9685-6177",
@@ -2464,7 +2463,7 @@
         "Daniel R. Carcanague",
         "Jeffrey D. Evanseck",
         "Kendall N. Houk",
-        "F. Diederich"
+        "François Diederich"
       ],
       "orcids": [
         "0000-0003-4141-2872",
@@ -2474,7 +2473,7 @@
         "",
         "0000-0003-2616-7354",
         "0000-0002-8387-5261",
-        ""
+        "0000-0003-1947-6327"
       ],
       "venue": "Pure and Applied Chemistry",
       "volume": "62",
@@ -2573,14 +2572,14 @@
     }
   ],
   "last_check": {
-    "date": "2026-10-09",
+    "date": "2026-10-13",
     "crossref": "ok: 29 match(es), 4 new",
     "crossref_found": [
       "BPS2026 – Structural, dynamical, and entropic impact of Mg2+ on HCV X55 hairpin; role of i (10.1016/j.bpj.2025.11.1809)",
       "Viral-host RNA-RNA interactions in SARS-CoV-2: Study of miR-34a-5p binding interactions wi (10.1016/j.bpj.2022.11.1984)",
       "BPS2026 – Structural determinants of kissing complexation in conserved SL1 hairpins in wes (10.1016/j.bpj.2025.11.1806)",
-      "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS- (10.1016/j.bpj.2021.11.1710)",
       "Delta variant versus ancestral SARS-CoV-2 s2m dynamics and relative entropy (10.1016/j.bpj.2022.11.1980)",
+      "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS- (10.1016/j.bpj.2021.11.1710)",
       "Viral-host RNA-RNA interactions in SARS-CoV-2: study of MIR-760-3p interactions with the g (10.1016/j.bpj.2021.11.1708)",
       "Structural and thermodynamic consequences of the G31U and U5C mutations in the SARS-CoV-2  (10.1016/j.bpj.2022.11.1987)",
       "Characterization of the S2M G15U mutation associated with the SARS-CoV-2 delta variant (10.1016/j.bpj.2021.11.1709)",
@@ -2598,8 +2597,8 @@
       "Structural heterogeneity and dynamics in the apical stem loop of s2m from SARS-CoV-2 Delta (10.1093/nar/gkaf552)",
       "Inside Front Cover Image, Volume 95, Number 1, January 2023 (10.1002/jmv.28467)",
       "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1101/2023.02.10.528014)",
-      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
       "Bioinformatics analysis of the s2m mutations within the SARS‐CoV‐2 Omicron lineages (10.1002/jmv.28141)",
+      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
       "Structural, Dynamical, and Entropic Differences Between SARS-CoV and SARS-CoV-2 s2m Elemen (10.26434/chemrxiv-2022-lpjl9)",
       "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elemen (10.1021/acsphyschemau.2c00032)",
       "Diastereoselective [3 + 2] Cycloaddition between Tertiary Amine <i>N</i>-Oxides and Substi (10.1021/acs.orglett.4c02013)",

@@ -1,0 +1,32 @@
+{
+ "years": {
+  "2026": {
+   "year": "2026",
+   "page": "https://www.duq.edu/research/graduate-research/graduate-symposium.php",
+   "links": {
+    "forager": "https://symposium.foragerone.com/graduate-research-symposium-2026",
+    "schedule": "https://www.duq.edu/documents/research/schedulepage2026.pdf",
+    "program": "https://www.duq.edu/documents/research/2026-grsprogrambooklet.pdf",
+    "awards": "https://www.duq.edu/documents/research/2026awardwinnersfinal.pdf"
+   },
+   "image": "https://www.duq.edu/images/research/graduate-research/imggrsphoto2026_8375.jpg",
+   "checked": "2026-10-13",
+   "date": "2026-03-18",
+   "presentations": [
+    {
+     "presenter": "Sadhana Srinivasa",
+     "title": "RsmE-dependent spatial positioning manifests cooperative spreading in Pseudomonas fluorescens through alterations in Cyclic-di-GMP levels",
+     "format": "Oral presentation · SESSION 1A",
+     "context": "Sadhana Srinivasa / Biology | School of Science and Engineering / Faculty Advisor/s: Wook Kim Ph.D. / RsmE-dependent spatial positioning manifests cooperative spreading in Pseudomonas / fluorescens through alterations in Cyclic-di-GMP levels / 9:30 -"
+    },
+    {
+     "presenter": "Strand Fraying",
+     "title": "Abstract: The HIV-1 dimerization initiation sequence (DIS) regulates genome packaging through a kissing complex (KC) that converts to an extended duplex (ED) during the viral lifecycle. Although the biological relevance of this",
+     "format": "Poster",
+     "context": "Strand Fraying / Jonah Babusci │ Chemistry │School of Science and Engineering / Faculty Advisor(s): Jeffrey Evanseck, Ph.D., Mihaela-Rita Mihailescu, Ph.D. / Abstract: / The HIV-1 dimerization initiation sequence (DIS) regulates genome packaging through a kissing complex (KC) / that converts to an extended duplex (ED) during the viral lifecycle. Although the biological relevance of this"
+    }
+   ],
+   "awards": []
+  }
+ }
+}
