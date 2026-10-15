@@ -1,6 +1,6 @@
 {
   "source": "OpenAlex",
-  "updated": "2026-10-14",
+  "updated": "2026-10-15",
   "author_ids": [
     "A5056080018",
     "A5066182586"
@@ -30,7 +30,7 @@
         "Ron Elber",
         "Jeffrey D. Evanseck",
         "Jiali Gao",
-        "Hong Xu Guo",
+        "Hong Guo",
         "Roderick E. Hubbard",
         "John Kuriyan",
         "Diane Joseph‐McCarthy",
@@ -46,7 +46,7 @@
         "Nathalie Reuter",
         "Benoı̂t Roux",
         "Andrej Šali",
-        "Tamar Schlick",
+        "Tamar Schlick A",
         "Jeremy C. Smith",
         "Roland H. Stote",
         "John E. Straub",
@@ -101,7 +101,7 @@
         "0000-0003-1325-1610",
         "0000-0002-3591-2195",
         "0000-0002-9193-7055",
-        "0000-0001-9119-2666"
+        "0000-0002-9958-5699"
       ],
       "venue": "Biophysical Journal",
       "volume": "125",
@@ -1884,7 +1884,7 @@
         "Martin J. Field",
         "Stefan Fischer",
         "Jiali Gao",
-        "Hong Xu Guo",
+        "Hong Guo",
         "Sookhee Ha",
         "Diane Joseph‐McCarthy",
         "L. Kuchnir",
@@ -1896,7 +1896,7 @@
         "Dzung T. Nguyen",
         "Blaise Prod'hom",
         "W. E. Reiher",
-        "Benoı̂t Roux",
+        "Beno�t Roux",
         "Michael Schlenkrich",
         "Jeremy C. Smith",
         "Roland H. Stote",
@@ -1927,7 +1927,7 @@
         "",
         "",
         "",
-        "0000-0002-5254-2712",
+        "",
         "",
         "0000-0002-2978-3227",
         "0000-0003-2230-7145",
@@ -2572,7 +2572,7 @@
     }
   ],
   "last_check": {
-    "date": "2026-10-14",
+    "date": "2026-10-15",
     "crossref": "ok: 29 match(es), 4 new",
     "crossref_found": [
       "BPS2026 – Structural, dynamical, and entropic impact of Mg2+ on HCV X55 hairpin; role of i (10.1016/j.bpj.2025.11.1809)",
@@ -2598,9 +2598,9 @@
       "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1101/2023.02.10.528014)",
       "Inside Front Cover Image, Volume 95, Number 1, January 2023 (10.1002/jmv.28467)",
       "Bioinformatics analysis of the s2m mutations within the SARS‐CoV‐2 Omicron lineages (10.1002/jmv.28141)",
-      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
       "Structural, Dynamical, and Entropic Differences Between SARS-CoV and SARS-CoV-2 s2m Elemen (10.26434/chemrxiv-2022-lpjl9)",
       "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elemen (10.1021/acsphyschemau.2c00032)",
+      "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
       "Diastereoselective [3 + 2] Cycloaddition between Tertiary Amine <i>N</i>-Oxides and Substi (10.1021/acs.orglett.4c02013)",
       "<i>N</i>-Oxide Insertion into LDA Dimeric Aggregates for Azomethine Ylide Formation: Expli (10.1021/acs.joc.4c03090)",
       "The Scientific Method as a Scaffold to Enhance Communication Skills in Chemistry (10.1021/acs.jchemed.2c00113)"
