@@ -563,3 +563,19 @@ a.an-tile:hover { color: #fff; }
 .dog-art .gold { fill: none; stroke: var(--gold); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .dog-art .gold-f { fill: var(--gold); }
 .dog-art .gold-thin { fill: none; stroke: var(--gold); stroke-width: 1.2; stroke-linecap: round; }
+
+/* The designer's bee (footer credits) */
+.bee-home { position: relative; display: inline-block; }
+.bee { position: absolute; right: -0.6rem; top: -0.55rem; width: 1.35rem; height: auto; opacity: 0; pointer-events: none;
+  transform-origin: 50% 60%; will-change: transform, opacity; z-index: 2; }
+.bee svg { display: block; width: 100%; height: auto; overflow: visible; }
+.bee-body { fill: #e2bf62; stroke: #f2f3f5; stroke-width: 1.2; }
+.bee-band { fill: none; stroke: #1d2025; stroke-width: 2.4; stroke-linecap: round; }
+.bee-head { fill: #1d2025; stroke: #f2f3f5; stroke-width: 1.2; }
+.bee-eye { fill: #f2f3f5; }
+.bee-line { fill: none; stroke: #f2f3f5; stroke-width: 1; stroke-linecap: round; }
+.bee-wing { fill: rgba(255, 255, 255, 0.35); stroke: #f2f3f5; stroke-width: 0.9; transform-box: fill-box; transform-origin: 50% 100%; }
+.bee.flying .w1 { animation: bee-flap 0.11s ease-in-out infinite alternate; }
+.bee.flying .w2 { animation: bee-flap 0.11s ease-in-out infinite alternate-reverse; }
+@keyframes bee-flap { from { transform: scaleY(1); } to { transform: scaleY(0.35); } }
+@media (prefers-reduced-motion: reduce) { .bee { opacity: 1; transform: scale(0.6); } }

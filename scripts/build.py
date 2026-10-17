@@ -851,6 +851,15 @@ def dept_html(d):
     return esc(d)
 
 
+BEE_SVG = ('<svg viewBox="0 0 40 32" focusable="false">'
+           '<ellipse class="bee-wing w1" cx="17" cy="9" rx="6" ry="8" transform="rotate(-25 17 9)"/>'
+           '<ellipse class="bee-wing w2" cx="24" cy="9" rx="5" ry="7" transform="rotate(20 24 9)"/>'
+           '<ellipse class="bee-body" cx="20" cy="19" rx="11" ry="7.5"/>'
+           '<path class="bee-band" d="M15 12.5 Q13.5 19 15 25.5 M21 11.6 Q19.5 19 21 26.4"/>'
+           '<circle class="bee-head" cx="32" cy="18" r="4.5"/><circle class="bee-eye" cx="33.5" cy="17" r="1"/>'
+           '<path class="bee-line" d="M34 14 Q36 9 39 8 M9 19 L5 19"/></svg>')
+
+
 def credits_html():
     """Small "Site credits" corner in the footer, from content/credits.yml."""
     f = CONTENT / "credits.yml"
@@ -878,6 +887,8 @@ def credits_html():
             who = f'<a href="{esc(web(links[0]))}">{esc(", ".join(names))}</a>'
         else:
             who = esc(", ".join(names))
+        if c.get("bee"):    # a tiny bee lives at the corner of this name and goes out for short flights
+            who = f'<span class="bee-home">{who}<span class="bee" aria-hidden="true">{BEE_SVG}</span></span>'
         rows += f'<div class="cr-row"><dt>{esc(c["what"])}</dt><dd>{who}</dd></div>'
     if not rows:
         return ""
@@ -1450,6 +1461,47 @@ SCRIPT = """
       setTimeout(step, FADE + STAY + FADE + GAP);
     };
     setTimeout(step, 1200);
+  });
+
+  // A tiny bee leaves the corner of the designer's name, wanders a little and flies back in.
+  // A new, different path each time; it rests a few seconds between flights. Still for reduced motion.
+  document.querySelectorAll('.bee-home .bee').forEach(bee => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let visible = false;
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(bee.parentElement);
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const bez = (p0, p1, p2, p3, t) => {
+      const u = 1 - t;
+      return [u*u*u*p0[0] + 3*u*u*t*p1[0] + 3*u*t*t*p2[0] + t*t*t*p3[0],
+              u*u*u*p0[1] + 3*u*u*t*p1[1] + 3*u*t*t*p2[1] + t*t*t*p3[1]];
+    };
+    const fly = () => {
+      if (!visible || document.hidden) { setTimeout(fly, 1500); return; }
+      const W = Math.min(170, window.innerWidth * 0.35), H = 110;
+      const far = [rnd(-W, W), rnd(-H, -30)];                    // where the bee turns around
+      const a = [[0, 0], [rnd(-W, W) * 0.6, rnd(-H, 10)], [far[0] + rnd(-40, 40), far[1] + rnd(-30, 30)], far];
+      const b = [far, [far[0] + rnd(-60, 60), far[1] + rnd(-40, 40)], [rnd(-W, W) * 0.5, rnd(-H, 0)], [0, 0]];
+      const dur = rnd(4200, 6200), t0 = performance.now();
+      let prev = [0, 0];
+      bee.classList.add('flying');
+      const tick = now => {
+        const t = Math.min(1, (now - t0) / dur);
+        const e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;   // ease in-out
+        const p = e < 0.5 ? bez(...a, e * 2) : bez(...b, e * 2 - 1);
+        const wob = Math.sin(now / 90) * 2.2;                                // a bee never flies straight
+        const dx = p[0] - prev[0], dy = p[1] - prev[1];
+        const flip = dx < 0 ? -1 : 1;
+        const tilt = Math.max(-35, Math.min(35, Math.atan2(dy, Math.abs(dx) + 0.001) * 90 / Math.PI));
+        const sc = 0.35 + 0.65 * Math.min(1, Math.min(t, 1 - t) * 8);       // small at the corner
+        bee.style.transform = `translate(${p[0]}px, ${p[1] + wob}px) scale(${sc * flip}, ${sc}) rotate(${tilt * flip}deg)`;
+        bee.style.opacity = Math.min(1, Math.min(t, 1 - t) * 12);
+        prev = p;
+        if (t < 1) requestAnimationFrame(tick);
+        else { bee.classList.remove('flying'); bee.style.opacity = 0; setTimeout(fly, rnd(6000, 9000)); }
+      };
+      requestAnimationFrame(tick);
+    };
+    setTimeout(fly, window.BEE_FIRST || 2500);
   });
 
   const more = document.getElementById('pub-more');
