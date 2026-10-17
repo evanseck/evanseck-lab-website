@@ -579,3 +579,55 @@ a.an-tile:hover { color: #fff; }
 .bee.flying .w2 { animation: bee-flap 0.11s ease-in-out infinite alternate-reverse; }
 @keyframes bee-flap { from { transform: scaleY(1); } to { transform: scaleY(0.35); } }
 @media (prefers-reduced-motion: reduce) { .bee { opacity: 1; transform: scale(0.6); } }
+
+/* ---------- Theory in Motion ---------- */
+.tab-theory { display: inline-flex; align-items: center; gap: 0.4rem; }
+.tab-glyph { width: 1.15rem; height: auto; fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.tab-glyph .fil { stroke-width: 1.2; animation: th-glow 3.5s ease-in-out infinite; }
+.tab-theory[aria-current="page"] .tab-glyph .bulb { fill: color-mix(in srgb, var(--gold) 25%, transparent); }
+@keyframes th-glow { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+@keyframes th-roll { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(6px, -3px); } }
+.th-head { font-size: 1.3rem; margin: 2rem 0 1rem; }
+.th-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 26rem), 1fr)); gap: 1rem; }
+.th-card { display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.1rem 1.25rem; text-decoration: none; color: var(--text);
+  border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 8px; background: var(--panel);
+  transition: border-color 0.2s ease, transform 0.2s ease; }
+.th-card:hover { border-color: var(--gold); color: var(--text); transform: translateY(-2px); }
+.th-icon { flex: none; width: 5.5rem; padding-top: 0.2rem; }
+.th-icon svg { width: 100%; height: auto; overflow: visible; }
+.th-icon .ti-base { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.th-icon .ti-fill { fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 4 3;
+  animation: th-dash 6s linear infinite; }
+.th-icon .ti-dot { fill: var(--gold); animation: th-roll 5s ease-in-out infinite; }
+@keyframes th-dash { to { stroke-dashoffset: -70; } }
+.th-body { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+.th-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-text); }
+.th-title { font-family: var(--serif); font-size: 1.3rem; color: var(--ink); line-height: 1.25; }
+.th-text { font-size: 0.95rem; line-height: 1.5; }
+.th-by { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+.th-open { font-size: 0.9rem; color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px; text-underline-offset: 0.2em; margin-top: 0.2rem; }
+.th-split { margin-top: 0.5rem; }
+.th-quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+.th-quote { display: block; text-decoration: none; color: var(--text); padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 2px solid var(--line-strong); }
+a.th-quote:hover { border-left-color: var(--gold); color: var(--text); }
+.th-quote p { margin: 0; font-family: var(--serif); font-size: 1.12rem; line-height: 1.5; font-style: italic; color: var(--ink); }
+a.th-quote:hover p { color: var(--gold-text); }
+.th-src { margin-top: 1rem; font-size: 0.86rem; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .tab-glyph circle, .th-icon .ti-fill, .th-icon .ti-dot { animation: none; } .th-card { transition: none; } }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.th-invite { font-family: var(--serif); font-size: clamp(1.2rem, 2.3vw, 1.95rem); line-height: 1.3; color: var(--ink);
+  margin: 0.5rem 0 1.5rem; max-width: none; white-space: nowrap; }
+@media (max-width: 760px) { .th-invite { white-space: normal; text-wrap: balance; } }
+/* Well filling with Gaussians (metadynamics): one hill is added at a time (outlined as it lands),
+   the filled bias grows step by step; the full well holds, then the cycle restarts (10 hills, 1 s each, then a 2 s hold). */
+.th-icon .ti-k { opacity: 0; animation: ti-step 12s step-end infinite; animation-delay: calc(var(--k) * 1s); }
+.th-icon .ti-k.last { animation-name: ti-step-last; }
+@keyframes ti-step { 0% { opacity: 1; } 8.34% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes ti-step-last { 0% { opacity: 1; } 25% { opacity: 0; } 100% { opacity: 0; } }
+.th-icon .ti-fill-a { fill: color-mix(in srgb, var(--gold) 40%, transparent); stroke: none; }
+.th-icon .ti-new { fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linecap: round; }
+@media (prefers-reduced-motion: reduce) { .th-icon .ti-k { animation: none; } .th-icon .ti-k.last { opacity: 1; } .tab-glyph .fil { animation: none; } }
+.th-icon .ti-walker { fill: var(--ink); stroke: var(--panel); stroke-width: 0.6; }
