@@ -5,13 +5,20 @@ title: Theory at Work
 invite: "From equations to intuition: the theories behind our work, brought to life."
 
 # Interactive pages that show the theories the group works with. Each one is a card with an icon.
-# icon: hills (free-energy landscape), wave, orbital or network
+# icon: hills (free-energy landscape), band (reaction path), wave, orbital or network
+# Cards sit three to a row; an empty slot shows "More explorations on the way" until you add a card.
 explorations:
   - title: Metadynamics in Motion
     url: https://sumaiya-tasnim-97.github.io/metad-in-motion/
     icon: hills
     tag: Enhanced sampling
     text: "Watch Gaussian hills fill free-energy wells until the landscape is flat, compare standard and well-tempered metadynamics, and estimate escape rates from rare events, all in interactive simulations."
+    by: ""
+  - title: Nudged Elastic Band Explorer
+    url: https://sumaiya-tasnim-97.github.io/neb-interactive/
+    icon: band
+    tag: Reaction paths
+    text: "Watch a band of images slide across an energy surface and relax onto the minimum-energy path, with climbing-image NEB, the forces on each image, and the barrier it finds, all live."
     by: ""
 
 # Teaching philosophy: exact quotes from the group's chemical education papers, each linked to the paper.
