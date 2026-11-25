@@ -21,7 +21,7 @@ explorations:
     text: "Watch a band of images slide across an energy surface and relax onto the minimum-energy path, with climbing-image NEB, the forces on each image, and the barrier it finds, all live."
     by: ""
   - title: Principal Component Analysis
-    url: https://sumaiya-tasnim-97.github.io/pca-without-labels/
+    url: https://sumaiya-tasnim-97.github.io/principal-components/
     icon: pca
     tag: Unsupervised learning
     text: "Find the directions in which data vary the most, step through the algorithm, and watch PCA sort pooled protein simulations and count the dyes in mixture spectra, all without labels."
