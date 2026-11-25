@@ -652,3 +652,16 @@ a.th-quote:hover p { color: var(--gold-text); }
 @media (prefers-reduced-motion: reduce) {
   .th-icon .ti-bead, .th-icon .ti-band-a, .th-icon .ti-band-b { animation: none; }
   .th-icon .ti-bead { transform: translateY(var(--dy)); } .th-icon .ti-band-a { opacity: 0; } .th-icon .ti-band-b { opacity: 1; } }
+
+/* PCA icon: the gold line turns until it lies along the cloud's long axis (PC1); then each point's projection appears. */
+.th-icon .ti-cloud circle { fill: var(--ink); }
+.th-icon .ti-mean { fill: var(--panel); stroke: var(--ink); stroke-width: 0.8; }
+.th-icon .ti-pc1 { stroke: var(--gold); stroke-width: 1.2; stroke-linecap: round; }
+.th-icon .ti-pc2 { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 1.6 1.6; stroke-linecap: round; }
+.th-icon .ti-ticks line { stroke: var(--gold); stroke-width: 0.5; opacity: 0.7; }
+.th-icon .ti-pdots circle { fill: var(--panel); stroke: var(--gold); stroke-width: 0.7; }
+.th-icon .ti-turn { transform-box: view-box; animation: pca-turn 8s cubic-bezier(.45,0,.25,1) infinite; }
+.th-icon .ti-proj { opacity: 0; animation: pca-proj 8s ease-in-out infinite; }
+@keyframes pca-turn { 0%, 6% { transform: rotate(62deg); } 42%, 88% { transform: rotate(0deg); } 100% { transform: rotate(62deg); } }
+@keyframes pca-proj { 0%, 44% { opacity: 0; } 54%, 84% { opacity: 1; } 92%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .th-icon .ti-turn { animation: none; } .th-icon .ti-proj { animation: none; opacity: 1; } }
