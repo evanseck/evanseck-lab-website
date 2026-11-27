@@ -93,5 +93,15 @@
     "_help": "The lab's Instagram posts (scripts/update_instagram.py). Needs the INSTAGRAM_TOKEN secret. To hide a post, add its link to 'hide'.",
     "max_posts": 60,
     "hide": []
+  },
+  "hall_of_fame": {
+    "_note": "Slides in content/hall-of-fame are shown only if their text contains 'require'. 'fix' corrects spelling on the slides.",
+    "require": "Evanseck",
+    "group_word": "Evanseck",
+    "fix": {
+      "GlaxoSmithKlein": "GlaxoSmithKline",
+      "Rookie of the Y ear": "Rookie of the Year",
+      "Research A ward": "Research Award"
+    }
   }
 }

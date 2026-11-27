@@ -774,6 +774,70 @@ def seminar_block(n):
             f'{f"<p class=sm-by>Review by {esc(m["author"])}</p>" if m.get("author") else ""}{link}</div></details></article>')
 
 
+def hall_of_fame_items():
+    """Tiles made from the achievement slides in content/hall-of-fame (see scripts/hall_of_fame.py)."""
+    try:
+        import hall_of_fame
+    except ImportError as e:
+        print(f"  Hall of Fame skipped ({e})")
+        return []
+    cfg = json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8")).get("hall_of_fame", {})
+
+    def save_photo(im, name):
+        rel = f"images/hof/{name}.jpg"
+        dst = OUT / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        im = im.copy()
+        im.thumbnail((1400, 1400))
+        im.save(dst, "JPEG", quality=84, optimize=True, progressive=True)
+        return rel
+    try:
+        return hall_of_fame.collect(CONTENT, OUT, cfg, save_photo, warn)
+    except Exception as e:
+        print(f"  Hall of Fame skipped ({e})")
+        return []
+
+
+def hof_tile(it):
+    img = it["photos"][0][0] if it["photos"] else ""
+    pic = (f'<img src="{esc(img)}" alt="" loading="lazy">' if img else
+           '<span class="an-blank" aria-hidden="true"><img src="images/logo-mark-dark.png" alt=""></span>')
+    more = f'<span class="hof-count">{len(it["photos"])} photos</span>' if len(it["photos"]) > 1 else ""
+    return (f'<button type="button" class="an-tile hof-tile" data-open="{esc(it["slug"])}" data-cat="hof" aria-haspopup="dialog">'
+            f'{pic}<span class="an-tag">{esc(it["tag"])}</span>{more}<span class="an-cap">'
+            f'{f"<span class=an-date>{esc(it['when'])}</span>" if it.get("when") else ""}'
+            f'<span class="an-title">{esc(it["title"])}</span>'
+            f'{f"<span class=hof-line>{esc(it['line'])}</span>" if it.get("line") else ""}'
+            f'{f"<span class=an-src>{esc(it['src'])}</span>" if it.get("src") else ""}</span></button>')
+
+
+def hof_article(it):
+    fig = ""
+    if it["photos"]:
+        src, cap = it["photos"][0]
+        fig = (f'<figure class="an-photo hof-main"><img src="{esc(src)}" alt="{esc(cap)}" loading="lazy">'
+               f'<figcaption>{esc(cap)}</figcaption></figure>')
+    thumbs = ""
+    if len(it["photos"]) > 1:
+        thumbs = '<div class="hof-thumbs">' + "".join(
+            f'<button type="button" class="hof-thumb" data-full="{esc(s)}" data-cap="{esc(c)}" aria-label="Show photo {k + 1}">'
+            f'<img src="{esc(s)}" alt="" loading="lazy"></button>' for k, (s, c) in enumerate(it["photos"])) + "</div>"
+    dl = "".join(f"<dt>{esc(a)}</dt><dd>{esc(b)}</dd>" for a, b in it.get("dl", []))
+    when = f'<time>{esc(it["when"])}</time>' if it.get("when") else ""
+    return (f'<article class="an-post" id="{esc(it["slug"])}" data-cat="hof">{fig}<div class="an-body">'
+            f'<p class="nw-top">{when}<span class="nw-tag nw-hof">{esc(it["tag"])}</span></p>'
+            f'<h3>{esc(it["title"])}</h3>{f"<dl class=hof-dl>{dl}</dl>" if dl else ""}{thumbs}</div></article>')
+
+
+def hall_of_fame_html(items):
+    if not items:
+        return ""
+    return (f'<h3 class="sm-head" id="hall-of-fame">Hall of Fame</h3>'
+            f'<p class="hof-sub">Defenses, awards and presentations by members of the group.</p>'
+            f'<div class="an-grid hof-grid">{"".join(hof_tile(i) for i in items)}</div>'
+            f'<div class="an-posts hof-posts">{"".join(hof_article(i) for i in items)}</div>')
+
+
 def build_news(news, site=None):
     seminars = [n for n in news if n["cat"] == "seminar"]
     news = [n for n in news if n["cat"] != "seminar"]
@@ -791,6 +855,7 @@ def build_news(news, site=None):
                 f'<div class="an-posts">{"".join(news_article(n) for n in news)}</div>')
     else:
         body = '<p class="note">Announcements will appear here.</p>'
+    hof = hall_of_fame_html(hall_of_fame_items())
     sem = ""
     if seminars:
         sem = (f'<h3 class="sm-head" id="seminar-reviews">Seminar reviews</h3>'
@@ -801,6 +866,7 @@ def build_news(news, site=None):
     {instagram_html(site or {}, "")}
     {chips}
     {body}
+    {hof}
     {sem}
     <dialog class="an-dialog" id="an-dialog" aria-label="Announcement">
       <button type="button" class="an-close" aria-label="Close">×</button>
@@ -1467,7 +1533,7 @@ SCRIPT = """
   document.querySelectorAll('.nw-filter button').forEach(b => b.addEventListener('click', () => {
     const f = b.dataset.filter;
     document.querySelectorAll('.nw-filter button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    document.querySelectorAll('#announcements .an-tile, .an-post').forEach(p => { p.hidden = f !== 'all' && p.dataset.cat !== f; });
+    document.querySelectorAll('#announcements .an-tile, .an-post').forEach(p => { if (p.dataset.cat !== 'hof') p.hidden = f !== 'all' && p.dataset.cat !== f; });
   }));
 
   // Announcements: tiles open the full announcement in a pop-up
@@ -1493,6 +1559,13 @@ SCRIPT = """
       dlg.showModal();
       dlg.querySelector('.an-close').focus();
     }));
+    dlg.addEventListener('click', e => {      // Hall of Fame: a thumbnail shows that photo large
+      const t = e.target.closest('.hof-thumb'); if (!t) return;
+      const fig = dlg.querySelector('.hof-main'); if (!fig) return;
+      fig.querySelector('img').src = t.dataset.full; fig.querySelector('img').alt = t.dataset.cap;
+      fig.querySelector('figcaption').textContent = t.dataset.cap;
+      dlg.querySelectorAll('.hof-thumb').forEach(b => b.setAttribute('aria-current', b === t));
+    });
     dlg.querySelector('.an-close').addEventListener('click', () => dlg.close());
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   }
