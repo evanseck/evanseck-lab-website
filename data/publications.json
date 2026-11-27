@@ -2104,70 +2104,6 @@
       "type": "article"
     },
     {
-      "title": "ChemInform Abstract: Transition Structures of the Electrocyclic Reactions of cis,cis,cis‐1, 3,5‐Cyclooctatriene",
-      "year": 1994,
-      "date": "1994-04-05",
-      "authors": [
-        "Bert E. IV Thomas",
-        "Jeffrey D. Evanseck",
-        "Kendall N. Houk"
-      ],
-      "orcids": [
-        "",
-        "0000-0003-2616-7354",
-        "0000-0002-8387-5261"
-      ],
-      "venue": "ChemInform",
-      "volume": "25",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199414041",
-      "type": "other"
-    },
-    {
-      "title": "ChemInform Abstract: Structures and Energies of Intermediates in the Reactions of Singlet Oxygen with Organic Phosphines and Sulfides.",
-      "year": 1993,
-      "date": "1993-10-12",
-      "authors": [
-        "Keepyung Nahm",
-        "Y. LI",
-        "Jeffrey D. Evanseck",
-        "Kendall N. Houk",
-        "Christopher S. Foote"
-      ],
-      "orcids": [
-        "0000-0003-0650-5766",
-        "",
-        "0000-0003-2616-7354",
-        "0000-0002-8387-5261",
-        ""
-      ],
-      "venue": "ChemInform",
-      "volume": "24",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199341121",
-      "type": "other"
-    },
-    {
-      "title": "ChemInform Abstract: Electrocyclic Reactions of 1‐Substituted 1,3,5,7‐Octatetraenes (I) and (II). An ab initio Molecular Orbital Study of Torquoselectivity in Eight‐Electron Electrocyclizations.",
-      "year": 1993,
-      "date": "1993-10-12",
-      "authors": [
-        "Bert E. IV Thomas",
-        "Jeffrey D. Evanseck",
-        "Kendall N. Houk"
-      ],
-      "orcids": [
-        "",
-        "0000-0003-2616-7354",
-        "0000-0002-8387-5261"
-      ],
-      "venue": "ChemInform",
-      "volume": "24",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199341035",
-      "type": "other"
-    },
-    {
       "title": "Structures and energies of intermediates in the reactions of singlet oxygen with organic phosphines and sulfides",
       "year": 1993,
       "date": "1993-06-01",
@@ -2230,26 +2166,6 @@
       "pages": "287–293",
       "doi": "https://doi.org/10.1002/ijch.199300035",
       "type": "article"
-    },
-    {
-      "title": "ChemInform Abstract: Transition Structures of Hydrocarbon Pericyclic Reactions",
-      "year": 1992,
-      "date": "1992-09-22",
-      "authors": [
-        "Kendall N. Houk",
-        "Y. LI",
-        "Jeffrey D. Evanseck"
-      ],
-      "orcids": [
-        "0000-0002-8387-5261",
-        "",
-        "0000-0003-2616-7354"
-      ],
-      "venue": "ChemInform",
-      "volume": "23",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199238322",
-      "type": "other"
     },
     {
       "title": "Übergangsstrukturen in pericyclischen Reaktionen von Kohlenwasserstoffen",
@@ -2316,24 +2232,6 @@
       "type": "article"
     },
     {
-      "title": "ChemInform Abstract: Stereoselectivity of Hydrogen 1,2‐Shifts in Singlet Alkylcarbenes: A Quantitative Theoretical Assessment of Ground‐State Orbital Alignment and Torsional and Steric Effects",
-      "year": 1991,
-      "date": "1991-03-26",
-      "authors": [
-        "Jeffrey D. Evanseck",
-        "Kendall N. Houk"
-      ],
-      "orcids": [
-        "0000-0003-2616-7354",
-        "0000-0002-8387-5261"
-      ],
-      "venue": "ChemInform",
-      "volume": "22",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199112101",
-      "type": "other"
-    },
-    {
       "title": "Stereoselectivity of hydrogen 1,2-shifts in singlet alkylcarbenes: a quantitative theoretical assessment of ground-state orbital alignment, and torsional, and steric effects",
       "year": 1990,
       "date": "1990-12-01",
@@ -2350,24 +2248,6 @@
       "pages": "9148–9156",
       "doi": "https://doi.org/10.1021/ja00181a018",
       "type": "article"
-    },
-    {
-      "title": "ChemInform Abstract: Theoretical Predictions of Activation Energies for 1,2‐Hydrogen Shifts in Singlet Carbenes",
-      "year": 1990,
-      "date": "1990-10-23",
-      "authors": [
-        "Jeffrey D. Evanseck",
-        "Kendall N. Houk"
-      ],
-      "orcids": [
-        "0000-0003-2616-7354",
-        "0000-0002-8387-5261"
-      ],
-      "venue": "ChemInform",
-      "volume": "21",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.199043087",
-      "type": "other"
     },
     {
       "title": "Theoretical predictions of activation energies for 1,2-hydrogen shifts in singlet carbenes",
@@ -2454,26 +2334,6 @@
       "type": "dissertation"
     },
     {
-      "title": "ChemInform Abstract: Ab initio Study of the SN2 Reactions of OH‐ and OOH‐ with CH3Cl",
-      "year": 1987,
-      "date": "1987-08-25",
-      "authors": [
-        "Jeffrey D. Evanseck",
-        "James F. Blake",
-        "William L. Jorgensen"
-      ],
-      "orcids": [
-        "0000-0003-2616-7354",
-        "0000-0001-7525-7140",
-        "0000-0002-3993-9520"
-      ],
-      "venue": "ChemInform",
-      "volume": "18",
-      "pages": "",
-      "doi": "https://doi.org/10.1002/chin.198734106",
-      "type": "other"
-    },
-    {
       "title": "Ab initio study of the SN2 reactions of hydroxide and hydroperoxide with chloromethane",
       "year": 1987,
       "date": "1987-04-01",
@@ -2536,8 +2396,8 @@
       "BPS2026 – Structural determinants of kissing complexation in conserved SL1 hairpins in wes (10.1016/j.bpj.2025.11.1806)",
       "Structural and dynamical impact of the two-nucleotide difference in sequence between SARS- (10.1016/j.bpj.2021.11.1710)",
       "Delta variant versus ancestral SARS-CoV-2 s2m dynamics and relative entropy (10.1016/j.bpj.2022.11.1980)",
-      "Structural and thermodynamic consequences of the G31U and U5C mutations in the SARS-CoV-2  (10.1016/j.bpj.2022.11.1987)",
       "Viral-host RNA-RNA interactions in SARS-CoV-2: study of MIR-760-3p interactions with the g (10.1016/j.bpj.2021.11.1708)",
+      "Structural and thermodynamic consequences of the G31U and U5C mutations in the SARS-CoV-2  (10.1016/j.bpj.2022.11.1987)",
       "Characterization of the S2M G15U mutation associated with the SARS-CoV-2 delta variant (10.1016/j.bpj.2021.11.1709)",
       "Stem-loop II motif (s2m) structural and dynamical differences between SARS-CoV-2 and b.1.6 (10.1016/j.bpj.2021.11.1711)",
       "The scientific legacy of Martin Karplus from the perspective of his collaborators (10.1016/j.bpj.2026.03.050)",
@@ -2548,12 +2408,12 @@
       "Integrated NMR and MD structure and dynamics of the stem–loop-II motif (s2m) from the Omic (10.1261/rna.080576.125)",
       "Uridylation of the histone mRNA stem-loop weakens binding interactions with SLBP while mai (10.1080/15476286.2023.2171760)",
       "Dynamic structure of the apical stem loop of the stem loop 2 motif (s2m) from SCoV-2 Delta (10.2210/pdb9fm4/pdb)",
-      "Delta SARS-CoV-2 s2m Structure, Dynamics, and Entropy: Consequences of the G15U Mutation (10.1021/acsphyschemau.3c00008)",
       "Structural, Dynamical, and Entropic Differences Between SARS-CoV and SARS-CoV-2 s2m Elemen (10.26434/chemrxiv-2022-lpjl9-v2)",
+      "Delta SARS-CoV-2 s2m Structure, Dynamics, and Entropy: Consequences of the G15U Mutation (10.1021/acsphyschemau.3c00008)",
       "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1101/2023.02.10.528014)",
       "Bioinformatics analysis of the s2m mutations within the SARS‐CoV‐2 Omicron lineages (10.1002/jmv.28141)",
-      "Structural heterogeneity and dynamics in the apical stem loop of s2m from SARS-CoV-2 Delta (10.1093/nar/gkaf552)",
       "Inside Front Cover Image, Volume 95, Number 1, January 2023 (10.1002/jmv.28467)",
+      "Structural heterogeneity and dynamics in the apical stem loop of s2m from SARS-CoV-2 Delta (10.1093/nar/gkaf552)",
       "Structural, Dynamical, and Entropic Differences Between SARS-CoV and SARS-CoV-2 s2m Elemen (10.26434/chemrxiv-2022-lpjl9)",
       "Effect of the SARS-CoV-2 Delta-associated G15U mutation on the s2m element dimerization an (10.1261/rna.079627.123)",
       "Structural, Dynamical, and Entropic Differences between SARS-CoV and SARS-CoV-2 s2m Elemen (10.1021/acsphyschemau.2c00032)",
