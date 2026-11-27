@@ -28,7 +28,7 @@ jobs:
 
       - run: pip install markdown pyyaml pillow pillow-heif pypdf
 
-      - name: Fetch publications, dissertations, covers, Duquesne news, GRS and Instagram (daily and manual runs)
+      - name: Fetch publications, dissertations, covers, Duquesne news, GRS, ACS meetings and Instagram (daily and manual runs)
         if: github.event_name != 'push'
         env:
           OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
@@ -39,6 +39,7 @@ jobs:
           python scripts/update_covers.py
           python scripts/update_news.py
           python scripts/update_grs.py
+          python scripts/update_acs_meetings.py
           python scripts/update_instagram.py
           mkdir -p images/covers/auto images/instagram
           git add -N data images/covers/auto images/instagram 2>/dev/null || true
@@ -46,7 +47,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
             git add -A data images/covers/auto images/instagram
-            git commit -m "Automatic update: publications, news, GRS and Instagram"
+            git commit -m "Automatic update: publications, news, GRS, ACS meetings and Instagram"
             git push
           fi
 
