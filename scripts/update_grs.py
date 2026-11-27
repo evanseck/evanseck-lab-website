@@ -54,105 +54,94 @@ def pdf_lines(url):
     return [l for l in lines if l]
 
 
-NAME = re.compile(r"^(?:\d{1,2}:\d{2}\s*[–-]\s*\d{1,2}:\d{2}\s+)?([A-Z][\w'’.-]+(?:\s+[A-Z][\w'’.-]*){1,3})$")
-DEPT = re.compile(r"School of|Department|College of|Program\b|Graduate School|^(Chemistry|Biology|Pharmacology|Physics)\b", re.I)
-TIME = re.compile(r"^\d{1,2}:\d{2}")
-SESSION = re.compile(r"\bSession\s+\w+", re.I)
-AWARD = re.compile(r"Award|Excellence|Honorable|Prize|Outstanding|Place\b|Scholarship", re.I)
+# Two layouts appear in Duquesne's GRS documents:
+#   talks (program booklet):   9:00 - / 9:15 / "Name – presentation only" / "Chemistry | School of …" /
+#                              "Faculty Advisor/s: …" / title (1-3 lines)
+#   posters and award list:    title (1-3 lines, posters may start "Virtual:") / "Name │ Chemistry │ School of …" /
+#                              "Faculty Advisor(s): …" / "Abstract: …"   (award lists put the award's name above)
+SEP = re.compile(r"\s*[│|]\s*")
+TIME = re.compile(r"^\d{1,2}:\d{2}\s*[–-]?\s*$|^\d{1,2}:\d{2}\s*[–-]\s*\d{1,2}:\d{2}")
+SESSION = re.compile(r"\bSESSION\s+\w+", re.I)
+SUFFIX = re.compile(r"\s*[–-]\s*(presentation only|poster( only)?|in[- ]person.*|virtual.*|live.*)$", re.I)
+ADVISOR_LINE = re.compile(r"^Faculty\s+Advisor", re.I)
+AWARD = re.compile(r"Award|Excellence|Honorable|Prize|Place\b|Scholarship|Fellowship", re.I)
+PERSON = re.compile(r"^[A-Z][\w'’.-]+(?:\s+[A-Z][\w'’.-]*){1,3}$")
 
 
-def is_name(l):
-    return bool(NAME.match(l)) and len(l) <= 45 and not DEPT.search(l) and not AWARD.search(l) \
-        and "Ph.D" not in l and not SESSION.search(l)
+def _stop_above(l):
+    """A line that cannot be part of a poster title (so the title above a name line ends there)."""
+    return (not l or l.endswith(".") or l.isupper() or ADVISOR_LINE.match(l) or l.lower().startswith("abstract")
+            or len(SEP.split(l)) >= 3 or TIME.match(l) or SESSION.search(l))
 
 
-def is_other(l):
-    return bool(DEPT.search(l) or TIME.match(l) or SESSION.search(l) or "Advisor" in l or ADVISOR in l
-                or re.search(r"Moderator|Ballroom|Room\b|Presentation only|Poster\b", l, re.I))
-
-
-CONNECT = re.compile(r"\b(with|and|of|the|for|to|in|on|a|an|by|from|at|into|via|as|its|their)$|[:;,–-]$", re.I)
-
-
-def name_at(lines, j):
-    """The presenter's name if line j starts an entry (a name, maybe after a time slot)."""
-    m = NAME.match(lines[j])
-    if not m or not is_name(lines[j]):
-        return ""
-    if j > 0 and CONNECT.search(lines[j - 1]):
-        return ""                                   # the end of a title that wrapped onto this line
-    if not any(DEPT.search(l) or ADVISOR in l or "Advisor" in l for l in lines[j + 1:j + 5]):
-        return ""
-    return m.group(1).strip()
-
-
-def entry_bounds(lines, i):
-    """(start, end) of the entry around advisor line i: from its presenter's name to the next name."""
-    start = next((j for j in range(i - 1, max(-1, i - 10), -1) if name_at(lines, j)), None)
-    if start is None:
-        return None, None
-    end = next((j for j in range(i + 1, min(len(lines), i + 10)) if name_at(lines, j)), min(len(lines), i + 8))
-    return start, end
-
-
-def title_in(lines, start, end):
-    run = []
-    for l in lines[start + 1:end]:
-        if is_other(l):
-            if run:
+def _entry(lines, i):
+    """The entry whose advisor line is lines[i]: (presenter, title, format, award heading or '')."""
+    j = i - 1
+    parts = SEP.split(lines[j]) if j >= 0 else []
+    if len(parts) >= 3 and PERSON.match(parts[0].strip()):
+        # poster / award layout: the title is just above the name line
+        name, title, k = parts[0].strip(), [], j - 1
+        while k >= 0 and len(title) < 3 and not _stop_above(lines[k]):
+            if AWARD.search(lines[k]) and len(lines[k]) < 70 and not title:
+                break                                   # the award's name, not the title
+            title.insert(0, lines[k])
+            k -= 1
+        heading = ""
+        for m in range(k, max(-1, k - 6), -1):
+            if AWARD.search(lines[m]) and len(lines[m]) < 90 and not lines[m].endswith("."):
+                heading = lines[m]
                 break
-            continue
-        if len(l) > 140 or (l.endswith(".") and len(l) > 90):
-            if run:
-                break                                   # the abstract starts
-            continue
-        run.append(l)
-        if len(run) == 3:
+        t = re.sub(r"\s+", " ", " ".join(title)).strip()
+        fmt = "Virtual poster" if t.lower().startswith("virtual:") else "Poster"
+        return name, re.sub(r"^virtual:\s*", "", t, flags=re.I), fmt, heading
+    # talk layout: a department line ("Chemistry | School of …"), the name above it, the title below the advisor
+    k = j
+    while k >= 0 and (len(SEP.split(lines[k])) == 2 or "School of" in lines[k]):
+        k -= 1
+    if k < 0:
+        return "", "", "", ""
+    name = SUFFIX.sub("", lines[k]).strip()
+    if not PERSON.match(name):
+        return "", "", "", ""
+    title = []
+    for l in lines[i + 1:i + 5]:
+        if TIME.match(l) or ADVISOR_LINE.match(l) or len(SEP.split(l)) >= 2 or SESSION.search(l) or SUFFIX.search(l):
             break
-    return re.sub(r"\s+", " ", " ".join(run)).strip()
+        title.append(l)
+    session = ""
+    for m in range(k, -1, -1):
+        s = SESSION.search(lines[m])
+        if s:
+            session = s.group(0).title().replace("Session", "Session")
+            break
+    fmt = f"Oral presentation · {session}" if session else "Oral presentation"
+    return name, re.sub(r"\s+", " ", " ".join(title)).strip(), fmt, ""
+
+
+def _group_entries(lines):
+    for i, l in enumerate(lines):
+        if ADVISOR in l and ADVISOR_LINE.match(l):
+            name, title, fmt, heading = _entry(lines, i)
+            if name:
+                yield name, title, fmt, heading
 
 
 def presentations(lines):
+    """Every presentation advised by Dr. Evanseck. A student with both a talk and a poster is
+    listed once, as a talk."""
     out = {}
-    session = ""
-    for i, l in enumerate(lines):
-        s = SESSION.search(l)
-        if s and len(l) < 80:
-            session = s.group(0)
-        if ADVISOR not in l:
-            continue
-        start, end = entry_bounds(lines, i)
-        if start is None:
-            continue
-        who = name_at(lines, start)
-        title = title_in(lines, start, end)
-        oral = bool(TIME.match(lines[start])) or any(re.search(r"Presentation only", x, re.I) for x in lines[start:end])
-        entry = {"presenter": who, "title": title,
-                 "format": f"Oral presentation · {session}" if oral and session else ("Oral presentation" if oral else "Poster"),
-                 "context": " / ".join(lines[start:min(end, start + 6)])}
-        old = out.get(who)
-        if not old or (oral and "Oral" not in old["format"]) or (not old["title"] and title):
-            if old and not title:
-                entry["title"] = old["title"]
-            out[who] = entry
+    for name, title, fmt, _ in _group_entries(lines):
+        old = out.get(name)
+        if not old or ("Oral" in fmt and "Oral" not in old["format"]):
+            out[name] = {"presenter": name, "title": title or (old or {}).get("title", ""), "format": fmt}
+        elif not old["title"] and title:
+            old["title"] = title
     return list(out.values())
 
 
 def awards(lines):
-    out = []
-    for i, l in enumerate(lines):
-        if ADVISOR not in l:
-            continue
-        start, end = entry_bounds(lines, i)
-        who = name_at(lines, start) if start is not None else ""
-        prize = ""
-        for j in list(range(i - 1, max(-1, i - 6), -1)) + list(range(i + 1, min(len(lines), i + 3))):
-            if AWARD.search(lines[j]) and len(lines[j]) < 120:
-                prize = lines[j]
-                break
-        if who:
-            out.append({"presenter": who, "award": prize, "title": title_in(lines, start, end)})
-    return out
+    """Awards won by students advised by Dr. Evanseck (from the award-winners list)."""
+    return [{"presenter": n, "award": h, "title": t} for n, t, _, h in _group_entries(lines)]
 
 
 def find_date(lines, year):
