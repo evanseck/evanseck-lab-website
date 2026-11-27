@@ -1535,7 +1535,32 @@ SCRIPT = """
     const f = b.dataset.filter;
     document.querySelectorAll('.nw-filter button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     document.querySelectorAll('#announcements .an-tile, .an-post').forEach(p => { if (p.dataset.cat !== 'hof') p.hidden = f !== 'all' && p.dataset.cat !== f; });
+    applyLimits();
   }));
+
+  // News shows 4 tiles and Hall of Fame 8; the rest open with "Show all"
+  function applyLimits() {
+    [['#announcements .an-grid:not(.hof-grid)', 4], ['#announcements .hof-grid', 8]].forEach(([sel, n]) =>
+      document.querySelectorAll(sel).forEach(g => {
+        const tiles = [...g.querySelectorAll('.an-tile')].filter(t => !t.hidden);
+        tiles.forEach((t, i) => t.classList.toggle('an-extra', i >= n));
+        let b = g.nextElementSibling;
+        if (!b || !b.classList.contains('an-showall')) {
+          b = document.createElement('button'); b.type = 'button'; b.className = 'an-showall'; g.after(b);
+          b.addEventListener('click', () => {
+            const open = g.classList.toggle('is-open');
+            b.setAttribute('aria-expanded', String(open));
+            b.textContent = open ? 'Show fewer' : `Show all ${b.dataset.total}`;
+            if (!open) g.scrollIntoView({ block: 'nearest' });
+          });
+        }
+        b.dataset.total = tiles.length;
+        b.hidden = tiles.length <= n;
+        b.setAttribute('aria-expanded', String(g.classList.contains('is-open')));
+        b.textContent = g.classList.contains('is-open') ? 'Show fewer' : `Show all ${tiles.length}`;
+      }));
+  }
+  applyLimits();
 
   // Announcements: tiles open the full announcement in a pop-up
   const dlg = document.getElementById('an-dialog');

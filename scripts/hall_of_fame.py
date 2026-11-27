@@ -11,7 +11,7 @@ What the site reads from each slide:
   * award and fellowship slides: the award (top line) and the group member's name
     (the name printed above "Evanseck Research Group");
   * presentation slides ("B.S. …"): name, meeting and place, program;
-  * hooding-ceremony slides: the photos and the faculty named on the slide.
+  * hooding-ceremony slides: the photos.
 The photos on each slide become the tile's photo and the pop-up's gallery.
 
 To change what a tile says, add a text file with the same name ending in .yml next to the PDF,
@@ -239,13 +239,7 @@ def understand(path, slide, cfg):
     text = " ".join(L)
     it = {"tag": "Achievement", "title": "", "line": "", "src": "", "dl": [], "captions": []}
     if re.search(r"hooding", text, re.I):
-        fac = []
-        for m in re.findall(r"Dr\.\s*([A-Z][a-z'-]+)", text):
-            if f"Dr. {m}" not in fac:
-                fac.append(f"Dr. {m}")
         it.update(tag="Ceremony", title="Ph.D. hooding ceremonies", line="Celebrating the department's newest doctors", group="hooding")
-        if fac:
-            it["dl"] = [["Faculty", ", ".join(fac[:-1]) + (" and " if len(fac) > 1 else "") + fac[-1]]]
         it["captions"] = ["Ph.D. hooding ceremony"]
     elif re.search(r"Mentor\s*:", text, re.I) and re.search(r"Topic\s*:", text, re.I):
         name, mentor, topic, job = _defense(L)
