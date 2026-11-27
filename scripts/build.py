@@ -787,7 +787,17 @@ def seminar_block(n):
     followed by the group's photos (scrolls sideways when there are many), then the review."""
     m = n["m"]
     logo = image(m["logo"], n["path"]) if m.get("logo") else ""
+    if not logo and "graduate research symposium" in m["title"].lower():
+        # the symposium's symbol: images/news/grs-<year>-logo.png, or grs-logo.png for every year
+        for pat in (f"grs-{n['date'].year}-logo.*", "grs-logo.*"):
+            hit = sorted((ROOT / "images" / "news").glob(pat))
+            if hit:
+                logo = str(hit[0].relative_to(ROOT))
+                break
     strip = ""
+    if logo:    # the seminar's logo or symbol always comes first
+        strip += (f'<button type="button" class="sm-pic sm-logo" data-full="{esc(logo)}" aria-label="Seminar logo, larger">'
+                  f'<img src="{esc(web_copy(logo, 600))}" alt="{esc(m.get("logo_alt") or (m.get("event") or "Seminar") + " logo")}" loading="lazy"></button>')
     hdr = str(m.get("header_image") or "")
     if hdr:     # an event banner or photo, from the web (saved during the build) or from images/news/
         src = (fetch_story_photo(hdr) or hdr) if hdr.startswith("http") else web_copy(image(hdr, n["path"]), 1400)
@@ -796,9 +806,6 @@ def seminar_block(n):
             strip += (f'<button type="button" class="sm-pic" data-full="{esc(src)}" data-cap="{esc(cap)}" '
                       f'aria-label="Event photo, larger"><img src="{esc(src)}" alt="{esc(m.get("header_alt") or m["title"])}" '
                       f'loading="lazy" referrerpolicy="no-referrer" onerror="this.closest(\'.sm-pic\').remove()"></button>')
-    if logo:
-        strip += (f'<button type="button" class="sm-pic sm-logo" data-full="{esc(logo)}" aria-label="Seminar logo, larger">'
-                  f'<img src="{esc(web_copy(logo, 600))}" alt="{esc(m.get("logo_alt") or (m.get("event") or "Seminar") + " logo")}" loading="lazy"></button>')
     caps = m.get("photo_captions") or []
     for i, ph in enumerate(n["photos"]):
         if not web_copy(ph, 600):
@@ -1559,6 +1566,9 @@ SCRIPT = """
     const el = pendingTarget && document.getElementById(pendingTarget);
     pendingTarget = null;
     if (el && el.hidden) { const all = document.querySelector('.nw-filter [data-filter="all"]'); if (all) all.click(); }
+    if (el && el.classList.contains('an-extra') && !el.parentElement.classList.contains('is-open')) {
+      const more = el.parentElement.nextElementSibling; if (more && more.classList.contains('an-showall')) more.click();
+    }
     if (el) { const d = el.querySelector('.sm-details'); if (d) d.open = true; }
     if (el) el.scrollIntoView({ block: 'start' });
     else if (location.hash && location.hash !== '#home') window.scrollTo(0, document.querySelector('.tabs').offsetTop);
@@ -1593,11 +1603,12 @@ SCRIPT = """
     applyLimits();
   }));
 
-  // News shows 4 tiles and Hall of Fame 8; the rest open with "More"
+  // News shows 4 tiles, Hall of Fame 8 and Seminar reviews 2; the rest open with "More"
   function applyLimits() {
-    [['#announcements .an-grid:not(.hof-grid)', 4], ['#announcements .hof-grid', 8]].forEach(([sel, n]) =>
+    [['#announcements .an-grid:not(.hof-grid)', 4, '.an-tile'], ['#announcements .hof-grid', 8, '.an-tile'],
+     ['#announcements .sm-list', 2, '.sm-block']].forEach(([sel, n, item]) =>
       document.querySelectorAll(sel).forEach(g => {
-        const tiles = [...g.querySelectorAll('.an-tile')].filter(t => !t.hidden);
+        const tiles = [...g.querySelectorAll(':scope > ' + item)].filter(t => !t.hidden);
         tiles.forEach((t, i) => t.classList.toggle('an-extra', i >= n));
         let b = g.nextElementSibling;
         if (!b || !b.classList.contains('an-showall')) {
