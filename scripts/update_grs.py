@@ -144,10 +144,42 @@ def awards(lines):
     return [{"presenter": n, "award": h, "title": t} for n, t, _, h in _group_entries(lines)]
 
 
+def cover_panel(im):
+    """A booklet cover is often a coloured frame around a few panels (banner, text boxes).
+    Split the cover at rows of frame colour and keep the panel with the most going on in it."""
+    rgb = im.convert("RGB"); w, h = rgb.size; px = rgb.load()
+    frame = px[1, 1]
+    near = lambda c, ref, t=45: sum(abs(a - b) for a, b in zip(c, ref)) < t
+    step = max(1, w // 250)
+    xs = range(0, w, step)
+    def frac(y, test):
+        return sum(1 for x in xs if test(px[x, y])) / len(xs)
+    frame_row = [frac(y, lambda c: near(c, frame)) > 0.85 for y in range(h)]
+    panels, y = [], 0
+    while y < h:
+        if frame_row[y]:
+            y += 1; continue
+        y0 = y
+        while y < h and not frame_row[y]:
+            y += 1
+        if y - y0 > h * 0.08:
+            busy = sum(frac(r, lambda c: not (min(c) > 235 or near(c, frame))) for r in range(y0, y, 3)) / len(range(y0, y, 3))
+            panels.append((busy, y0, y))
+    if not panels:
+        return im
+    busy, y0, y1 = max(panels)
+    if busy < 0.15:
+        return im
+    col_frame = [sum(1 for r in range(y0, y1, 4) if near(px[x, r], frame)) / len(range(y0, y1, 4)) > 0.85 for x in range(w)]
+    inner = [x for x in range(w) if not col_frame[x]]
+    x0, x1 = (inner[0], inner[-1] + 1) if inner else (0, w)
+    return rgb.crop((x0, y0, x1, y1))
+
+
 def save_symbol(data, year):
     """The symposium's symbol: the main picture on the program booklet's cover, saved as
     images/grs/<year>-logo.png (shown first in that year's block). If the cover has no separate
-    picture, the whole cover page is used. A file you upload as images/news/grs-<year>-logo.png
+    picture, the cover's main panel (e.g. the banner inside a coloured frame) is cut out. A file you upload as images/news/grs-<year>-logo.png
     is used instead."""
     from pypdf import PdfReader
     from PIL import Image
@@ -171,7 +203,7 @@ def save_symbol(data, year):
     if best is None:
         try:
             import pypdfium2
-            best = pypdfium2.PdfDocument(data)[0].render(scale=2).to_pil()
+            best = cover_panel(pypdfium2.PdfDocument(data)[0].render(scale=2).to_pil())
         except Exception as e:
             print(f"  no symbol found on the booklet cover ({e})")
             return ""
@@ -215,7 +247,7 @@ def main():
     img = re.search(r'<img[^>]+src="([^"]*(?:grs|symposium)[^"]*\.(?:jpe?g|png))"', page, re.I)
     entry = state["years"].get(year, {})
     entry.update({"year": year, "page": page_url, "links": links,
-                  "image": urllib.parse.urljoin(page_url, html.unescape(img.group(1))) if img else entry.get("image", ""),
+                  
                   "checked": datetime.date.today().isoformat()})
     if links.get("program"):
         try:

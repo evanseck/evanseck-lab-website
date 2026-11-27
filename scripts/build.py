@@ -558,8 +558,7 @@ def grs_items(existing):
                         if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".heic"))
         m = {"title": f"Graduate Research Symposium {year}",
              "event": "Duquesne University Graduate Research Symposium (GRS)", "event_url": e.get("page", ""),
-             "location": "Duquesne University", "header_image": e.get("image", ""),
-             "header_caption": "Photo: Duquesne University" if e.get("image") else "",
+             "location": "Duquesne University",
              "presentations": pres, "links": links}
         out.append({"path": f, "slug": f"grs-{year}", "m": m, "body": body, "date": d, "month_only": month_only,
                     "cat": "seminar", "photos": photos})
