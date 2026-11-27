@@ -3,11 +3,11 @@ title: "Graduate Research Symposium 2026"
 date: 2026-03-18
 category: seminar
 
-# Header photo from Duquesne's symposium page (saved into the site when it builds).
-# Add the group's own photos under "photos:" (upload them to images/news/ first).
-header_image: https://duq.edu/images/research/graduate-research/imggrsphoto2026_8375.jpg
-header_alt: "Duquesne's 2026 Graduate Research Symposium poster session"
-header_caption: "Photo: Duquesne University"
+# The symposium's symbol (from the program booklet) is shown first automatically.
+# Add the group's own photos under "photos:" (upload them to images/news/ first), e.g.
+#   photos:
+#     - images/news/grs-2026-1.jpg
+#     - images/news/grs-2026-2.jpg
 photos: []
 photo_captions: []
 
