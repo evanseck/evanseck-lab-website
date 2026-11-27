@@ -10,23 +10,47 @@
     "awards": "https://www.duq.edu/documents/research/2026awardwinnersfinal.pdf"
    },
    "image": "https://www.duq.edu/images/research/graduate-research/imggrsphoto2026_8375.jpg",
-   "checked": "2026-11-26",
+   "checked": "2026-11-27",
    "date": "2026-03-18",
    "presentations": [
     {
-     "presenter": "Sadhana Srinivasa",
-     "title": "RsmE-dependent spatial positioning manifests cooperative spreading in Pseudomonas fluorescens through alterations in Cyclic-di-GMP levels",
-     "format": "Oral presentation · SESSION 1A",
-     "context": "Sadhana Srinivasa / Biology | School of Science and Engineering / Faculty Advisor/s: Wook Kim Ph.D. / RsmE-dependent spatial positioning manifests cooperative spreading in Pseudomonas / fluorescens through alterations in Cyclic-di-GMP levels / 9:30 -"
+     "presenter": "Sumaiya Tasnim",
+     "title": "Mg²⁺shift of SARS-CoV-2 s2m kissing complex structure: Preorganization toward the A-form to facilitate strand displacement",
+     "format": "Oral presentation · Session 1A"
     },
     {
-     "presenter": "Strand Fraying",
-     "title": "Abstract: The HIV-1 dimerization initiation sequence (DIS) regulates genome packaging through a kissing complex (KC) that converts to an extended duplex (ED) during the viral lifecycle. Although the biological relevance of this",
-     "format": "Poster",
-     "context": "Strand Fraying / Jonah Babusci │ Chemistry │School of Science and Engineering / Faculty Advisor(s): Jeffrey Evanseck, Ph.D., Mihaela-Rita Mihailescu, Ph.D. / Abstract: / The HIV-1 dimerization initiation sequence (DIS) regulates genome packaging through a kissing complex (KC) / that converts to an extended duplex (ED) during the viral lifecycle. Although the biological relevance of this"
+     "presenter": "Jonah Babusci",
+     "title": "HIV-1 DIS Kissing Complex to Extended Duplex Pathway: Anchored Palindromes with Simultaneous Strand Fraying",
+     "format": "Oral presentation · Session 1A"
+    },
+    {
+     "presenter": "Eric Chartier",
+     "title": "Keywords: Cold Cases, Forensic Pathology, Slide Archiving, Criminal Investigation, Pennsylvania 63: Western Equine Encephalitis Virus (WEEV) 3’-UTR SL1 Hairpin: Palindrome mutations abolish kissing complexation",
+     "format": "Poster"
+    },
+    {
+     "presenter": "Unnikrishnan Puthumana",
+     "title": "84 72: Structural impact of Mg2+ on HCV X55 hairpin; preorganization of the monomer loop nucleotides for kissing dimerization",
+     "format": "Poster"
+    },
+    {
+     "presenter": "Jing Zhang",
+     "title": "73: Moved to virtual only 74: Sulfoxonium ylide formation from S-oxides: Expanding the chemical scope of N-oxide chemistry",
+     "format": "Poster"
+    },
+    {
+     "presenter": "Nicholas Rivord",
+     "title": "87: Moved to Virtual Only 88: Solvent Reorganization Along the [3+2] Cycloaddition Pathway of tert-butyl Azomethine Ylide with Styrene",
+     "format": "Poster"
     }
    ],
-   "awards": []
+   "awards": [
+    {
+     "presenter": "Unnikrishnan Puthumana",
+     "award": "Excellence in Graduate Research",
+     "title": "Structural impact of Mg2+ on HCV X55 hairpin; preorganization of the monomer loop nucleotides for kissing dimerization"
+    }
+   ]
   }
  }
 }

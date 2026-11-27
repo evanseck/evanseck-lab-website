@@ -39,15 +39,16 @@
     }
    ],
    "program": "https://www.acscerm2026.org/s/CERM2026-Program_1026.pdf",
-   "checked": "2026-11-26",
+   "checked": "2026-11-27",
    "key": "cerm-2026",
-   "site": "https://www.acscerm2026.org/"
+   "site": "https://www.acscerm2026.org/",
+   "logo": "images/acs/cerm-2026-logo.png"
   }
  },
  "programs": {
   "https://www.acscerm2026.org/s/CERM2026-Program_1026.pdf": {
    "meeting": "cerm-2026",
-   "read": "2026-11-26"
+   "read": "2026-11-27"
   }
  }
 }
