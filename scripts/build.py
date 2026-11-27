@@ -426,6 +426,7 @@ def news_items():
     out += duquesne_news_items()
     out += grs_items(out)
     out += acs_meeting_items(out)
+    out += bps_items(out)
     out += instagram_items()
     return sorted(out, key=lambda n: n["date"], reverse=True)
 
@@ -451,6 +452,70 @@ def instagram_items():
         out.append({"path": f, "slug": "ig-" + p["id"], "m": m, "body": "", "date": d, "month_only": False,
                     "cat": "instagram", "photos": [p["image"]] if p.get("image") and (ROOT / p["image"]).is_file() else [],
                     "auto": True})
+    return out
+
+
+def bps_items(existing):
+    """Biophysical Society Annual Meetings where the group presented: the BPS abstracts among the
+    publications (Biophysical Journal), with the meeting's dates and place from data/bps.json
+    (scripts/update_bps.py). A post you write for the same meeting (with "BPS <year>" or
+    "Biophysical Society" and the year in its title) takes its place.
+    Photos named images/news/bps-<year>-1.jpg ... are added automatically."""
+    pf = ROOT / "data" / "publications.json"
+    if not pf.exists():
+        return []
+    pubs = json.loads(pf.read_text(encoding="utf-8")).get("publications", [])
+    details = {}
+    if (ROOT / "data" / "bps.json").exists():
+        details = json.loads((ROOT / "data" / "bps.json").read_text(encoding="utf-8")).get("years", {})
+    cfg = json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8")).get("bps", {})
+    hide = {str(y) for y in cfg.get("hide_years", [])}
+    written = [(n["m"]["title"] + " " + str(n["m"].get("event", ""))).lower() for n in existing if n["cat"] == "seminar"]
+    by_year = {}
+    for p in pubs:
+        if p.get("type") == "conference-abstract" and "biophysical journal" in (p.get("venue") or "").lower() and p.get("year"):
+            by_year.setdefault(str(p["year"]), []).append(p)
+    words = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+    say = lambda k: words[k] if k < len(words) else str(k)
+    out = []
+    for year, abstracts in sorted(by_year.items()):
+        if year in hide or any(f"bps {year}" in w or ("biophysical society" in w and year in w) for w in written):
+            continue
+        e = details.get(year, {})
+        k = int(year) - 1956                       # the 1st Annual Meeting was in 1957
+        nth = f"{k}{'th' if 10 <= k % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(k % 10, 'th')}"
+        try:
+            d = datetime.date.fromisoformat(e.get("start") or "")
+        except ValueError:
+            d = datetime.date(int(year), 2, 1)
+        rows, links = [], []
+        for a in abstracts:
+            who = (a.get("authors") or ["?"])[0]
+            cite = ", ".join(x for x in [f"Biophysical Journal {a.get('volume', '')}".strip(), a.get("pages", "")] if x)
+            rows.append({"presenter": who, "title": a.get("title", ""), "format": "Abstract", "note": cite})
+            if a.get("doi"):
+                links.append({"text": f"Abstract by {who} (Biophysical Journal)", "url": a["doi"]})
+        if e.get("page"):
+            links.append({"text": f"BPS {year} meeting website", "url": e["page"]})
+        where = " ".join(x for x in [f"at the {e['venue']}" if e.get("venue") else "", f"in {e['location']}" if e.get("location") else ""] if x)
+        held = f", held {e['dates']}" if e.get("dates") else ""
+        n = len(abstracts)
+        body = (f"The group took part in the Biophysical Society's {nth} Annual Meeting (BPS {year}){held}"
+                f"{' ' + where if where else ''}. Group members presented {say(n)} abstract{'s' if n != 1 else ''}, "
+                f"published in Biophysical Journal.")
+        slug = f"bps-{year}"
+        logo = next((str(x.relative_to(ROOT)) for folder, pat in (("images/news", f"{slug}-logo.*"), ("images/bps", f"{year}-logo.*"),
+                                                                  ("images/bps", "society-logo.*"))
+                     for x in sorted((ROOT / folder).glob(pat))), "")
+        photos = sorted(str(x.relative_to(ROOT)) for x in (ROOT / "images" / "news").glob(f"{slug}-*")
+                        if x.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".heic") and "-logo" not in x.name)
+        m = {"title": f"Biophysical Society {nth} Annual Meeting (BPS {year})", "event": f"BPS {year}",
+             "event_url": e.get("page", ""), "location": e.get("location", ""), "presentations": rows, "links": links}
+        if logo:
+            m["logo"] = logo
+            m["logo_alt"] = "Biophysical Society logo" if "society-logo" in logo else f"BPS {year} logo"
+        out.append({"path": pf, "slug": slug, "m": m, "body": body, "date": d, "month_only": False,
+                    "cat": "seminar", "photos": photos})
     return out
 
 

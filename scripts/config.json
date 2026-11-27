@@ -115,5 +115,9 @@
       "Eric Chartier"
     ],
     "hide": []
+  },
+  "bps": {
+    "_help": "Biophysical Society Annual Meetings, made from the group's BPS abstracts (scripts/update_bps.py). To take a year off the website, add it to hide_years, e.g. [2027].",
+    "hide_years": []
   }
 }
