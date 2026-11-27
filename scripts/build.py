@@ -863,6 +863,7 @@ def build_news(news, site=None):
     return f'''
   <section class="page" id="announcements">
     <h2>Announcements</h2>
+    <h3 class="sm-head nw-head" id="news-tiles">News</h3>
     {instagram_html(site or {}, "")}
     {chips}
     {body}
