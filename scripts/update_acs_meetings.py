@@ -19,7 +19,9 @@ What it does:
 The site shows each meeting as a block under "Seminar reviews". A post you write yourself for the
 same meeting (content/news/, with the meeting's short name, e.g. "CERM 2026", in its title) is
 shown instead. To take a meeting off the website, add its short name to "hide".
-Photos named images/news/<short name>-1.jpg (e.g. cerm-2026-1.jpg) are shown with it.
+Photos named images/news/<short name>-1.jpg (e.g. cerm-2026-1.jpg) are shown with it. The meeting's
+logo is taken from its website (images/acs/<short name>-logo.png); to use another, upload
+images/news/<short name>-logo.png.
 Needs: pypdf (installed by the workflow).
 """
 import datetime
@@ -180,6 +182,43 @@ def program_links(page_html, base):
     return list(dict.fromkeys(links))
 
 
+def find_logo(page_html, base, short=""):
+    """The meeting's logo on its website: a picture whose file name, description or class says
+    "logo" (preferring one that also names the meeting), else the page's sharing image."""
+    cands = []
+    for tag in re.findall(r"<img\b[^>]*>", page_html, re.I):
+        src = re.search(r'\b(?:data-src|data-image|src)="([^"]+)"', tag, re.I)
+        if not src:
+            continue
+        url = urllib.parse.urljoin(base, html.unescape(src.group(1)))
+        text = (url + " " + " ".join(re.findall(r'\b(?:alt|class|title)="([^"]*)"', tag, re.I))).lower()
+        if "logo" in text:
+            abbr = short.split()[0].lower() if short else ""
+            score = 2 if abbr and abbr in text else 1
+            if any(w in text for w in ("acs-central", "acs-logo", "sponsor", "duquesne")):
+                score = 0                               # the society's or a sponsor's logo, not the meeting's
+            cands.append((score, url))
+    cands = [c for c in cands if c[0] > 0]
+    if cands:
+        return max(cands, key=lambda c: c[0])[1]
+    og = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page_html, re.I)
+    return urllib.parse.urljoin(base, html.unescape(og.group(1))) if og else ""
+
+
+def save_logo(url, key):
+    """Download the logo to images/acs/<meeting>-logo.png (shown first in the meeting's block)."""
+    from PIL import Image
+    data, _ = get(url, binary=True, timeout=30)
+    im = Image.open(io.BytesIO(data))
+    im = im.convert("RGBA") if im.mode in ("RGBA", "LA", "P") else im.convert("RGB")
+    im.thumbnail((1000, 1000))
+    dst = ROOT / "images" / "acs" / f"{key}-logo.png"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    im.save(dst, "PNG", optimize=True)
+    print(f"  logo saved: {dst.relative_to(ROOT)}")
+    return str(dst.relative_to(ROOT))
+
+
 def read_program(url_or_bytes, people, source=""):
     data = url_or_bytes if isinstance(url_or_bytes, bytes) else get(url_or_bytes, binary=True, timeout=60)[0]
     lines, short = program_lines(data)
@@ -234,9 +273,18 @@ def main():
                 if not info.get("name") and not info.get("short"):
                     continue
                 save(state, info, final)
-                state["programs"][url] = {"meeting": (info.get("short") or info.get("name")).lower().replace(" ", "-"),
-                                          "read": today.isoformat()}
+                key = (info.get("short") or info.get("name")).lower().replace(" ", "-")
+                state["programs"][url] = {"meeting": key, "read": today.isoformat()}
                 time.sleep(1)
+            # the meeting's logo, once, for every meeting found on this website
+            for key, m in state["meetings"].items():
+                if m.get("site") == final and m.get("presentations") and not (ROOT / "images" / "acs" / f"{key}-logo.png").exists():
+                    logo = find_logo(page, final, m.get("short", ""))
+                    if logo:
+                        try:
+                            m["logo"] = save_logo(logo, key)
+                        except Exception as e:
+                            print(f"  could not save the logo from {logo} ({e})")
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(state, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 

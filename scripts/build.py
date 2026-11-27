@@ -495,7 +495,8 @@ def acs_meeting_items(existing):
         slug = (short or key).lower().replace(" ", "-")
         photos = sorted(str(ph.relative_to(ROOT)) for ph in (ROOT / "images" / "news").glob(f"{slug}-*")
                         if ph.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".heic"))
-        logo = next((str(ph.relative_to(ROOT)) for ph in (ROOT / "images" / "news").glob(f"{slug}-logo.*")), "")
+        logo = next((str(ph.relative_to(ROOT)) for ph in (ROOT / "images" / "news").glob(f"{slug}-logo.*")), "") \
+            or next((str(ph.relative_to(ROOT)) for ph in (ROOT / "images" / "acs").glob(f"{key}-logo.*")), "")
         photos = [ph for ph in photos if ph != logo]
         links = [{"text": t, "url": e[k]} for k, t in [("program", "Meeting program (PDF)"), ("site", "Meeting website")] if e.get(k)]
         m = {"title": name if not short else f"{name.replace(' ' + str(e.get('year', '')), '')} ({short})",
