@@ -46,9 +46,9 @@ def text_of(fragment):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
 
 
-def pdf_lines(url):
+def pdf_lines(url, data=None):
     from pypdf import PdfReader
-    reader = PdfReader(io.BytesIO(get(url, binary=True)))
+    reader = PdfReader(io.BytesIO(data if data is not None else get(url, binary=True)))
     text = "\n".join((p.extract_text() or "") for p in reader.pages)
     lines = [re.sub(r"\s+", " ", l).strip() for l in text.splitlines()]
     return [l for l in lines if l]
@@ -144,6 +144,45 @@ def awards(lines):
     return [{"presenter": n, "award": h, "title": t} for n, t, _, h in _group_entries(lines)]
 
 
+def save_symbol(data, year):
+    """The symposium's symbol: the main picture on the program booklet's cover, saved as
+    images/grs/<year>-logo.png (shown first in that year's block). If the cover has no separate
+    picture, the whole cover page is used. A file you upload as images/news/grs-<year>-logo.png
+    is used instead."""
+    from pypdf import PdfReader
+    from PIL import Image
+    dst = ROOT / "images" / "grs" / f"{year}-logo.png"
+    page = PdfReader(io.BytesIO(data)).pages[0]
+    best = None
+    for im in page.images:
+        try:
+            pic = Image.open(io.BytesIO(im.data))
+        except Exception:
+            continue
+        w, h = pic.size
+        if w < 150 or h < 150 or max(w, h) / min(w, h) > 3:
+            continue                                   # thin rules, small icons
+        from PIL import ImageFilter, ImageStat
+        g = pic.convert("L").resize((200, max(1, int(200 * h / w))))
+        if ImageStat.Stat(g.filter(ImageFilter.FIND_EDGES)).mean[0] < 8 or ImageStat.Stat(g).stddev[0] < 20:
+            continue                                   # plain backgrounds and colour gradients
+        if not best or w * h > best.size[0] * best.size[1]:
+            best = pic
+    if best is None:
+        try:
+            import pypdfium2
+            best = pypdfium2.PdfDocument(data)[0].render(scale=2).to_pil()
+        except Exception as e:
+            print(f"  no symbol found on the booklet cover ({e})")
+            return ""
+    best = best.convert("RGBA") if best.mode in ("RGBA", "LA", "P") else best.convert("RGB")
+    best.thumbnail((1200, 1200))
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    best.save(dst, "PNG", optimize=True)
+    print(f"  GRS {year} symbol saved from the booklet cover: {dst.relative_to(ROOT)}")
+    return str(dst.relative_to(ROOT))
+
+
 def find_date(lines, year):
     m = re.search(rf"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?,?\s*({MONTHS})\s+(\d{{1,2}}),?\s+({year})", " ".join(lines[:80]))
     if m:
@@ -180,7 +219,13 @@ def main():
                   "checked": datetime.date.today().isoformat()})
     if links.get("program"):
         try:
-            lines = pdf_lines(links["program"])
+            booklet = get(links["program"], binary=True)
+            lines = pdf_lines(links["program"], booklet)
+            if not (ROOT / "images" / "grs" / f"{year}-logo.png").exists():
+                try:
+                    save_symbol(booklet, year)
+                except Exception as e:
+                    print(f"  could not take the symbol from the booklet ({e})")
             entry["date"] = find_date(lines, year) or entry.get("date", "")
             pres = presentations(lines)
             if pres:
