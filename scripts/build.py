@@ -788,9 +788,11 @@ def seminar_block(n):
     m = n["m"]
     logo = image(m["logo"], n["path"]) if m.get("logo") else ""
     if not logo and "graduate research symposium" in m["title"].lower():
-        # the symposium's symbol: images/news/grs-<year>-logo.png, or grs-logo.png for every year
-        for pat in (f"grs-{n['date'].year}-logo.*", "grs-logo.*"):
-            hit = sorted((ROOT / "images" / "news").glob(pat))
+        # the symposium's symbol (see scripts/update_grs.py)
+        # your own upload first, then the symbol taken from the year's program booklet, then one for every year
+        for folder, pat in (("images/news", f"grs-{n['date'].year}-logo.*"), ("images/grs", f"{n['date'].year}-logo.*"),
+                            ("images/news", "grs-logo.*")):
+            hit = sorted((ROOT / folder).glob(pat))
             if hit:
                 logo = str(hit[0].relative_to(ROOT))
                 break
