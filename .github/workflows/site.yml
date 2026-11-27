@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install markdown pyyaml pillow pillow-heif pypdf
+      - run: pip install markdown pyyaml pillow pillow-heif pypdf pypdfium2
 
       - name: Fetch publications, dissertations, covers, Duquesne news, GRS, ACS meetings and Instagram (daily and manual runs)
         if: github.event_name != 'push'
@@ -41,12 +41,12 @@ jobs:
           python scripts/update_grs.py
           python scripts/update_acs_meetings.py
           python scripts/update_instagram.py
-          mkdir -p images/covers/auto images/instagram
-          git add -N data images/covers/auto images/instagram 2>/dev/null || true
-          if ! git diff --quiet -- data images/covers/auto images/instagram; then
+          mkdir -p images/covers/auto images/instagram images/grs
+          git add -N data images/covers/auto images/instagram images/grs 2>/dev/null || true
+          if ! git diff --quiet -- data images/covers/auto images/instagram images/grs; then
             git config user.name "github-actions[bot]"
             git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
-            git add -A data images/covers/auto images/instagram
+            git add -A data images/covers/auto images/instagram images/grs
             git commit -m "Automatic update: publications, news, GRS, ACS meetings and Instagram"
             git push
           fi
