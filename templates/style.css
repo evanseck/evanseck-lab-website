@@ -684,3 +684,11 @@ a.th-quote:hover p { color: var(--gold-text); }
 .nw-tag.nw-hof { background: #e2bf62; color: #15171b; }
 @media (max-width: 480px) { .hof-line { font-size: 0.72rem; } .hof-count { top: 0.45rem; right: 0.45rem; font-size: 0.58rem; } }
 .sm-head.nw-head { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
+/* Show only the first tiles; "Show all" reveals the rest */
+.an-grid:not(.is-open) .an-extra { display: none; }
+.an-showall { display: block; margin: 0.9rem auto 0; font: inherit; font-size: 1rem; color: var(--ink); background: transparent;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.35rem 1.2rem; cursor: pointer; }
+.an-showall:hover { border-color: var(--gold); }
+.an-showall[hidden] { display: none; }
+/* Pop-ups show the whole photo, not a crop */
+.an-dialog .an-photo img { object-fit: contain; max-height: 70vh; height: auto; background: var(--panel); }
