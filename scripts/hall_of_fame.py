@@ -2,7 +2,8 @@
 Hall of Fame: turns the group's achievement slides into tiles on the Announcements tab.
 
 How to add one: export the slide as a PDF and upload it to content/hall-of-fame/.
-Start the file name with the date so the newest come first, for example
+The newest slides come first. The site uses the date at the start of the file name if there is
+one (and shows it on the tile), otherwise the date the slide was exported from PowerPoint, for example
     2025-11-13-Joe_Defense.pdf      or      2026-04-Unni_Excellence.pdf
 Several slides about the same event (e.g. two hooding-ceremony slides) become one tile.
 
@@ -85,12 +86,25 @@ def _detail(im):
     return ImageStat.Stat(g.filter(ImageFilter.FIND_EDGES)).mean[0], ImageStat.Stat(g).stddev[0]
 
 
+def _pdf_date(reader):
+    """When the slide was exported from PowerPoint (the PDF's own date), for ordering."""
+    try:
+        raw = str((reader.metadata or {}).get("/CreationDate") or (reader.metadata or {}).get("/ModDate") or "")
+        m = re.search(r"(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?", raw)
+        if m:
+            return datetime.datetime(*[int(g or 0) for g in m.groups()])
+    except Exception:
+        pass
+    return None
+
+
 def read_slide(path):
     """Text lines, text positions and the photos (stitched back together when a photo was
     stored as strips, and with decorations and backgrounds dropped) of a one-page PDF."""
     from pypdf import PdfReader
     from PIL import Image
-    page = PdfReader(str(path)).pages[0]
+    reader = PdfReader(str(path))
+    page = reader.pages[0]
     pw = float(page.mediabox.width)
     lines = [re.sub(r"\s+", " ", l).strip() for l in (page.extract_text() or "").splitlines()]
     lines = [l for l in lines if l]
@@ -136,7 +150,8 @@ def read_slide(path):
             continue
         photos.append({"img": im, "x": x, "y": g[-1][2], "w": w, "h": h})
     photos.sort(key=lambda p: (-(p["y"] + p["h"]), p["x"]))   # top to bottom, left to right
-    return {"lines": lines, "text": " ".join(lines), "runs": _text_positions(page), "photos": photos}
+    return {"lines": lines, "text": " ".join(lines), "runs": _text_positions(page), "photos": photos,
+            "exported": _pdf_date(reader)}
 
 
 # ---------------------------------------------------------------- understanding a slide
@@ -307,6 +322,7 @@ def collect(content_dir, out_dir, cfg, save_photo, warn):
             # several people on an award slide: keep the photo standing above the group member's name
             photos = [min(photos, key=lambda p: abs((p["x"] + p["w"] / 2) - it["_name_x"]))]
         it["date"], it["when"] = _date_from_name(pdf.stem)
+        it["exported"] = slide.get("exported")
         if over.get("date"):
             try:
                 d = datetime.date.fromisoformat(str(over["date"]))
@@ -333,6 +349,8 @@ def collect(content_dir, out_dir, cfg, save_photo, warn):
                 g["dl"] = g["dl"] or it["dl"]
                 if it["date"] and (not g["date"] or it["date"] > g["date"]):
                     g["date"], g["when"] = it["date"], it["when"]
+                if it["exported"] and (not g["exported"] or it["exported"] > g["exported"]):
+                    g["exported"] = it["exported"]
                 continue
             groups[it["group"]] = it
         items.append(it)
@@ -346,6 +364,10 @@ def collect(content_dir, out_dir, cfg, save_photo, warn):
         keep.append(it)
     for it in keep:
         it["photos"] = [(save_photo(im, name), cap) for im, cap, name in it["photos"]]
-    rank = {"Ceremony": 5, "Ph.D. defense": 4, "Fellowship": 3, "Award": 2, "Presentation": 1}
-    keep.sort(key=lambda i: (i["date"] or datetime.date.min, rank.get(i["tag"], 0), i["pdf"].name), reverse=True)
+    # newest first: the date in the file name (or .yml) if there is one, else when the slide was exported
+    def when(i):
+        if i["date"]:
+            return datetime.datetime.combine(i["date"], datetime.time())
+        return i["exported"] or datetime.datetime.min
+    keep.sort(key=lambda i: (when(i), i["pdf"].name), reverse=True)
     return keep

@@ -1538,7 +1538,7 @@ SCRIPT = """
     applyLimits();
   }));
 
-  // News shows 4 tiles and Hall of Fame 8; the rest open with "Show all"
+  // News shows 4 tiles and Hall of Fame 8; the rest open with "More"
   function applyLimits() {
     [['#announcements .an-grid:not(.hof-grid)', 4], ['#announcements .hof-grid', 8]].forEach(([sel, n]) =>
       document.querySelectorAll(sel).forEach(g => {
@@ -1550,14 +1550,14 @@ SCRIPT = """
           b.addEventListener('click', () => {
             const open = g.classList.toggle('is-open');
             b.setAttribute('aria-expanded', String(open));
-            b.textContent = open ? 'Show fewer' : `Show all ${b.dataset.total}`;
+            b.textContent = open ? 'Less' : 'More';
             if (!open) g.scrollIntoView({ block: 'nearest' });
           });
         }
         b.dataset.total = tiles.length;
         b.hidden = tiles.length <= n;
         b.setAttribute('aria-expanded', String(g.classList.contains('is-open')));
-        b.textContent = g.classList.contains('is-open') ? 'Show fewer' : `Show all ${tiles.length}`;
+        b.textContent = g.classList.contains('is-open') ? 'Less' : 'More';
       }));
   }
   applyLimits();
