@@ -425,6 +425,7 @@ def news_items():
                     "cat": cat, "photos": photos})
     out += duquesne_news_items()
     out += grs_items(out)
+    out += acs_meeting_items(out)
     out += instagram_items()
     return sorted(out, key=lambda n: n["date"], reverse=True)
 
@@ -450,6 +451,60 @@ def instagram_items():
         out.append({"path": f, "slug": "ig-" + p["id"], "m": m, "body": "", "date": d, "month_only": False,
                     "cat": "instagram", "photos": [p["image"]] if p.get("image") and (ROOT / p["image"]).is_file() else [],
                     "auto": True})
+    return out
+
+
+def acs_meeting_items(existing):
+    """ACS regional meetings where the group presented, found by scripts/update_acs_meetings.py
+    (data/acs_meetings.json), shown as seminar blocks. A post you write for the same meeting (with
+    its short name, e.g. "CERM 2026", in the title) takes its place. Photos named
+    images/news/<short name>-1.jpg (e.g. cerm-2026-1.jpg) are added automatically."""
+    f = ROOT / "data" / "acs_meetings.json"
+    if not f.exists():
+        return []
+    cfg = json.loads((ROOT / "scripts" / "config.json").read_text(encoding="utf-8")).get("acs_meetings", {})
+    hide = {str(h).lower() for h in cfg.get("hide", [])}
+    written = " ".join((n["m"]["title"] + " " + str(n["m"].get("event", ""))).lower() for n in existing if n["cat"] == "seminar")
+    words = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+    say = lambda k: words[k] if k < len(words) else str(k)
+    out = []
+    for key, e in sorted(json.loads(f.read_text(encoding="utf-8")).get("meetings", {}).items()):
+        pres = e.get("presentations") or []
+        short, name = e.get("short", ""), e.get("name", key)
+        if not pres or short.lower() in hide or name.lower() in hide or (short and short.lower() in written) or name.lower() in written:
+            continue
+        try:
+            d = datetime.date.fromisoformat(e.get("start") or "")
+        except ValueError:
+            d = datetime.date(int(e.get("year") or 2000), 1, 1)
+        rows = [{"presenter": p["presenter"], "title": p.get("title", ""),
+                 "format": " · ".join(x for x in [p.get("format", ""), p.get("when", "")] if x)} for p in pres]
+        talks = sum(1 for p in pres if p.get("format", "").startswith("Talk"))
+        posters = len(pres) - talks
+        kinds = " and ".join(x for x in [f"{say(talks)} talk{'s' if talks != 1 else ''}" if talks else "",
+                                          f"{say(posters)} poster{'s' if posters != 1 else ''}" if posters else ""] if x)
+        full = name.replace("ACS ", "the American Chemical Society's ", 1) if name.startswith("ACS ") else name
+        if short:
+            full = full.replace(" " + str(e.get("year", "")), "")
+        held = f", held {e['dates']}" if e.get("dates") else ""
+        place = f" in {e['location']}" if e.get("location") else ""
+        abbr = f" ({short})" if short else ""
+        many = "s" if len(pres) != 1 else ""
+        body = (f"The group traveled to {full}{abbr}{held}{place}. "
+                f"{say(len(pres)).capitalize()} group member{many} presented {kinds}.")
+        slug = (short or key).lower().replace(" ", "-")
+        photos = sorted(str(ph.relative_to(ROOT)) for ph in (ROOT / "images" / "news").glob(f"{slug}-*")
+                        if ph.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".heic"))
+        logo = next((str(ph.relative_to(ROOT)) for ph in (ROOT / "images" / "news").glob(f"{slug}-logo.*")), "")
+        photos = [ph for ph in photos if ph != logo]
+        links = [{"text": t, "url": e[k]} for k, t in [("program", "Meeting program (PDF)"), ("site", "Meeting website")] if e.get(k)]
+        m = {"title": name if not short else f"{name.replace(' ' + str(e.get('year', '')), '')} ({short})",
+             "event": short or name, "event_url": e.get("site", ""), "location": e.get("location", ""),
+             "presentations": rows, "links": links}
+        if logo:
+            m["logo"] = logo
+        out.append({"path": f, "slug": slug, "m": m, "body": body, "date": d, "month_only": False,
+                    "cat": "seminar", "photos": photos})
     return out
 
 

@@ -103,5 +103,17 @@
       "Rookie of the Y ear": "Rookie of the Year",
       "Research A ward": "Research Award"
     }
+  },
+  "acs_meetings": {
+    "_help": "ACS regional meetings (scripts/update_acs_meetings.py). The usual addresses (e.g. acscerm2026.org) are checked automatically; add a meeting's website to 'sites' if it uses another address. Programs don't list affiliations, so group members are recognized by name: everyone on the People page plus 'members'. To take a meeting off the website, add its short name (e.g. 'CERM 2026') to 'hide'.",
+    "sites": [
+      "https://www.acscerm2026.org/"
+    ],
+    "members": [
+      "Sumaiya Tasnim",
+      "Unnikrishnan Puthumana",
+      "Eric Chartier"
+    ],
+    "hide": []
   }
 }

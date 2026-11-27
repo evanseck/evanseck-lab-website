@@ -1,0 +1,53 @@
+{
+ "meetings": {
+  "cerm-2026": {
+   "name": "ACS Central Regional Meeting 2026",
+   "year": "2026",
+   "start": "2026-11-14",
+   "end": "2026-11-17",
+   "dates": "November 14–17, 2026",
+   "location": "Cincinnati, OH",
+   "short": "CERM 2026",
+   "presentations": [
+    {
+     "presenter": "Unnikrishnan Puthumana",
+     "title": "Mg2+ promotes unfolded, linearized HCV X55 RNA monomer loop nucleotides for kissing dimerization",
+     "code": "CE138",
+     "format": "Poster",
+     "when": "Sunday, November 15, 4:15 PM"
+    },
+    {
+     "presenter": "Jonah Babusci",
+     "title": "HIV DIS kissing complex to extended duplex pathway: Markov state model of an atomistic anchored palindromic strand displacement",
+     "code": "CE170",
+     "format": "Poster",
+     "when": "Sunday, November 15, 4:15 PM"
+    },
+    {
+     "presenter": "Sumaiya Tasnim",
+     "title": "Mg2+ induces base triple formation exclusively in Lai driving differential HIV-1 DIS kissing complex stability",
+     "code": "CE300",
+     "format": "Talk · Structural Biology",
+     "when": "Monday, November 16, 10:35 AM"
+    },
+    {
+     "presenter": "Eric Chartier",
+     "title": "Curtin-Hammett principle in aggregated environments of [3+2] cycloadditions",
+     "code": "CE454",
+     "format": "Poster",
+     "when": "Monday, November 16, 4:15 PM"
+    }
+   ],
+   "program": "https://www.acscerm2026.org/s/CERM2026-Program_1026.pdf",
+   "checked": "2026-11-26",
+   "key": "cerm-2026",
+   "site": "https://www.acscerm2026.org/"
+  }
+ },
+ "programs": {
+  "https://www.acscerm2026.org/s/CERM2026-Program_1026.pdf": {
+   "meeting": "cerm-2026",
+   "read": "2026-11-26"
+  }
+ }
+}
