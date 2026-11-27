@@ -683,3 +683,4 @@ a.th-quote:hover p { color: var(--gold-text); }
 .hof-thumb:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 2px; }
 .nw-tag.nw-hof { background: #e2bf62; color: #15171b; }
 @media (max-width: 480px) { .hof-line { font-size: 0.72rem; } .hof-count { top: 0.45rem; right: 0.45rem; font-size: 0.58rem; } }
+.sm-head.nw-head { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
